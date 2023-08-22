@@ -35,6 +35,8 @@ subprojects {
         implementation("org.springframework.boot:spring-boot-starter-aop")
         implementation("org.springframework.boot:spring-boot-starter-web-services")
         implementation("org.springframework.boot:spring-boot-starter-webflux")
+        implementation("org.springframework.cloud:spring-cloud-starter-config")
+        implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
         implementation("org.springframework.cloud:spring-cloud-starter-consul-config")
         implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
         implementation("org.springframework.boot:spring-boot-starter-data-mongodb")

@@ -1,0 +1,29 @@
+# server
+server.port: 10004
+
+# spring
+spring.application.name: hecatebolus
+
+# consul config
+spring.cloud.consul.enabled: true
+
+# consul config center
+spring.cloud.consul.config.enabled: true
+spring.cloud.consul.config.default-context: application
+spring.cloud.consul.config.data-key: data
+spring.cloud.consul.config.format: yaml
+
+# consul service discovery
+spring.cloud.consul.discovery.enabled: true
+spring.cloud.consul.discovery.service-name: ${spring.application.name}
+spring.cloud.consul.discovery.instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+spring.cloud.consul.discovery.prefer-ip-address: true
+spring.cloud.consul.discovery.health-check-path: /actuator/health
+spring.cloud.consul.discovery.health-check-interval: 10s
+spring.cloud.consul.discovery.query-passing: true
+
+# dubbo
+dubbo.protocol.name: dubbo
+dubbo.registry.address: spring-cloud://localhost
+dubbo.protocol.port: -1
+dubbo.consumer.check: false
