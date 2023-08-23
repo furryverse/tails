@@ -37,17 +37,17 @@ subprojects {
         implementation("org.springframework.boot:spring-boot-starter-webflux")
         implementation("org.springframework.cloud:spring-cloud-starter-config")
         implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
+
+        // consul
+        implementation("org.springframework.boot:spring-boot-starter-actuator")
         implementation("org.springframework.cloud:spring-cloud-starter-consul-config")
         implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
+
+        // mongodb
         implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
-        // rpc
-        // https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-spring-boot-starter
-        @Suppress("SpellCheckingInspection")
-        implementation("org.apache.dubbo:dubbo-spring-boot-starter:3.2.4")
-
         // jetbrains
-        implementation("org.jetbrains:annotations:22.0.0")
+        implementation("org.jetbrains:annotations:24.0.1")
 
         // lombok
         @Suppress("SpellCheckingInspection") compileOnly("org.projectlombok:lombok")
