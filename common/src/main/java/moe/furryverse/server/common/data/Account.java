@@ -1,27 +1,32 @@
 package moe.furryverse.server.common.data;
 
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("account")
 @AllArgsConstructor
 public class Account {
+    // 唯一 ID
+    @NotNull @Id String id;
     // 创建时间
     long created;
     // 用户唯一用户名
-    String username;
+    @NotNull String username;
     // 昵称
-    String nickname;
+    @NotNull String nickname;
     // 用户唯一 ID
-    String uid;
+    @NotNull String uid;
     // 头像
-    String avatar;
+    @Nullable String avatar;
     // 背景图片
-    String background;
+    @Nullable String background;
     // 主题颜色
-    String color;
+    @Nullable String color;
     // 邮箱
-    String email;
+    @NotNull String email;
     // 个人简介
-    String description;
+    @Nullable String description;
 }
