@@ -3,6 +3,7 @@ package moe.furryverse.server.hecatebolus.model;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * 文件记录
@@ -18,13 +19,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document("file_record")
 public record FileRecord(
-        @NotNull @Id String fid,
-        long created,
-        @NotNull String uid,
-        @NotNull String name,
-        @NotNull String path,
-        @NotNull String type,
-        long size,
-        boolean isPublic
+        @Field("file_id") @NotNull @Id String fileId,
+        @Field("account_id") @NotNull String accountId,
+        @Field("created") long created,
+        @Field("name") @NotNull String name,
+        @Field("path") @NotNull String path,
+        @Field("type") @NotNull String type,
+        @Field("size") long size,
+        @Field("is_public") boolean isPublic
 ) {
 }

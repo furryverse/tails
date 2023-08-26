@@ -1,6 +1,6 @@
 package moe.furryverse.server.ascella.repository;
 
-import moe.furryverse.server.common.data.OAuth;
+import moe.furryverse.server.common.model.OAuth;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
