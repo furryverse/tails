@@ -28,3 +28,15 @@
 | Redis    | 是    | 一主多从多哨兵  | 数据存储（缓存）        |
 | Drone CI | 否    | 单机       | 构建与 Docker 镜像提交 |
 
+## 🚀 构建
+
+项目使用 Gradle （Kotlin DSL） 作为构建系统：
+
+```bash
+# clone from our repository.
+$ git clone https://github.com/furryverse/tails
+# source dir.
+$ cd tails
+# complie and package with gradle build.
+$ gradle build
+```
