@@ -8,14 +8,14 @@ import org.springframework.data.mongodb.repository.Query;
 import java.util.List;
 
 public interface FileRecordRepository extends MongoRepository<FileRecord, String> {
-    <S extends FileRecord> @NotNull S save(@NotNull S entity);
+    <S extends FileRecord> @NotNull S save(@NotNull S fileRecord);
 
-    @NotNull FileRecord findByFid(@NotNull String fid);
+    @NotNull FileRecord findByFileId(@NotNull String fileId);
 
-    void deleteByFidAndUid(@NotNull String fid, @NotNull String uid);
+    void deleteByFileIdAndAccountId(@NotNull String fileId, @NotNull String accountId);
 
     @Query("{'fid': ?0, 'uid': ?1}")
-    FileRecord updateByFid(@NotNull String fid, @NotNull FileRecord fileRecord);
+    FileRecord updateByFid(@NotNull String fileId, @NotNull FileRecord fileRecord);
 
-    List<FileRecord> findAllByUid(@NotNull String uid);
+    List<FileRecord> findAllByAccountId(@NotNull String accountId);
 }
