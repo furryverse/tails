@@ -1,6 +1,6 @@
 <h1 align="center">⭐ Hecatebolus</h1>
 
-## 🍀 Wow！哇！信号！
+## 🍀 Wow！哇！讯号
 
 Hecatebolus （南斗二星 / 斗宿五）是距离1977年的 [哇！讯号](https://zh.wikipedia.org/zh-hans/Wow!訊號)
 起源处最近的恒星（传统星座轮廓上的一部分）。
