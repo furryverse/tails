@@ -1,23 +1,40 @@
 package moe.furryverse.server.ascella.controller;
 
 import lombok.RequiredArgsConstructor;
-import moe.furryverse.server.ascella.repository.AccountRepository;
-import moe.furryverse.server.ascella.repository.OAuthRepository;
+import moe.furryverse.server.ascella.data.Session;
+import moe.furryverse.server.ascella.service.AccessService;
+import moe.furryverse.server.ascella.service.AccountService;
 import moe.furryverse.server.common.content.Resource;
+import moe.furryverse.server.common.exception.NotFoundDataException;
+import moe.furryverse.server.common.exception.UnauthorizationException;
 import moe.furryverse.server.common.message.Message;
 import moe.furryverse.server.common.model.Account;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v0")
 public class AccountController {
+    final AccountService accountService;
+    final AccessService accessService;
+
     @GetMapping("/account")
     public Message<?> account(
             @RequestParam(value = "username", required = false) String username,
             @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER, required = false) String accountId
     ) {
-        return null;
+        return Message.success(
+                Map.of(
+                        "account",
+                        username == null ?
+                                accountService.getAccountById(accountId) :
+                                accountService.getAccountByUsername(username)
+                )
+        );
     }
 
     @GetMapping("/account/{id}")
@@ -25,7 +42,14 @@ public class AccountController {
             @PathVariable String id,
             @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER, required = false) String accountId
     ) {
-        return null;
+        Account account = accountService.getAccountById(id);
+
+        // 非公开账户，且请求者不是该账户的所有者
+        if ((!account.isPublic()) && (!Objects.equals(accountId, id))) {
+            throw new NotFoundDataException(Message.ReturnMessage.NOT_FOUND, "/account/" + id, "GET", accountId);
+        }
+
+        return Message.success(Map.of("account", account));
     }
 
     @PostMapping("/account/{id}")
@@ -34,7 +58,11 @@ public class AccountController {
             @RequestBody Account account,
             @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER) String accountId
     ) {
-        return null;
+        if (!Objects.equals(id, accountId)) {
+            throw new UnauthorizationException(Message.ReturnMessage.UNAUTHORIZED, "/account/" + id, "POST", accountId);
+        }
+
+        return Message.success(Map.of("account", accountService.updateAccount(id, account)));
     }
 
     @GetMapping("/account/{id}/session")
@@ -42,15 +70,35 @@ public class AccountController {
             @PathVariable String id,
             @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER) String accountId
     ) {
-        return null;
+        if (!Objects.equals(id, accountId)) {
+            throw new UnauthorizationException(Message.ReturnMessage.UNAUTHORIZED, "/account/" + id + "/session", "GET", accountId);
+        }
+
+        List<Session> sessions = accessService.getSession(id);
+
+        return Message.success(Map.of("sessions", sessions));
     }
 
-    @DeleteMapping("/account/{id}/session/{sessionId}")
+    @DeleteMapping("/account/{id}/session")
     public Message<?> deleteSession(
             @PathVariable String id,
-            @PathVariable String sessionId,
-            @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER) String accountIdInHeader
+            @RequestHeader(value = Resource.CustomHeader.AUTHORIZE_HEADER) String token,
+            @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER) String accountId
     ) {
-        return null;
+        if (!Objects.equals(id, accountId)) {
+            throw new UnauthorizationException(Message.ReturnMessage.UNAUTHORIZED, "/account/" + id + "/session", "DELETE", accountId);
+        }
+
+        Session session = accessService.revokeSession(token, id);
+        if (session == null) {
+            throw new NotFoundDataException(Message.ReturnMessage.NOT_FOUND, "/account/" + id + "/session", "DELETE", accountId);
+        }
+
+        return Message.success(
+                Map.of(
+                        "token", token,
+                        "session", session
+                )
+        );
     }
 }

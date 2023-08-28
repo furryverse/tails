@@ -14,6 +14,7 @@ import java.net.http.HttpResponse;
 import java.util.Map;
 
 @Data
+@Deprecated
 @AllArgsConstructor
 public class HttpRpcClient {
     static HttpClient client = HttpClient.newHttpClient();

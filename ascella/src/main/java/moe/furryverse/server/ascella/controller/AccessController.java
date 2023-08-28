@@ -33,11 +33,12 @@ public class AccessController {
     public Message<?> access(
             @SuppressWarnings("unused") @RequestHeader(value = Resource.CustomHeader.RPC_MACHINE_ID_HEADER, required = false) String machineId,
             @SuppressWarnings("unused") @RequestHeader(value = Resource.CustomHeader.RPC_MACHINE_SIGNATURE_HEADER, required = false) String machineSignature,
+            @RequestHeader(value = Resource.CustomHeader.AUTHORIZE_HEADER) String token,
             @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER) String accountId,
             @RequestBody List<Access> access
     ) {
         return Message.success(
-                Map.of("authorization", accessService.hasAccess(accountId, access))
+                Map.of("access", accessService.hasAccess(token, accountId, access))
         );
     }
 }

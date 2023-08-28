@@ -44,6 +44,12 @@ public class Message<T> {
         public static final String INTERNAL_SERVER_ERROR = "Internal Server Error (￣^￣)";
         public static final String SERVICE_UNAVAILABLE = "Service Unavailable  ( >﹏<。)～";
     }
+
+
+    public static class ExceptionMessage {
+        public static final String NOT_FOUND_ACCOUNT_WITH_ID = "Not Found Account With Id";
+        public static final String NOT_FOUND_ACCOUNT_WITH_USERNAME = "Not Found Account With Username";
+    }
 }
 
 
