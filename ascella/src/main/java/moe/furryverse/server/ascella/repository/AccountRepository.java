@@ -5,12 +5,12 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface AccountRepository extends MongoRepository<Account, String> {
-    <S extends Account> @NotNull S save(@NotNull S entity);
+    <S extends Account> @NotNull S save(@NotNull S account);
 
     // 根据 uid 查找和删除
-    Account findByUid(@NotNull String uid);
+    Account findByAccountId(@NotNull String accountId);
 
-    Account deleteByUid(@NotNull String uid);
+    Account deleteByAccountId(@NotNull String accountId);
 
     // 根据 email 查找和删除
     Account findByEmail(@NotNull String email);
