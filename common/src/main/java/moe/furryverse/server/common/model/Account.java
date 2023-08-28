@@ -31,6 +31,11 @@ public record Account(
         @Field("color") @Nullable String color,
         @Field("email") @NotNull String email,
         @Field("description") @Nullable String description,
-        @Field("is_public") boolean isPublic
+        @Field("is_public") boolean isPublic,
+        @Field("is_ban") boolean isBan,
+
+        // 需要过滤一部分字段的信息
+        @Field("unban_time") long unbanTime,
+        @Field("is_deleted") boolean isDeleted
 ) {
 }
