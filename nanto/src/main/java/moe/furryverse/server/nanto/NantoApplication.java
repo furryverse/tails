@@ -1,5 +1,6 @@
 package moe.furryverse.server.nanto;
 
+import moe.furryverse.server.common.annotation.AccessCheck;
 import moe.furryverse.server.common.config.TailsRpcConfig;
 import moe.furryverse.server.common.service.TailsRpcAccessService;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +11,7 @@ import org.springframework.context.annotation.Import;
 @EnableDiscoveryClient
 @SpringBootApplication
 @SuppressWarnings("SpellCheckingInspection")
-@Import({TailsRpcConfig.class, TailsRpcAccessService.class})
+@Import({TailsRpcConfig.class, TailsRpcAccessService.class, AccessCheck.AccessChecker.class})
 public class NantoApplication {
     public static void main(String[] args) {
         SpringApplication.run(NantoApplication.class, args);

@@ -47,8 +47,15 @@ public class Message<T> {
 
 
     public static class ExceptionMessage {
+        // 未查找到账号数据
         public static final String NOT_FOUND_ACCOUNT_WITH_ID = "Not Found Account With Id";
         public static final String NOT_FOUND_ACCOUNT_WITH_USERNAME = "Not Found Account With Username";
+        // 请求没有携带 Account ID
+        public static final String NOT_FOUND_ACCOUNT_ID_IN_REQUEST = "Not Found Account Id In Request";
+        // 请求没有携带 Token
+        public static final String NOT_FOUND_TOKEN_IN_REQUEST = "Not Found Token In Request";
+        // 请求权限不足
+        public static final String PERMISSION_DENIED = "Permission Denied";
     }
 }
 
