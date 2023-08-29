@@ -40,8 +40,12 @@ subprojects {
 
         // consul
         implementation("org.springframework.boot:spring-boot-starter-actuator")
-        implementation("org.springframework.cloud:spring-cloud-starter-consul-config")
-        implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
+        implementation("org.springframework.cloud:spring-cloud-starter-zookeeper-config")
+        implementation("org.springframework.cloud:spring-cloud-starter-zookeeper-discovery")
+
+        // rpc
+        @Suppress("SpellCheckingInspection") implementation("org.apache.dubbo:dubbo:3.2.4")
+        @Suppress("SpellCheckingInspection") implementation("org.apache.dubbo:dubbo-dependencies-zookeeper:3.2.4")
 
         // mongodb
         implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
