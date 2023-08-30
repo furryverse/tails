@@ -1,4 +1,4 @@
-package moe.furryverse.server.common.interfaces;
+package moe.furryverse.server.common.service;
 
 import moe.furryverse.server.common.model.Account;
 

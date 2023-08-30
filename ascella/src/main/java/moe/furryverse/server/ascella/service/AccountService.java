@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import moe.furryverse.server.ascella.repository.AccountRepository;
 import moe.furryverse.server.ascella.repository.OAuthRepository;
 import moe.furryverse.server.common.exception.NotFoundDataException;
-import moe.furryverse.server.common.interfaces.RemoteAccountService;
 import moe.furryverse.server.common.message.Message;
 import moe.furryverse.server.common.model.Account;
+import moe.furryverse.server.common.service.RemoteAccountService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.stereotype.Service;
 

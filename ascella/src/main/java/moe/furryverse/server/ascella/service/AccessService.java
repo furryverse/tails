@@ -2,8 +2,8 @@ package moe.furryverse.server.ascella.service;
 
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.server.ascella.data.Session;
-import moe.furryverse.server.common.interfaces.RemoteAccessService;
 import moe.furryverse.server.common.security.Access;
+import moe.furryverse.server.common.service.RemoteAccessService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
