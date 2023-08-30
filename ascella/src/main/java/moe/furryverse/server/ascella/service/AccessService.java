@@ -2,7 +2,9 @@ package moe.furryverse.server.ascella.service;
 
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.server.ascella.data.Session;
+import moe.furryverse.server.common.interfaces.RemoteAccessService;
 import moe.furryverse.server.common.security.Access;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +13,12 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@DubboService
 @RequiredArgsConstructor
-public class AccessService {
+public class AccessService implements RemoteAccessService {
     final RedisTemplate<String, HashMap<String, Session>> sessions;
 
-    public boolean hasAccess(String token, String accountId, List<Access> access) {
+    public boolean check(String token, String accountId, List<Access> access) {
         if (token == null || accountId == null) return false;
 
         // 获取会话
@@ -33,8 +36,8 @@ public class AccessService {
         return session.token().access().containsAll(access);
     }
 
-    public boolean hasAccess(String token, String accountId, Access access) {
-        return hasAccess(token, accountId, List.of(access));
+    public boolean check(String token, String accountId, Access access) {
+        return check(token, accountId, List.of(access));
     }
 
     public List<Session> getSession(String accountId) {

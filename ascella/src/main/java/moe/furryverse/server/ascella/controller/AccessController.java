@@ -38,7 +38,7 @@ public class AccessController {
             @RequestBody List<Access> access
     ) {
         return Message.success(
-                Map.of("access", accessService.hasAccess(token, accountId, access))
+                Map.of("access", accessService.check(token, accountId, access))
         );
     }
 }

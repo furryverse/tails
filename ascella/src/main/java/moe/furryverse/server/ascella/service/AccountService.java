@@ -4,13 +4,16 @@ import lombok.RequiredArgsConstructor;
 import moe.furryverse.server.ascella.repository.AccountRepository;
 import moe.furryverse.server.ascella.repository.OAuthRepository;
 import moe.furryverse.server.common.exception.NotFoundDataException;
+import moe.furryverse.server.common.interfaces.RemoteAccountService;
 import moe.furryverse.server.common.message.Message;
 import moe.furryverse.server.common.model.Account;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.stereotype.Service;
 
 @Service
+@DubboService
 @RequiredArgsConstructor
-public class AccountService {
+public class AccountService implements RemoteAccountService {
     final AccountRepository accountRepository;
     final OAuthRepository oAuthRepository;
 
@@ -18,14 +21,14 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account getAccountById(String id) {
-        Account account = accountRepository.findByAccountId(id);
+    public Account getAccountByAccountId(String accountId) {
+        Account account = accountRepository.findByAccountId(accountId);
         if (account == null) {
             throw new NotFoundDataException(
                     Message.ExceptionMessage.NOT_FOUND_ACCOUNT_WITH_ID,
                     "account service calling",
                     "GET",
-                    id
+                    accountId
             );
         }
 

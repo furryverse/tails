@@ -31,7 +31,7 @@ public class AccountController {
                 Map.of(
                         "account",
                         username == null ?
-                                accountService.getAccountById(accountId) :
+                                accountService.getAccountByAccountId(accountId) :
                                 accountService.getAccountByUsername(username)
                 )
         );
@@ -42,7 +42,7 @@ public class AccountController {
             @PathVariable String id,
             @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER, required = false) String accountId
     ) {
-        Account account = accountService.getAccountById(id);
+        Account account = accountService.getAccountByAccountId(id);
 
         // 非公开账户，且请求者不是该账户的所有者
         if ((!account.isPublic()) && (!Objects.equals(accountId, id))) {
