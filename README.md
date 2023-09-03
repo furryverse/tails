@@ -21,12 +21,14 @@
 
 **方案如下：**
 
-| 服务       | 是否集群 | 集群方案     | 描述              |
-|----------|------|----------|-----------------|
-| Consul   | 是    | 一主多从     | 配置中心与注册中心       |
-| Mongodb  | 是    | 副本集 一主多从 | 数据存储（数据库）       |
-| Redis    | 是    | 一主多从多哨兵  | 数据存储（缓存）        |
-| Drone CI | 否    | 单机       | 构建与 Docker 镜像提交 |
+| 服务            | 开源代码仓库                                         | 是否多机运行 | 运行方式                  | 描述                         |
+| --------------- | ---------------------------------------------------- | ------------ | ------------------------- | ---------------------------- |
+| Zookeeper       | [zookeeper](https://github.com/apache/zookeeper)     | 是           | 一主多从                  | 配置中心与注册中心           |
+| Mongodb         | [mongo](https://github.com/mongodb/mongo)            | 是           | 副本集 一主多从           | 数据存储（数据库）           |
+| Redis           | [redis](https://github.com/redis/redis)              | 是           | 一主对一从 多主从集群模式 | 数据存储（缓存）             |
+| Drone CI        | [drone](https://github.com/harness/drone)            | 否           | 单机                      | 构建与 Docker 镜像提交       |
+| Docker Registry | /                                                    | 否           | 单机                      | 存储容器文件与维护容器注册表 |
+| Reposilite      | [reposilite](https://github.com/dzikoysk/reposilite) | 否           | 单机                      | 存储 Maven 包                |
 
 ## 🚀 构建
 
