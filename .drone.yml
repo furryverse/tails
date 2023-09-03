@@ -1,0 +1,9 @@
+kind: pipeline
+type: docker
+name: tails
+
+steps:
+  - name: build
+    image: gradle:jdk17
+    commands:
+      - gradle bootJar -x test
