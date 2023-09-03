@@ -14,7 +14,7 @@ public interface FileRecordRepository extends MongoRepository<FileRecord, String
 
     void deleteByFileIdAndAccountId(@NotNull String fileId, @NotNull String accountId);
 
-    @Query("{'fid': ?0, 'uid': ?1}")
+    @Query("{'fid': ?0}")
     FileRecord updateByFid(@NotNull String fileId, @NotNull FileRecord fileRecord);
 
     List<FileRecord> findAllByAccountId(@NotNull String accountId);
