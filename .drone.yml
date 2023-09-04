@@ -13,11 +13,10 @@ steps:
     depends_on: [build]
     settings:
       registry: registry.furryverse.moe
-      repo: furryverse/alnitak
+      repo: registry.furryverse.moe/furryverse/alnitak
       dockerfile: alnitak/Dockerfile
       use_cache: true
-      username:
-        from_secret: REGISTRY_USERNAME
+      username: furryverse
       password:
         from_secret: REGISTRY_PASSWORD
       auto_tag: true
