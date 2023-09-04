@@ -4,20 +4,12 @@ server.port: 10008
 # spring
 spring.application.name: nunki
 
-# consul config
-spring.cloud.consul.enabled: true
-
-# consul config center
-spring.cloud.consul.config.enabled: true
-spring.cloud.consul.config.default-context: application
-spring.cloud.consul.config.data-key: data
-spring.cloud.consul.config.format: yaml
-
-# consul service discovery
-spring.cloud.consul.discovery.enabled: true
-spring.cloud.consul.discovery.service-name: ${spring.application.name}
-spring.cloud.consul.discovery.instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
-spring.cloud.consul.discovery.prefer-ip-address: true
-spring.cloud.consul.discovery.health-check-path: /actuator/health
-spring.cloud.consul.discovery.health-check-interval: 10s
-spring.cloud.consul.discovery.query-passing: true
+# rpc
+dubbo.application.name: ${spring.application.name}
+dubbo.protocol.name: dubbo
+dubbo.protocol.port: -1
+dubbo.registry.client: curator
+dubbo.registry.username: ${ZOOKEEPER_USERNAME}
+dubbo.registry.password: ${ZOOKEEPER_PASSWORD}
+dubbo.registry.address: zookeeper://${ZOOKEEPER_HOST}:${ZOOKEEPER_PORT}
+dubbo.registry.use-as-config-center: false

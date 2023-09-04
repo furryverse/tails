@@ -35,17 +35,12 @@ subprojects {
         implementation("org.springframework.boot:spring-boot-starter-aop")
         implementation("org.springframework.boot:spring-boot-starter-web-services")
         implementation("org.springframework.boot:spring-boot-starter-webflux")
-        implementation("org.springframework.cloud:spring-cloud-starter-config")
-        implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
-
-        // consul
         implementation("org.springframework.boot:spring-boot-starter-actuator")
-        implementation("org.springframework.cloud:spring-cloud-starter-zookeeper-config")
-        implementation("org.springframework.cloud:spring-cloud-starter-zookeeper-discovery")
 
         // rpc
-        @Suppress("SpellCheckingInspection") implementation("org.apache.dubbo:dubbo:3.2.4")
-        @Suppress("SpellCheckingInspection") implementation("org.apache.dubbo:dubbo-dependencies-zookeeper:3.2.4")
+        @Suppress("SpellCheckingInspection") implementation("org.apache.dubbo:dubbo-bom:3.2.5")
+        @Suppress("SpellCheckingInspection") implementation("org.apache.dubbo:dubbo-spring-boot-starter:3.2.5")
+        @Suppress("SpellCheckingInspection") implementation("org.apache.dubbo:dubbo-dependencies-zookeeper-curator5:3.2.5")
 
         // mongodb
         implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
