@@ -1,9 +1,3 @@
-# server
-server.port: 10007
-
-# spring
-spring.application.name: naos
-
 # rpc
 dubbo.application.name: ${spring.application.name}
 dubbo.protocol.name: dubbo

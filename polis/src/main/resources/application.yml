@@ -1,9 +1,3 @@
-# server
-server.port: 10009
-
-# spring
-spring.application.name: polis
-
 # rpc
 dubbo.application.name: ${spring.application.name}
 dubbo.protocol.name: dubbo

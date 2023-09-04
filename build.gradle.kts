@@ -37,6 +37,14 @@ subprojects {
         implementation("org.springframework.boot:spring-boot-starter-webflux")
         implementation("org.springframework.boot:spring-boot-starter-actuator")
 
+        // config
+        implementation("org.springframework.cloud:spring-cloud-starter-config")
+        implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
+
+        // consul
+        implementation("org.springframework.cloud:spring-cloud-starter-consul-config")
+        implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
+
         // rpc
         @Suppress("SpellCheckingInspection") implementation("org.apache.dubbo:dubbo-bom:3.2.5")
         @Suppress("SpellCheckingInspection") implementation("org.apache.dubbo:dubbo-spring-boot-starter:3.2.5")

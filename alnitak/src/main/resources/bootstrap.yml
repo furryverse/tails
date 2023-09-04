@@ -1,0 +1,14 @@
+# spring
+spring.application.name: alnitak
+
+# server
+server.port: 10000
+
+# consul
+spring.cloud.consul.host: ${CONSUL_HOST}
+spring.cloud.consul.port: ${CONSUL_PORT}
+spring.cloud.consul.config.acl-token: ${CONSUL_ACL_TOKEN}
+
+spring.cloud.consul.discovery.enabled: true
+spring.cloud.consul.discovery.service-name: ${spring.application.name}
+spring.cloud.consul.discovery.acl-token: ${CONSUL_ACL_TOKEN}
