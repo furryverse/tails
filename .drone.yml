@@ -40,7 +40,7 @@ steps:
     settings:
       registry: registry.furryverse.moe
       repo: registry.furryverse.moe/furryverse/ascella
-      dockerfile: acsella/Dockerfile
+      dockerfile: ascella/Dockerfile
       use_cache: true
       username: furryverse
       password:
