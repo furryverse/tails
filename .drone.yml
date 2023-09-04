@@ -7,3 +7,17 @@ steps:
     image: gradle:jdk17
     commands:
       - gradle bootJar -x test
+
+  - name: push-alnitak
+    image: plugins/docker
+    depends_on: [build]
+    settings:
+      registry: registry.furryverse.moe
+      repo: furryverse/alnitak
+      dockerfile: alnitak/Dockerfile
+      use_cache: true
+      username:
+        from_secret: REGISTRY_USERNAME
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
