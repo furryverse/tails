@@ -1,5 +1,4 @@
 <h1 align="center">贡献</h1>
-<h6 align="center">We also provide documentation in English. <a href="../#/">Click here to go</a></h6>
 
 ## 什么是贡献？
 
@@ -17,7 +16,6 @@
 2. 将您自己的仓库 [clone](https://github.com/git-guides/git-clone) 到本地 / 在 GitHub 直接进行修改
 3. 修改内容 / 新增内容 并 [pr](https://docs.github.com/en/pull-requests) 提交，其中我们的 commit message 有以下要求
 4.
-
 如果可以，请附带 [GPG 签名](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits)
 
 **格式**

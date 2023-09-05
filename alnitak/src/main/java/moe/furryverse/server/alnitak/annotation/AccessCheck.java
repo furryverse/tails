@@ -1,4 +1,4 @@
-package moe.furryverse.server.common.annotation;
+package moe.furryverse.server.alnitak.annotation;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.SneakyThrows;
@@ -33,7 +33,7 @@ public @interface AccessCheck {
         @SneakyThrows
         @SuppressWarnings("DuplicatedCode")
         @Around(
-                value = "@annotation(moe.furryverse.server.common.annotation.AccessCheck) && args(request)",
+                value = "@annotation(moe.furryverse.server.alnitak.annotation.AccessCheck) && args(request)",
                 argNames = "point,request"
         )
         public Message<?> check(ProceedingJoinPoint point, HttpServletRequest request) {

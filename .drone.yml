@@ -10,7 +10,7 @@ steps:
 
   - name: push-alnitak
     image: plugins/docker
-    depends_on: [build]
+    depends_on: [ build ]
     settings:
       registry: registry.furryverse.moe
       repo: registry.furryverse.moe/furryverse/alnitak

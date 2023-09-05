@@ -7,3 +7,4 @@ dubbo.registry.username: ${ZOOKEEPER_USERNAME}
 dubbo.registry.password: ${ZOOKEEPER_PASSWORD}
 dubbo.registry.address: zookeeper://${ZOOKEEPER_HOST}:${ZOOKEEPER_PORT}
 dubbo.registry.use-as-config-center: false
+dubbo.consumer.check: false
