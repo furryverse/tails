@@ -15,8 +15,7 @@
 1. 将本仓库 [fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) 到您自己的仓库
 2. 将您自己的仓库 [clone](https://github.com/git-guides/git-clone) 到本地 / 在 GitHub 直接进行修改
 3. 修改内容 / 新增内容 并 [pr](https://docs.github.com/en/pull-requests) 提交，其中我们的 commit message 有以下要求
-4.
-如果可以，请附带 [GPG 签名](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits)
+4. 如果可以，请附带 [GPG 签名](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits)
 
 **格式**
 

@@ -1,4 +1,4 @@
-package moe.furryverse.server.alnitak.annotation;
+package moe.furryverse.server.common.annotation;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.SneakyThrows;
@@ -26,14 +26,17 @@ public @interface AccessCheck {
 
     @Aspect
     @Component
-    class AccessChecker {
+    @SuppressWarnings("all")
+    public class AccessChecker {
+        static int AUTHORIZE_BANNER_LENGTH = 7;
+
         @DubboReference
         RemoteAccessService accessService;
 
         @SneakyThrows
         @SuppressWarnings("DuplicatedCode")
         @Around(
-                value = "@annotation(moe.furryverse.server.alnitak.annotation.AccessCheck) && args(request)",
+                value = "@annotation(moe.furryverse.server.common.annotation.AccessCheck) && args(request)",
                 argNames = "point,request"
         )
         public Message<?> check(ProceedingJoinPoint point, HttpServletRequest request) {
@@ -42,13 +45,12 @@ public @interface AccessCheck {
                 throw new UnauthorizationException(Message.ExceptionMessage.NOT_FOUND_ACCOUNT_ID_IN_REQUEST, "token check service calling", "GET", null);
             }
 
-
             String authorization = request.getHeader(Resource.CustomHeader.AUTHORIZE_HEADER);
             if (authorization == null) {
                 throw new UnauthorizationException(Message.ExceptionMessage.NOT_FOUND_TOKEN_IN_REQUEST, "token check service calling", "GET", null);
             }
 
-            String token = authorization.substring(authorization.indexOf(Resource.CustomHeader.AUTHORIZE_HEADER_PREFIX) + 7);
+            String token = authorization.substring(authorization.indexOf(Resource.CustomHeader.AUTHORIZE_HEADER_PREFIX) + AUTHORIZE_BANNER_LENGTH);
             if (token.isBlank() || token.isEmpty()) {
                 throw new UnauthorizationException(Message.ExceptionMessage.NOT_FOUND_TOKEN_IN_REQUEST, "token check service calling", "GET", null);
             }
