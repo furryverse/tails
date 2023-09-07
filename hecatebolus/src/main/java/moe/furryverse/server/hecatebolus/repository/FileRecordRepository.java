@@ -12,7 +12,7 @@ public interface FileRecordRepository extends MongoRepository<FileRecord, String
 
     @NotNull FileRecord findByFileId(@NotNull String fileId);
 
-    void deleteByFileIdAndAccountId(@NotNull String fileId, @NotNull String accountId);
+    FileRecord deleteByFileIdAndAccountId(@NotNull String fileId, @NotNull String accountId);
 
     @Query("{'fid': ?0}")
     FileRecord updateByFid(@NotNull String fileId, @NotNull FileRecord fileRecord);
