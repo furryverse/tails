@@ -7,7 +7,6 @@ import moe.furryverse.server.common.exception.UnauthorizationException;
 import moe.furryverse.server.common.message.Message;
 import moe.furryverse.server.common.security.Access;
 import moe.furryverse.server.common.service.RemoteAccessService;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,7 +16,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.Arrays;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
@@ -30,7 +28,6 @@ public @interface AccessCheck {
     public class AccessChecker {
         static int AUTHORIZE_BANNER_LENGTH = 7;
 
-        @DubboReference
         RemoteAccessService accessService;
 
         @SneakyThrows
@@ -65,9 +62,6 @@ public @interface AccessCheck {
             Access[] access = annotation.access();
 
             // 检查权限
-            if (!accessService.check(id, token, Arrays.asList(access))) {
-                throw new UnauthorizationException(Message.ExceptionMessage.PERMISSION_DENIED, "token check service calling", "GET", null);
-            }
 
             // 校验完成 继续执行业务代码
             return (Message<?>) point.proceed();
