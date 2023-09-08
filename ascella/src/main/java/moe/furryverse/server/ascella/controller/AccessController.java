@@ -23,16 +23,12 @@ public class AccessController {
     /**
      * 校验权限
      *
-     * @param machineId        内网发起的请求的机器 ID（暂时不进行校验）
-     * @param machineSignature 内网发起的请求的机器签名（暂时不进行校验）
      * @param accountId        请求的账户 ID
      * @param access           请求的权限
      * @return 是否有权限
      */
     @PostMapping("/access")
     public Message<?> access(
-            @SuppressWarnings("unused") @RequestHeader(value = Resource.CustomHeader.RPC_MACHINE_ID_HEADER, required = false) String machineId,
-            @SuppressWarnings("unused") @RequestHeader(value = Resource.CustomHeader.RPC_MACHINE_SIGNATURE_HEADER, required = false) String machineSignature,
             @RequestHeader(value = Resource.CustomHeader.AUTHORIZE_HEADER) String token,
             @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER) String accountId,
             @RequestBody List<Access> access
