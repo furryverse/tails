@@ -28,6 +28,9 @@ subprojects {
     }
 
     dependencies {
+        // standalone
+        @Suppress("SpellCheckingInspection") if (project.name == "milkyway") return@dependencies
+
         // common
         if (project.name != "common") implementation(project(":common"))
 

@@ -22,3 +22,4 @@ spring.cloud.consul.discovery.prefer-ip-address: true
 spring.cloud.consul.discovery.health-check-path: /actuator/health
 spring.cloud.consul.discovery.health-check-interval: 10s
 spring.cloud.consul.discovery.query-passing: true
+spring.cloud.inetutils.ignored-interfaces: docker0, lo, br*, veth*

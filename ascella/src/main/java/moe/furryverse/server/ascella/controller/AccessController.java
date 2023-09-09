@@ -23,8 +23,8 @@ public class AccessController {
     /**
      * 校验权限
      *
-     * @param accountId        请求的账户 ID
-     * @param access           请求的权限
+     * @param accountId 请求的账户 ID
+     * @param access    请求的权限
      * @return 是否有权限
      */
     @PostMapping("/access")

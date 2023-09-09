@@ -73,6 +73,19 @@ steps:
         from_secret: REGISTRY_PASSWORD
       auto_tag: true
 
+  - name: push-milkyway
+    image: plugins/docker
+    depends_on: [ build ]
+    settings:
+      registry: registry.furryverse.moe
+      repo: registry.furryverse.moe/furryverse/milkyway
+      dockerfile: milkyway/Dockerfile
+      use_cache: true
+      username: furryverse
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
+
   - name: push-mira
     image: plugins/docker
     depends_on: [ build ]

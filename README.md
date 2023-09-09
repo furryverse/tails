@@ -44,3 +44,9 @@ $ cd tails
 # complie and package with gradle build.
 $ gradle build
 ```
+
+## ⚠ 注意事项
+
+1. 每一个服务都已经配置了 `Consul` 服务发现，如果需要启动其中一个服务也就意味着需要一个正常运行的 `Consul`
+   单体或集群，如果运行的目标机器有多张网卡（包括虚拟网卡）可能需要修改 `Consul` 的配置项指定网卡。
+2. 为了方便本地进行调试可以尝试使用 `milkyway` 子项目，该子项目已配置扫描其他服务包下的 Spring 组件，也就是一个完整的传统单体应用。
