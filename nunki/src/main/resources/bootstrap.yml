@@ -1,5 +1,6 @@
 # server
 server.port: 10008
+spring.main.web-application-type: reactive
 
 # spring
 spring.application.name: nunki

@@ -1,4 +1,8 @@
 dependencies {
+    // gateway
+    implementation("org.springframework.cloud:spring-cloud-starter-gateway")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+
     // curator
     implementation("org.apache.curator:curator-recipes:5.5.0")
     implementation("org.apache.curator:curator-framework:5.5.0")
