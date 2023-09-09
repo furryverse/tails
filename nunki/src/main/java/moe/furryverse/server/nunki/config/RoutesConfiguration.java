@@ -22,6 +22,10 @@ public class RoutesConfiguration {
                 .route(Resource.ServiceName.COMMENT_SERVICE, r -> r.path("/api/v0/planet/**").uri(String.format("lb://%s", Resource.ServiceName.COMMENT_SERVICE)))
                 .route(Resource.ServiceName.COMMENT_SERVICE, r -> r.path("/api/v0/stardust/**").uri(String.format("lb://%s", Resource.ServiceName.COMMENT_SERVICE)))
 
+                // Route for Account
+                .route(Resource.ServiceName.ACCOUNT_SERVICE, r -> r.path("/api/v0/login/**").uri(String.format("lb://%s", Resource.ServiceName.ACCOUNT_SERVICE)))
+                .route(Resource.ServiceName.ACCOUNT_SERVICE, r -> r.path("/api/v0/account/**").uri(String.format("lb://%s", Resource.ServiceName.ACCOUNT_SERVICE)))
+
                 // Route for File Service
                 .route(Resource.ServiceName.FILE_SERVICE, r -> r.path("/api/v0/upload").uri(String.format("lb://%s", Resource.ServiceName.FILE_SERVICE)))
                 .route(Resource.ServiceName.FILE_SERVICE, r -> r.path("/api/v0/file/**").uri(String.format("lb://%s", Resource.ServiceName.FILE_SERVICE)))

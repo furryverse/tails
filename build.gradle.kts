@@ -47,6 +47,7 @@ subprojects {
         implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
 
         // mongodb
+        implementation("org.springframework.data:spring-data-jpa")
         implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
         // jetbrains

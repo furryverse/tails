@@ -10,7 +10,6 @@ public interface ClusterRepository extends MongoRepository<Cluster, String> {
 
     Cluster findByClusterId(String clusterId);
 
-
     @Query(value = "{ 'cluster_id' : ?0 }")
     Cluster updateByClusterId(String clusterId, Cluster cluster);
 

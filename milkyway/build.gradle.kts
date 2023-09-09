@@ -4,6 +4,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web-services")
 
     // mongodb
+    implementation("org.springframework.data:spring-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
     // redis
