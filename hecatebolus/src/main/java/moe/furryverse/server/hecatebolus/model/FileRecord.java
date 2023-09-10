@@ -1,5 +1,6 @@
 package moe.furryverse.server.hecatebolus.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,15 +18,15 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param size      文件大小
  * @param isPublic  是否公开
  */
-@Document("file_record")
+@Document("file_records")
 public record FileRecord(
-        @Field("file_id") @NotNull @Id String fileId,
-        @Field("account_id") @NotNull String accountId,
-        @Field("created") long created,
-        @Field("name") @NotNull String name,
-        @Field("path") @NotNull String path,
-        @Field("type") @NotNull String type,
-        @Field("size") long size,
-        @Field("is_public") boolean isPublic
+        @Field("file_id") @JsonProperty("file_id") @NotNull @Id String fileId,
+        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("created") @JsonProperty("created") long created,
+        @Field("name") @JsonProperty("name") @NotNull String name,
+        @Field("path") @JsonProperty("path") @NotNull String path,
+        @Field("type") @JsonProperty("type") @NotNull String type,
+        @Field("size") @JsonProperty("size") long size,
+        @Field("is_public") @JsonProperty("is_public") boolean isPublic
 ) {
 }

@@ -1,5 +1,6 @@
 package moe.furryverse.server.common.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,12 +15,13 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param accountId 用户唯一 ID
  * @param provider  授权平台
  */
-@Document("oauth")
+@SuppressWarnings("SpellCheckingInspection")
+@Document("oauths")
 public record OAuth(
-        @Field("oauth_id") @NotNull @Id String oauthId,
-        @Field("account_id") @NotNull String accountId,
-        @Field("created") long created,
-        @Field("openid") @NotNull String openid,
-        @Field("provider") @NotNull String provider
+        @Field("oauth_id") @JsonProperty("oauth_id") @NotNull @Id String oauthId,
+        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("created") @JsonProperty("created") long created,
+        @Field("openid") @JsonProperty("openid") @NotNull String openid,
+        @Field("provider") @JsonProperty("provider") @NotNull String provider
 ) {
 }

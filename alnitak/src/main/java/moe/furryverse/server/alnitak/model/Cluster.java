@@ -1,5 +1,6 @@
 package moe.furryverse.server.alnitak.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.annotation.Id;
@@ -20,32 +21,32 @@ import java.util.List;
  * @param bannerBackground 横幅背景
  * @param background       背景
  * @param description      描述
- * @param reviewer         审核员（可以对帖子进行审核 并决定是否通过）
- * @param administrator    管理员 （可以对帖子进行删除、锁定、置顶、编辑等操作）
- * @param editor           编辑员 （可以对帖子进行编辑）
- * @param viewer           查看员 （在不公开状态下可以查看帖子）
+ * @param reviewers        审核员（可以对帖子进行审核 并决定是否通过）
+ * @param administrators   管理员 （可以对帖子进行删除、锁定、置顶、编辑等操作）
+ * @param editors          编辑员 （可以对帖子进行编辑）
+ * @param viewers          查看员 （在不公开状态下可以查看帖子）
  * @param isPublic         是否公开 （公开的板块可以被所有人查看）
  * @param isLocked         是否锁定 （锁定的板块不允许发帖）
  */
-@Document("cluster")
+@Document("clusters")
 public record Cluster(
         // 基本信息
-        @Field("created") long created,
-        @Field("cluster_id") @NotNull @Id String clusterId,
-        @Field("cluster_name") @NotNull String name,
-        @Field("icon") @NotNull String icon,
-        @Field("color") @NotNull String color,
-        @Field("banner") @Nullable String banner,
-        @Field("banner_background") @Nullable String bannerBackground,
-        @Field("background") @Nullable String background,
-        @Field("description") @Nullable String description,
+        @Field("created") @JsonProperty("created") long created,
+        @Field("cluster_id") @JsonProperty("cluster_id") @NotNull @Id String clusterId,
+        @Field("cluster_name") @JsonProperty("cluster_name") @NotNull String name,
+        @Field("icon") @JsonProperty("icon") @NotNull String icon,
+        @Field("color") @JsonProperty("color") @NotNull String color,
+        @Field("banner") @JsonProperty("banner") @Nullable String banner,
+        @Field("banner_background") @JsonProperty("banner_background") @Nullable String bannerBackground,
+        @Field("background") @JsonProperty("background") @Nullable String background,
+        @Field("description") @JsonProperty("description") @Nullable String description,
 
         // 管理功能
-        @Field("reviewer") @NotNull List<String> reviewer,
-        @Field("administrator") @NotNull List<String> administrator,
-        @Field("editor") @NotNull List<String> editor,
-        @Field("viewer") @NotNull List<String> viewer,
-        @Field("is_public") boolean isPublic,
-        @Field("is_locked") boolean isLocked
+        @Field("reviewers") @JsonProperty("reviewers") @NotNull List<String> reviewers,
+        @Field("administrators") @JsonProperty("administrators") @NotNull List<String> administrators,
+        @Field("editors") @JsonProperty("editors") @NotNull List<String> editors,
+        @Field("viewers") @JsonProperty("viewers") @NotNull List<String> viewers,
+        @Field("is_public") @JsonProperty("is_public") boolean isPublic,
+        @Field("is_locked") @JsonProperty("is_locked") boolean isLocked
 ) {
 }

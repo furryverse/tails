@@ -1,5 +1,6 @@
 package moe.furryverse.server.arcturus.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -12,12 +13,13 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param diff       内容 Diff 信息
  * @param accountId  修改人账户 ID
  */
-@Document("stardust")
+@SuppressWarnings("SpellCheckingInspection")
+@Document("stardusts")
 public record Stardust(
-        @Field("created") long created,
-        @Field("stardust_id") String stardustId,
-        @Field("bind_id") String bindId,
-        @Field("diff") String diff,
-        @Field("account_id") String accountId
+        @Field("created") @JsonProperty("created") long created,
+        @Field("stardust_id") @JsonProperty("stardust_id") String stardustId,
+        @Field("bind_id") @JsonProperty("bind_id") String bindId,
+        @Field("diff") @JsonProperty("diff") String diff,
+        @Field("account_id") @JsonProperty("account_id") String accountId
 ) {
 }

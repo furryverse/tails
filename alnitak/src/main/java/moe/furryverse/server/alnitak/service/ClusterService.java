@@ -1,12 +1,17 @@
 package moe.furryverse.server.alnitak.service;
 
+import lombok.RequiredArgsConstructor;
 import moe.furryverse.server.alnitak.model.Cluster;
+import moe.furryverse.server.alnitak.repository.ClusterRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ClusterService {
+    final ClusterRepository clusterRepository;
+
     public List<Cluster> listCluster() {
         return null;
     }

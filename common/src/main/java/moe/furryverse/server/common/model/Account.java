@@ -22,7 +22,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param description 个人简介
  * @param isPublic    是否公开
  */
-@Document("account")
+@Document("accounts")
 public record Account(
         @Field("account_id") @JsonProperty("account_id") @NotNull @Id String accountId,
         @Field("created") @JsonProperty("created") long created,

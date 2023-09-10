@@ -11,12 +11,16 @@ import moe.furryverse.server.common.security.Access;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,15 +34,13 @@ public @interface AccessCheck {
     @SuppressWarnings("all")
     public class AccessChecker {
         static ObjectMapper mapper = new ObjectMapper();
-        static JavaType listType = mapper.getTypeFactory().constructParametricType(ArrayList.class, String.class);
+        static JavaType listType = mapper.getTypeFactory().constructParametricType(ArrayList.class, Access.class);
 
         @SneakyThrows
-        @SuppressWarnings("DuplicatedCode")
-        @Around(
-                value = "@annotation(moe.furryverse.server.common.annotation.AccessCheck) && args(request)",
-                argNames = "point,request"
-        )
-        public Message<?> check(ProceedingJoinPoint point, HttpServletRequest request) {
+        @Around(value = "@annotation(moe.furryverse.server.common.annotation.AccessCheck)")
+        public Message<?> check(ProceedingJoinPoint point) {
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+
             String id = request.getHeader(Resource.CustomHeader.ACCOUNT_ID_HEADER);
             String access = request.getHeader(Resource.CustomHeader.ACCOUNT_ACCESS_HEADER);
 
@@ -50,29 +52,18 @@ public @interface AccessCheck {
                 throw new UnauthorizationException(Message.ExceptionMessage.NOT_FOUND_ACCOUNT_ACCESS_IN_REQUEST, "token check service calling", "GET", null);
             }
 
-            String authorization = request.getHeader(Resource.CustomHeader.AUTHORIZE_HEADER);
-            if (authorization == null) {
-                throw new UnauthorizationException(Message.ExceptionMessage.NOT_FOUND_TOKEN_IN_REQUEST, "token check service calling", "GET", null);
-            }
-
-            String token = authorization.substring(authorization.indexOf(Resource.CustomHeader.AUTHORIZE_HEADER_PREFIX) + Resource.ExtendInfo.AUTHORIZE_BANNER_LENGTH);
-            if (token.isBlank() || token.isEmpty()) {
-                throw new UnauthorizationException(Message.ExceptionMessage.NOT_FOUND_TOKEN_IN_REQUEST, "token check service calling", "GET", null);
-            }
-
             // 获取注解所规定的权限
-            AccessCheck annotation = point
-                    .getTarget()
-                    .getClass()
-                    .getMethod(point.getSignature().getName(), getParameterTypes(point))
-                    .getAnnotation(AccessCheck.class);
+            MethodSignature signature = (MethodSignature) point.getSignature();
+            Object target = point.getTarget();
+            Method method = target.getClass().getMethod(signature.getName(), signature.getParameterTypes());
+            AccessCheck annotation = method.getAnnotation(AccessCheck.class);
 
-            Access[] willBeCheck = annotation.access();
+            List<Access> willBeCheck = List.of(annotation.access());
 
             // 检查权限
             List<Access> willBeMatch = mapper.readValue(access, listType);
 
-            if (!willBeMatch.containsAll(willBeMatch)) {
+            if (!willBeMatch.containsAll(willBeCheck)) {
                 throw new UnauthorizationException(Message.ExceptionMessage.PERMISSION_DENIED, "token check service calling", "GET", null);
             }
 
