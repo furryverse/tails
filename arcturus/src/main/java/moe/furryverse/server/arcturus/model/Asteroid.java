@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.List;
+
 /**
  * 小行星 对应的是具体到某个主题贴或者回复贴的一行文字的单评
  *
@@ -21,6 +23,6 @@ public record Asteroid(
         @Field("asteroid_id") @JsonProperty("asteroid_id") @NotNull @Id String asteroidId,
         @Field("galaxy_id") @JsonProperty("galaxy_id") @NotNull String galaxyId,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
-        @Field("content") @JsonProperty("content") @NotNull String content
+        @Field("contents") @JsonProperty("contents") @NotNull List<String> contents
 ) {
 }

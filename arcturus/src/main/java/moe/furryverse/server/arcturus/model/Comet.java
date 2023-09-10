@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.List;
+
 /**
  * 彗星 对应的是具体到某个主题贴或者回复贴的反应
  *
@@ -23,6 +25,6 @@ public record Comet(
         @Field("galaxy_id") @JsonProperty("galaxy_id") @NotNull String galaxyId,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("emoji") @JsonProperty("emoji") @NotNull String emoji,
-        @Field("content") @JsonProperty("content") @NotNull String content
+        @Field("contents") @JsonProperty("contents") @NotNull List<String> contents
 ) {
 }

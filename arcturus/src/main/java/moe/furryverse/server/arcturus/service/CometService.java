@@ -1,12 +1,16 @@
 package moe.furryverse.server.arcturus.service;
 
+import lombok.RequiredArgsConstructor;
 import moe.furryverse.server.arcturus.model.Comet;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CometService {
+    final TextService textService;
+
     public List<Comet> listComet() {
         return null;
     }

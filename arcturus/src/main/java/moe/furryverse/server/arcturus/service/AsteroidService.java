@@ -1,12 +1,16 @@
 package moe.furryverse.server.arcturus.service;
 
+import lombok.RequiredArgsConstructor;
 import moe.furryverse.server.arcturus.model.Asteroid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AsteroidService {
+    final TextService textService;
+
     public List<Asteroid> listAsteroid() {
         return null;
     }

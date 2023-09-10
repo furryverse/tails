@@ -5,6 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.List;
+
 /**
  * 行星 对应的是主题贴或者回复贴
  *
@@ -20,6 +22,6 @@ public record Planet(
         @Field("planet_id") @JsonProperty("planet_id") @NotNull String planetId,
         @Field("galaxy_id") @JsonProperty("galaxy_id") @NotNull String galaxyId,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
-        @Field("content") @JsonProperty("content") @NotNull String content
+        @Field("contents") @JsonProperty("contents") @NotNull List<String> contents
 ) {
 }
