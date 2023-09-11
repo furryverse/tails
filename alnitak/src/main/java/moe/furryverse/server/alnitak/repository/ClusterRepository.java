@@ -5,8 +5,12 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import java.util.List;
+
 public interface ClusterRepository extends MongoRepository<Cluster, String> {
     <S extends Cluster> @NotNull S save(@NotNull S cluster);
+
+    @NotNull List<Cluster> findAll();
 
     Cluster findByClusterId(String clusterId);
 

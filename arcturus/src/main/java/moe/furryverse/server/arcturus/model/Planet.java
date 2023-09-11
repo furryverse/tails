@@ -14,7 +14,7 @@ import java.util.List;
  * @param planetId  行星 ID
  * @param galaxyId  星系 ID
  * @param accountId 账户 ID
- * @param content   内容
+ * @param contents  内容
  */
 @Document("planets")
 public record Planet(

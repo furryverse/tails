@@ -15,7 +15,7 @@ import java.util.List;
  * @param asteroidId 小行星 ID
  * @param galaxyId   星系 ID
  * @param accountId  账户 ID
- * @param content    内容
+ * @param contents   内容
  */
 @Document("asteroids")
 public record Asteroid(

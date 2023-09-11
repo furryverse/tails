@@ -16,7 +16,6 @@ import java.util.List;
  * @param galaxyId      星系 ID
  * @param clusterId     星团 ID
  * @param title         主题标题
- * @param titleEdited   主题标题（编辑历史）
  * @param background    背景
  * @param nucleus       星核（主题标签）
  * @param viewers       未公开状态下可以查看帖子的用户
@@ -33,7 +32,6 @@ public record Galaxy(
         @Field("galaxy_id") @JsonProperty("galaxy_id") @NotNull @Id String galaxyId,
         @Field("cluster_id") @JsonProperty("cluster_id") @NotNull String clusterId,
         @Field("title") @JsonProperty("title") @NotNull String title,
-        @Field("title_edited") @JsonProperty("title_edited") @NotNull String titleEdited,
         @Field("background") @JsonProperty("background") @Nullable String background,
         @Field("nucleus") @JsonProperty("nucleus") @NotNull List<String> nucleus,
 
