@@ -9,19 +9,19 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.List;
 
 /**
- * 小行星 对应的是具体到某个主题贴或者回复贴的一行文字的单评
+ * 某个主题贴或者回复贴的一行文字的单评
  *
- * @param created    创建时间
- * @param asteroidId 小行星 ID
- * @param galaxyId   星系 ID
- * @param accountId  账户 ID
- * @param contents   内容
+ * @param created   创建时间
+ * @param thoughtId 单评 ID
+ * @param postId    帖子 ID
+ * @param accountId 账户 ID
+ * @param contents  内容
  */
-@Document("asteroids")
-public record Asteroid(
+@Document("thoughts")
+public record Thought(
         @Field("created") @JsonProperty("created") long created,
-        @Field("asteroid_id") @JsonProperty("asteroid_id") @NotNull @Id String asteroidId,
-        @Field("galaxy_id") @JsonProperty("galaxy_id") @NotNull String galaxyId,
+        @Field("thought_id") @JsonProperty("thought_id") @NotNull @Id String thoughtId,
+        @Field("post_id") @JsonProperty("post_id") @NotNull String postId,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents
 ) {

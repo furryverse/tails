@@ -8,54 +8,54 @@ import java.util.List;
 import java.util.Locale;
 
 public enum Access {
-    // Cluster
-    @JsonProperty("cluster.list") CLUSTER_LIST,
-    @JsonProperty("cluster.get") CLUSTER_GET,
-    @JsonProperty("cluster.create") CLUSTER_CREATE,
-    @JsonProperty("cluster.update") CLUSTER_UPDATE,
-    @JsonProperty("cluster.delete") CLUSTER_DELETE,
+    // Cluster Category
+    @JsonProperty("category.list") CATEGORY_LIST,
+    @JsonProperty("category.get") CATEGORY_GET,
+    @JsonProperty("category.create") CATEGORY_CREATE,
+    @JsonProperty("category.update") CATEGORY_UPDATE,
+    @JsonProperty("category.delete") CATEGORY_DELETE,
 
-    // Galaxy
-    @JsonProperty("galaxy.list") GALAXY_LIST,
-    @JsonProperty("galaxy.get") GALAXY_GET,
-    @JsonProperty("galaxy.create") GALAXY_CREATE,
-    @JsonProperty("galaxy.update") GALAXY_UPDATE,
-    @JsonProperty("galaxy.delete") GALAXY_DELETE,
+    // Galaxy Post
+    @JsonProperty("post.list") POST_LIST,
+    @JsonProperty("post.get") POST_GET,
+    @JsonProperty("post.create") POST_CREATE,
+    @JsonProperty("post.update") POST_UPDATE,
+    @JsonProperty("post.delete") POST_DELETE,
 
-    // Nucleus
-    @JsonProperty("nucleus.list") NUCLEUS_LIST,
-    @JsonProperty("nucleus.get") NUCLEUS_GET,
-    @JsonProperty("nucleus.create") NUCLEUS_CREATE,
-    @JsonProperty("nucleus.update") NUCLEUS_UPDATE,
-    @JsonProperty("nucleus.delete") NUCLEUS_DELETE,
+    // Nucleus Tag
+    @JsonProperty("tag.list") TAG_LIST,
+    @JsonProperty("tag.get") TAG_GET,
+    @JsonProperty("tag.create") TAG_CREATE,
+    @JsonProperty("tag.update") TAG_UPDATE,
+    @JsonProperty("tag.delete") TAG_DELETE,
 
-    // Asteroid
-    @JsonProperty("asteroid.list") ASTEROID_LIST,
-    @JsonProperty("asteroid.get") ASTEROID_GET,
-    @JsonProperty("asteroid.create") ASTEROID_CREATE,
-    @JsonProperty("asteroid.update") ASTEROID_UPDATE,
-    @JsonProperty("asteroid.delete") ASTEROID_DELETE,
+    // Asteroid Thought
+    @JsonProperty("thought.list") THOUGHT_LIST,
+    @JsonProperty("thought.get") THOUGHT_GET,
+    @JsonProperty("thought.create") THOUGHT_CREATE,
+    @JsonProperty("thought.update") THOUGHT_UPDATE,
+    @JsonProperty("thought.delete") THOUGHT_DELETE,
 
-    // Comet
-    @JsonProperty("comet.list") COMET_LIST,
-    @JsonProperty("comet.get") COMET_GET,
-    @JsonProperty("comet.create") COMET_CREATE,
-    @JsonProperty("comet.update") COMET_UPDATE,
-    @JsonProperty("comet.delete") COMET_DELETE,
+    // Comet Reaction
+    @JsonProperty("reaction.list") REACTION_LIST,
+    @JsonProperty("reaction.get") REACTION_GET,
+    @JsonProperty("reaction.create") REACTION_CREATE,
+    @JsonProperty("reaction.update") REACTION_UPDATE,
+    @JsonProperty("reaction.delete") REACTION_DELETE,
 
-    // Planet
-    @JsonProperty("planet.list") PLANET_LIST,
-    @JsonProperty("planet.get") PLANET_GET,
-    @JsonProperty("planet.create") PLANET_CREATE,
-    @JsonProperty("planet.update") PLANET_UPDATE,
-    @JsonProperty("planet.delete") PLANET_DELETE,
+    // Planet Comment
+    @JsonProperty("comment.list") COMMENT_LIST,
+    @JsonProperty("comment.get") COMMENT_GET,
+    @JsonProperty("comment.create") COMMENT_CREATE,
+    @JsonProperty("comment.update") COMMENT_UPDATE,
+    @JsonProperty("comment.delete") COMMENT_DELETE,
 
-    // Stardust
-    @JsonProperty("stardust.list") STARDUST_LIST,
-    @JsonProperty("stardust.get") STARDUST_GET,
-    @JsonProperty("stardust.create") STARDUST_CREATE,
-    @JsonProperty("stardust.update") STARDUST_UPDATE,
-    @JsonProperty("stardust.delete") STARDUST_DELETE,
+    // Stardust History
+    @JsonProperty("history.list") HISTORY_LIST,
+    @JsonProperty("history.get") HISTORY_GET,
+    @JsonProperty("history.create") HISTORY_CREATE,
+    @JsonProperty("history.update") HISTORY_UPDATE,
+    @JsonProperty("history.delete") HISTORY_DELETE,
 
     // File
     @JsonProperty("file.list") FILE_LIST,

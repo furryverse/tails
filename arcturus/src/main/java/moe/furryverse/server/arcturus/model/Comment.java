@@ -8,19 +8,19 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.List;
 
 /**
- * 行星 对应的是主题贴或者回复贴
+ * 回复贴
  *
  * @param created   创建时间
- * @param planetId  行星 ID
- * @param galaxyId  星系 ID
+ * @param commentId 回复 ID
+ * @param postId    帖子 ID
  * @param accountId 账户 ID
  * @param contents  内容
  */
-@Document("planets")
-public record Planet(
+@Document("comments")
+public record Comment(
         @Field("created") @JsonProperty("created") long created,
-        @Field("planet_id") @JsonProperty("planet_id") @NotNull String planetId,
-        @Field("galaxy_id") @JsonProperty("galaxy_id") @NotNull String galaxyId,
+        @Field("comment_id") @JsonProperty("comment_id") @NotNull String commentId,
+        @Field("post_id") @JsonProperty("post_id") @NotNull String postId,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents
 ) {

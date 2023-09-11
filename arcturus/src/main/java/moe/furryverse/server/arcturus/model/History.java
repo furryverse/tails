@@ -7,19 +7,18 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.List;
 
 /**
- * 星尘 对应的是具体到某个主题贴或者回复贴的 Diff 信息
+ * 主题贴或者回复贴的 Diff 信息
  *
- * @param created    创建时间
- * @param stardustId 星尘 ID
- * @param bindId     绑定的行星 ID
- * @param diffs      内容 Diff 信息
- * @param accountId  修改人账户 ID
+ * @param created   创建时间
+ * @param historyId 历史 ID
+ * @param bindId    绑定的单评或者回复 ID
+ * @param diffs     内容 Diff 信息
+ * @param accountId 修改人账户 ID
  */
-@SuppressWarnings("SpellCheckingInspection")
-@Document("stardusts")
-public record Stardust(
+@Document("histories")
+public record History(
         @Field("created") @JsonProperty("created") long created,
-        @Field("stardust_id") @JsonProperty("stardust_id") String stardustId,
+        @Field("history_id") @JsonProperty("history_id") String historyId,
         @Field("account_id") @JsonProperty("account_id") String accountId,
         @Field("bind_id") @JsonProperty("bind_id") String bindId,
         @Field("diffs") @JsonProperty("diffs") List<String> diffs

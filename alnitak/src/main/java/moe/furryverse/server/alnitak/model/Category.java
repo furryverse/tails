@@ -10,12 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.List;
 
 /**
- * 星团 对应的是板块 / 分区
+ * 板块 / 分区
  *
  * @param created          创建时间
- * @param clusterId        星团 ID
- * @param name             星团名称
- * @param icon             星团图标
+ * @param categoryId       分类 ID
+ * @param name             分类名称
+ * @param icon             分类图标
  * @param color            主题颜色
  * @param banner           横幅
  * @param bannerBackground 横幅背景
@@ -28,12 +28,12 @@ import java.util.List;
  * @param isPublic         是否公开 （公开的板块可以被所有人查看）
  * @param isLocked         是否锁定 （锁定的板块不允许发帖）
  */
-@Document("clusters")
-public record Cluster(
+@Document("categories")
+public record Category(
         // 基本信息
         @Field("created") @JsonProperty("created") long created,
-        @Field("cluster_id") @JsonProperty("cluster_id") @NotNull @Id String clusterId,
-        @Field("cluster_name") @JsonProperty("cluster_name") @NotNull String name,
+        @Field("category_id") @JsonProperty("category_id") @NotNull @Id String categoryId,
+        @Field("category_name") @JsonProperty("category_name") @NotNull String name,
         @Field("icon") @JsonProperty("icon") @NotNull String icon,
         @Field("color") @JsonProperty("color") @NotNull String color,
         @Field("banner") @JsonProperty("banner") @Nullable String banner,

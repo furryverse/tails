@@ -10,14 +10,14 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.List;
 
 /**
- * 星系 对应的是帖子 / 主题
+ * 帖子 / 主题
  *
  * @param created       创建时间
- * @param galaxyId      星系 ID
- * @param clusterId     星团 ID
+ * @param postId        帖子 ID
+ * @param categoryId    分类 ID
  * @param title         主题标题
  * @param background    背景
- * @param nucleus       星核（主题标签）
+ * @param tags          标签
  * @param viewers       未公开状态下可以查看帖子的用户
  * @param collaborators 可以编辑帖子的用户
  * @param isPublic      是否公开
@@ -25,15 +25,15 @@ import java.util.List;
  * @param isReviewing   是否正在审核
  * @param isArchived    是否已归档（不允许修改）
  */
-@Document("galaxies")
-public record Galaxy(
+@Document("posts")
+public record Post(
         // 基本信息
         @Field("created") @JsonProperty("created") long created,
-        @Field("galaxy_id") @JsonProperty("galaxy_id") @NotNull @Id String galaxyId,
-        @Field("cluster_id") @JsonProperty("cluster_id") @NotNull String clusterId,
+        @Field("post_id") @JsonProperty("post_id") @NotNull @Id String postId,
+        @Field("category_id") @JsonProperty("category_id") @NotNull @Id String categoryId,
         @Field("title") @JsonProperty("title") @NotNull String title,
         @Field("background") @JsonProperty("background") @Nullable String background,
-        @Field("nucleus") @JsonProperty("nucleus") @NotNull List<String> nucleus,
+        @Field("tags") @JsonProperty("tags") @NotNull List<String> tags,
 
         // 管理功能
         @Field("viewers") @JsonProperty("viewers") @NotNull List<String> viewers,
