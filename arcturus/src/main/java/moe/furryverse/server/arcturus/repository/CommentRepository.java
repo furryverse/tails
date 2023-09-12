@@ -10,12 +10,12 @@ import java.util.List;
 public interface CommentRepository extends MongoRepository<Comment, String> {
     <S extends Comment> @NotNull S save(@NotNull S comment);
 
-    Comment findByCommentId(String commentId);
+    Comment findByPostIdAndCommentId(String postId, String commentId);
 
     List<Comment> findByPostId(String postId);
 
-    @Query(value = "{ 'comment_id' : ?0 }")
-    Comment updateByCommentId(String commentId, Comment comment);
+    @Query(value = "{ 'post_id' : ?0, 'comment_id' : ?1 }")
+    Comment updateByPostIdAndCommentId(String postId, String commentId, Comment comment);
 
-    Comment deleteByCommentId(String commentId);
+    Comment deleteByPostIdAndCommentId(String postId, String commentId);
 }

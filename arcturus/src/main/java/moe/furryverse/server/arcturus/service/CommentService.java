@@ -21,39 +21,39 @@ public class CommentService {
         return commentRepository.findByPostId(postId);
     }
 
-    public Comment getComment(String accountId, String commentId) {
-        Comment comment = commentRepository.findByCommentId(commentId);
+    public Comment getComment(String accountId, String postId, String commentId) {
+        Comment comment = commentRepository.findByPostIdAndCommentId(postId, commentId);
         if (comment == null)
             throw new NotFoundDataException("could not find comment", "/api/v0/comment/" + commentId, "GET", accountId);
 
         return comment;
     }
 
-    public Comment createComment(String postId, String accountId, List<String> contents) {
-        Comment comment = new Comment(
+    public Comment createComment(String accountId, String postId, Comment comment) {
+        Comment join = new Comment(
                 Time.getMilliUnixTime(),
                 Random.uuid(),
                 postId,
                 accountId,
-                contents
+                comment.contents()
         );
 
-        return commentRepository.save(comment);
+        return commentRepository.save(join);
     }
 
-    public Comment updateComment(String commentId, Comment comment) {
-        Comment oldComment = commentRepository.findByCommentId(commentId);
+    public Comment updateComment(String postId, String commentId, Comment comment) {
+        Comment oldComment = commentRepository.findByPostIdAndCommentId(postId, commentId);
         if (oldComment == null)
             throw new NotFoundDataException("could not find comment", "/api/v0/comment/" + commentId, "PUT", comment.accountId());
 
-        List<String> diff = textService.unifiedDiff(oldComment.contents(), comment.contents());
+        List<String> diffs = textService.unifiedDiff(oldComment.contents(), comment.contents());
 
-        historyService.createHistory(comment.accountId(), commentId, diff);
-        return commentRepository.updateByCommentId(commentId, comment);
+        historyService.createHistory(comment.accountId(), postId, commentId, diffs);
+        return commentRepository.updateByPostIdAndCommentId(postId, commentId, comment);
     }
 
-    public Comment deleteComment(String accountId, String commentId) {
-        Comment comment = commentRepository.deleteByCommentId(commentId);
+    public Comment deleteComment(String accountId, String postId, String commentId) {
+        Comment comment = commentRepository.deleteByPostIdAndCommentId(postId, commentId);
         if (comment == null)
             throw new NotFoundDataException("could not find comment", "/api/v0/comment/" + commentId, "DELETE", accountId);
 

@@ -16,12 +16,12 @@ public class HistoryService {
     final TextService textService;
     final HistoryRepository historyRepository;
 
-    public List<History> listHistory(String bindId) {
-        return historyRepository.findByBindId(bindId);
+    public List<History> listHistory(String postId, String bindId) {
+        return historyRepository.findByPostIdAndBindId(postId, bindId);
     }
 
-    public History getHistory(String accountId, String historyId) {
-        History history = historyRepository.findByHistoryId(historyId);
+    public History getHistory(String accountId, String postId, String bindId, String historyId) {
+        History history = historyRepository.findByPostIdAndBindIdAndHistoryId(postId, bindId, historyId);
         if (history == null)
             throw new NotFoundDataException("could not find history", "/api/v0/history/" + historyId, "GET", accountId);
 
@@ -29,11 +29,12 @@ public class HistoryService {
     }
 
     @SuppressWarnings("UnusedReturnValue")
-    public History createHistory(String accountId, String bindId, List<String> diffs) {
+    public History createHistory(String accountId, String postId, String bindId, List<String> diffs) {
         History history = new History(
                 Time.getMilliUnixTime(),
                 Random.uuid(),
                 accountId,
+                postId,
                 bindId,
                 diffs
         );
@@ -42,8 +43,8 @@ public class HistoryService {
     }
 
 
-    public History deleteHistory(String accountId, String historyId) {
-        History history = historyRepository.deleteByHistoryId(historyId);
+    public History deleteHistory(String accountId, String postId, String bindId, String historyId) {
+        History history = historyRepository.deleteByPostIdAndBindIdAndHistoryId(postId, bindId, historyId);
         if (history == null)
             throw new NotFoundDataException("could not find history", "/api/v0/history/" + historyId, "DELETE", accountId);
 

@@ -10,12 +10,12 @@ import java.util.List;
 public interface ThoughtRepository extends MongoRepository<Thought, String> {
     <S extends Thought> @NotNull S save(@NotNull S thought);
 
-    Thought findByThoughtId(String thoughtId);
+    Thought findByPostIdAndThoughtId(String postId, String thoughtId);
 
     List<Thought> findByPostId(String postId);
 
-    @Query(value = "{ 'thought_id' : ?0 }")
-    Thought updateByThoughtId(String thoughtId, Thought thought);
+    @Query(value = "{ 'post_id': ?0, 'thought_id' : ?1 }")
+    Thought updateByPostIdAndThoughtId(String postId, String thoughtId, Thought thought);
 
-    Thought deleteByThoughtId(String thoughtId);
+    Thought deleteByPostIdAndThoughtId(String postId, String thoughtId);
 }

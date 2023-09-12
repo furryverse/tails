@@ -1,6 +1,7 @@
 package moe.furryverse.server.arcturus.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -20,6 +21,7 @@ public record History(
         @Field("created") @JsonProperty("created") long created,
         @Field("history_id") @JsonProperty("history_id") String historyId,
         @Field("account_id") @JsonProperty("account_id") String accountId,
+        @Field("post_id") @JsonProperty("post_id") @NotNull String postId,
         @Field("bind_id") @JsonProperty("bind_id") String bindId,
         @Field("diffs") @JsonProperty("diffs") List<String> diffs
 ) {

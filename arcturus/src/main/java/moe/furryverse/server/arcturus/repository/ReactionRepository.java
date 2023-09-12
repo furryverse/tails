@@ -9,9 +9,9 @@ import java.util.List;
 public interface ReactionRepository extends MongoRepository<Reaction, String> {
     <S extends Reaction> @NotNull S save(@NotNull S reaction);
 
-    Reaction findByReactionId(String reactionId);
+    Reaction findByPostIdAndReactionId(String postId, String reactionId);
 
     List<Reaction> findByPostId(String postId);
 
-    Reaction deleteByReactionId(String reactionId);
+    Reaction deleteByPostIdAndReactionId(String postId, String reactionId);
 }

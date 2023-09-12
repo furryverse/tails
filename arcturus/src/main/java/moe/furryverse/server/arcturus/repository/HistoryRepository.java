@@ -9,9 +9,9 @@ import java.util.List;
 public interface HistoryRepository extends MongoRepository<History, String> {
     <S extends History> @NotNull S save(@NotNull S history);
 
-    History findByHistoryId(String historyId);
+    History findByPostIdAndBindIdAndHistoryId(String postId, String bindId, String historyId);
 
-    History deleteByHistoryId(String historyId);
+    History deleteByPostIdAndBindIdAndHistoryId(String postId, String bindId, String historyId);
 
-    List<History> findByBindId(String bindId);
+    List<History> findByPostIdAndBindId(String postId, String bindId);
 }

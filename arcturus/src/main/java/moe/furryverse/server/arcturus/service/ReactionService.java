@@ -21,29 +21,29 @@ public class ReactionService {
         return reactionRepository.findByPostId(postId);
     }
 
-    public Reaction getReaction(String accountId, String reactionId) {
-        Reaction reaction = reactionRepository.findByReactionId(reactionId);
+    public Reaction getReaction(String accountId, String postId, String reactionId) {
+        Reaction reaction = reactionRepository.findByPostIdAndReactionId(postId, reactionId);
         if (reaction == null)
             throw new NotFoundDataException("could not find reaction", "/api/v0/reaction/" + reactionId, "GET", accountId);
 
         return reaction;
     }
 
-    public Reaction createReaction(String postId, String accountId, String emoji, String content) {
-        Reaction reaction = new Reaction(
+    public Reaction createReaction(String accountId, String postId, Reaction reaction) {
+        Reaction join = new Reaction(
                 Time.getMilliUnixTime(),
                 Random.uuid(),
                 postId,
                 accountId,
-                emoji,
-                content
+                reaction.emoji(),
+                reaction.content()
         );
 
-        return reactionRepository.save(reaction);
+        return reactionRepository.save(join);
     }
 
-    public Reaction deleteReaction(String accountId, String reactionId) {
-        Reaction reaction = reactionRepository.deleteByReactionId(reactionId);
+    public Reaction deleteReaction(String accountId, String postId, String reactionId) {
+        Reaction reaction = reactionRepository.deleteByPostIdAndReactionId(postId, reactionId);
         if (reaction == null)
             throw new NotFoundDataException("could not find reaction", "/api/v0/reaction/" + reactionId, "DELETE", accountId);
 
