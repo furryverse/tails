@@ -23,11 +23,16 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AccessCheck {
     Access[] access();
+
+    boolean requiredLogin() default true;
+
+    boolean requiredAllAccess() default true;
 
     @Aspect
     @Component
@@ -45,11 +50,21 @@ public @interface AccessCheck {
             String access = request.getHeader(Resource.CustomHeader.ACCOUNT_ACCESS_HEADER);
 
             if (id == null) {
-                throw new UnauthorizationException(Message.ExceptionMessage.NOT_FOUND_ACCOUNT_ID_IN_REQUEST, "token check service calling", "GET", null);
+                throw new UnauthorizationException(
+                        Message.ExceptionMessage.NOT_FOUND_ACCOUNT_ID_IN_REQUEST,
+                        "token check service calling",
+                        "GET",
+                        null
+                );
             }
 
             if (access == null) {
-                throw new UnauthorizationException(Message.ExceptionMessage.NOT_FOUND_ACCOUNT_ACCESS_IN_REQUEST, "token check service calling", "GET", null);
+                throw new UnauthorizationException(
+                        Message.ExceptionMessage.NOT_FOUND_ACCOUNT_ACCESS_IN_REQUEST,
+                        "token check service calling",
+                        "GET",
+                        null
+                );
             }
 
             // 获取注解所规定的权限
@@ -58,13 +73,31 @@ public @interface AccessCheck {
             Method method = target.getClass().getMethod(signature.getName(), signature.getParameterTypes());
             AccessCheck annotation = method.getAnnotation(AccessCheck.class);
 
+            if (annotation.requiredLogin() && Objects.equals(id, Resource.ExtendInfo.NOT_LOGIN_ACCOUNT_ID)) {
+                throw new UnauthorizationException(
+                        Message.ExceptionMessage.NOT_LOGIN,
+                        "token check service calling",
+                        "GET",
+                        null
+                );
+            }
+
             List<Access> willBeCheck = List.of(annotation.access());
 
             // 检查权限
             List<Access> willBeMatch = mapper.readValue(access, listType);
 
-            if (!willBeMatch.containsAll(willBeCheck)) {
-                throw new UnauthorizationException(Message.ExceptionMessage.PERMISSION_DENIED, "token check service calling", "GET", null);
+            boolean enoughAccess = annotation.requiredAllAccess()
+                    ? willBeMatch.containsAll(willBeCheck)
+                    : willBeCheck.stream().anyMatch(willBeMatch::contains);
+
+            if (!enoughAccess) {
+                throw new UnauthorizationException(
+                        Message.ExceptionMessage.PERMISSION_DENIED,
+                        "token check service calling",
+                        "GET",
+                        null
+                );
             }
 
             // 校验完成 继续执行业务代码

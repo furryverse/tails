@@ -28,6 +28,7 @@ public class Resource {
 
     public static class ExtendInfo {
         public static int AUTHORIZE_BANNER_LENGTH = 7;
+        public static int NOT_LOGIN_ACCOUNT_ID = -1;
     }
 
     public static class OAuthProvider {

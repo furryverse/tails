@@ -47,6 +47,7 @@ public class Message<T> {
 
 
     public static class ExceptionMessage {
+        public static final String NOT_LOGIN = "Required Login";
         public static final String NOT_FOUND_ACCOUNT_WITH_ID = "Could not find account with id";
         public static final String NOT_FOUND_ACCOUNT_ACCESS_IN_REQUEST = "Could not find account access in request";
         public static final String NOT_FOUND_ACCOUNT_WITH_USERNAME = "Could not find account with username";
