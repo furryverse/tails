@@ -6,8 +6,10 @@ import moe.furryverse.server.alnitak.repository.TagRepository;
 import moe.furryverse.server.common.exception.NotFoundDataException;
 import moe.furryverse.server.common.utils.Random;
 import moe.furryverse.server.common.utils.Time;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +19,15 @@ import java.util.List;
 public class TagService {
     final TagRepository tagRepository;
 
-    public List<Tag> listTag() {
-        Pageable pageable = PageRequest.of(0, 20);
+    public List<Tag> listTag(int page, int size) {
+        Pageable pageable = PageRequest.of(
+                page,
+                size == 0 ? 20 : Math.max(size, 20),
+                Sort.by(Sort.Order.desc("created"))
+        );
+        Page<Tag> pages = tagRepository.findAll(pageable);
 
-        return tagRepository.findTagOrderByCreated(pageable);
+        return pages.getContent();
     }
 
     public Tag getTag(String accountId, String tagId) {
@@ -60,5 +67,13 @@ public class TagService {
             throw new NotFoundDataException("could not find tag", "/api/v0/tag/" + tagId, "DELETE", accountId);
 
         return tag;
+    }
+
+    public boolean existsByTagId(String tagId) {
+        return tagRepository.existsByTagId(tagId);
+    }
+
+    public boolean existsByName(String name) {
+        return tagRepository.existsByName(name);
     }
 }

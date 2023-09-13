@@ -30,7 +30,7 @@ public record Post(
         // 基本信息
         @Field("created") @JsonProperty("created") long created,
         @Field("post_id") @JsonProperty("post_id") @NotNull @Id String postId,
-        @Field("category_id") @JsonProperty("category_id") @NotNull @Id String categoryId,
+        @Field("category_id") @JsonProperty("category_id") @NotNull String categoryId,
         @Field("title") @JsonProperty("title") @NotNull String title,
         @Field("background") @JsonProperty("background") @Nullable String background,
         @Field("tags") @JsonProperty("tags") @NotNull List<String> tags,

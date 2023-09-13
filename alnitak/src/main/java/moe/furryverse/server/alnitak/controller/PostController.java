@@ -17,8 +17,11 @@ public class PostController {
 
     @GetMapping("/post")
     @AccessCheck(access = {Access.POST_LIST})
-    public Message<?> listPost() {
-        return Message.success(postService.listPost());
+    public Message<?> listPost(
+            @RequestParam(value = "page", required = false) int page,
+            @RequestParam(value = "size", required = false) int size
+    ) {
+        return Message.success(postService.listPost(page, size));
     }
 
     @GetMapping("/post/{postId}")

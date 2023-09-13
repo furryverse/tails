@@ -34,9 +34,9 @@ public class CategoryService {
         Category join = new Category(
                 Time.getMilliUnixTime(),
                 Random.uuid(),
-                category.categoryId(),
                 category.name(),
                 category.icon(),
+                category.color(),
                 category.banner(),
                 category.bannerBackground(),
                 category.background(),
@@ -66,5 +66,13 @@ public class CategoryService {
             throw new NotFoundDataException("could not find category", "/api/v0/category/" + categoryId, "DELETE", accountId);
 
         return category;
+    }
+
+    public boolean existsByCategoryId(String categoryId) {
+        return categoryRepository.existsByCategoryId(categoryId);
+    }
+
+    public boolean existsByName(String name) {
+        return categoryRepository.existsByName(name);
     }
 }

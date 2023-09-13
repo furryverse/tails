@@ -18,4 +18,8 @@ public interface CategoryRepository extends MongoRepository<Category, String> {
     Category updateByCategoryId(String categoryId, Category category);
 
     Category deleteByCategoryId(String categoryId);
+
+    boolean existsByCategoryId(String categoryId);
+
+    boolean existsByName(String name);
 }

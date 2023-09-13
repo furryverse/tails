@@ -17,8 +17,11 @@ public class TagController {
 
     @GetMapping("/tag")
     @AccessCheck(access = {Access.TAG_LIST})
-    public Message<?> listTag() {
-        return Message.success(tagService.listTag());
+    public Message<?> listTag(
+            @RequestParam(value = "page", required = false) int page,
+            @RequestParam(value = "size", required = false) int size
+    ) {
+        return Message.success(tagService.listTag(page, size));
     }
 
     @GetMapping("/tag/{tagId}")
