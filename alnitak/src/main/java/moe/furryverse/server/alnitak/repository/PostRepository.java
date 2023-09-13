@@ -2,8 +2,11 @@ package moe.furryverse.server.alnitak.repository;
 
 import moe.furryverse.server.alnitak.model.Post;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
+
+import java.util.List;
 
 public interface PostRepository extends MongoRepository<Post, String> {
     <S extends Post> @NotNull S save(@NotNull S post);
@@ -14,4 +17,7 @@ public interface PostRepository extends MongoRepository<Post, String> {
     Post updateByPostId(String postId, Post post);
 
     Post deleteByPostId(String postId);
+
+    @Query(value = "{ 'is_public' : ?0, 'is_locked': ?1, 'is_reviewing': ?2, 'is_archived': ?3 }")
+    List<Post> findPostOrderByCreated(boolean isPublic, boolean isLocked, boolean isReviewing, boolean isArchived, Pageable pageable);
 }

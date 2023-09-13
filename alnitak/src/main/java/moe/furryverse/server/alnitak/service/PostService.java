@@ -6,6 +6,8 @@ import moe.furryverse.server.alnitak.repository.PostRepository;
 import moe.furryverse.server.common.exception.NotFoundDataException;
 import moe.furryverse.server.common.utils.Random;
 import moe.furryverse.server.common.utils.Time;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +18,9 @@ public class PostService {
     final PostRepository postRepository;
 
     public List<Post> listPost() {
-        return null;
+        Pageable pageable = PageRequest.of(0, 20);
+
+        return postRepository.findPostOrderByCreated(true, false, false, false, pageable);
     }
 
     public Post getPost(String accountId, String postId) {
@@ -29,33 +33,24 @@ public class PostService {
 
     public Post createPost(
             String accountId,
-            String categoryId,
-            String title,
-            String background,
-            List<String> tag,
-            List<String> viewers,
-            List<String> collaborators,
-            boolean isPublic,
-            boolean isLocked,
-            boolean isReviewing,
-            boolean isArchived
+            Post post
     ) {
-        Post post = new Post(
+        Post join = new Post(
                 Time.getMilliUnixTime(),
                 Random.uuid(),
-                categoryId,
-                title,
-                background,
-                tag,
-                viewers,
-                collaborators,
-                isPublic,
-                isLocked,
-                isReviewing,
-                isArchived
+                post.categoryId(),
+                post.title(),
+                post.background(),
+                post.tags(),
+                post.viewers(),
+                post.collaborators(),
+                post.isPublic(),
+                post.isLocked(),
+                post.isReviewing(),
+                post.isArchived()
         );
 
-        return postRepository.save(post);
+        return postRepository.save(join);
     }
 
     public Post updatePost(String accountId, String postId, Post post) {
@@ -63,7 +58,7 @@ public class PostService {
         if (oldPost == null)
             throw new NotFoundDataException("could not find post", "/api/v0/post/" + postId, "PUT", accountId);
 
-        return postRepository.save(post);
+        return postRepository.updateByPostId(postId, post);
     }
 
     public Post deletePost(String accountId, String postId) {

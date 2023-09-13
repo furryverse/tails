@@ -29,39 +29,27 @@ public class CategoryService {
 
     public Category createCategory(
             String accountId,
-            String categoryId,
-            String categoryName,
-            String icon,
-            String banner,
-            String bannerBackground,
-            String background,
-            String description,
-            List<String> reviewers,
-            List<String> administrators,
-            List<String> editors,
-            List<String> viewers,
-            boolean isPublic,
-            boolean isLocked
+            Category category
     ) {
-        Category category = new Category(
+        Category join = new Category(
                 Time.getMilliUnixTime(),
                 Random.uuid(),
-                categoryId,
-                categoryName,
-                icon,
-                banner,
-                bannerBackground,
-                background,
-                description,
-                reviewers,
-                administrators,
-                editors,
-                viewers,
-                isPublic,
-                isLocked
+                category.categoryId(),
+                category.name(),
+                category.icon(),
+                category.banner(),
+                category.bannerBackground(),
+                category.background(),
+                category.description(),
+                category.reviewers(),
+                category.administrators(),
+                category.editors(),
+                category.viewers(),
+                category.isPublic(),
+                category.isLocked()
         );
 
-        return categoryRepository.save(category);
+        return categoryRepository.save(join);
     }
 
     public Category updateCategory(String accountId, String categoryId, Category category) {

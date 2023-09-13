@@ -1,6 +1,8 @@
 package moe.furryverse.server.alnitak.controller;
 
+import lombok.RequiredArgsConstructor;
 import moe.furryverse.server.alnitak.model.Post;
+import moe.furryverse.server.alnitak.service.PostService;
 import moe.furryverse.server.common.annotation.AccessCheck;
 import moe.furryverse.server.common.content.Resource;
 import moe.furryverse.server.common.message.Message;
@@ -8,12 +10,15 @@ import moe.furryverse.server.common.security.Access;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v0")
 public class PostController {
+    final PostService postService;
+
     @GetMapping("/post")
     @AccessCheck(access = {Access.POST_LIST})
     public Message<?> listPost() {
-        return null;
+        return Message.success(postService.listPost());
     }
 
     @GetMapping("/post/{postId}")
@@ -22,17 +27,16 @@ public class PostController {
             @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER) String accountId,
             @PathVariable String postId
     ) {
-        return null;
+        return Message.success(postService.getPost(accountId, postId));
     }
 
-    @PostMapping("/post/{postId}")
+    @PostMapping("/post")
     @AccessCheck(access = {Access.POST_CREATE})
     public Message<?> createPost(
             @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER) String accountId,
-            @PathVariable String postId,
             @RequestBody Post post
     ) {
-        return null;
+        return Message.success(postService.createPost(accountId, post));
     }
 
     @PutMapping("/post/{postId}")
@@ -42,7 +46,7 @@ public class PostController {
             @PathVariable String postId,
             @RequestBody Post post
     ) {
-        return null;
+        return Message.success(postService.updatePost(accountId, postId, post));
     }
 
     @DeleteMapping("/post/{postId}")
@@ -51,6 +55,6 @@ public class PostController {
             @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER) String accountId,
             @PathVariable String postId
     ) {
-        return null;
+        return Message.success(postService.deletePost(accountId, postId));
     }
 }
