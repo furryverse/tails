@@ -7,3 +7,146 @@ steps:
     image: gradle:jdk17
     commands:
       - gradle bootJar -x test
+
+  - name: push-alnitak
+    image: plugins/docker
+    depends_on: [ build ]
+    settings:
+      registry: registry.furryverse.moe
+      repo: registry.furryverse.moe/furryverse/alnitak
+      dockerfile: alnitak/Dockerfile
+      use_cache: true
+      username: furryverse
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
+
+  - name: push-arcturus
+    image: plugins/docker
+    depends_on: [ build ]
+    settings:
+      registry: registry.furryverse.moe
+      repo: registry.furryverse.moe/furryverse/arcturus
+      dockerfile: arcturus/Dockerfile
+      use_cache: true
+      username: furryverse
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
+
+  - name: push-ascella
+    image: plugins/docker
+    depends_on: [ build ]
+    settings:
+      registry: registry.furryverse.moe
+      repo: registry.furryverse.moe/furryverse/ascella
+      dockerfile: ascella/Dockerfile
+      use_cache: true
+      username: furryverse
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
+
+  - name: push-borealis
+    image: plugins/docker
+    depends_on: [ build ]
+    settings:
+      registry: registry.furryverse.moe
+      repo: registry.furryverse.moe/furryverse/borealis
+      dockerfile: borealis/Dockerfile
+      use_cache: true
+      username: furryverse
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
+
+  - name: push-hecatebolus
+    image: plugins/docker
+    depends_on: [ build ]
+    settings:
+      registry: registry.furryverse.moe
+      repo: registry.furryverse.moe/furryverse/hecatebolus
+      dockerfile: hecatebolus/Dockerfile
+      use_cache: true
+      username: furryverse
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
+
+  - name: push-milkyway
+    image: plugins/docker
+    depends_on: [ build ]
+    settings:
+      registry: registry.furryverse.moe
+      repo: registry.furryverse.moe/furryverse/milkyway
+      dockerfile: milkyway/Dockerfile
+      use_cache: true
+      username: furryverse
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
+
+  - name: push-mira
+    image: plugins/docker
+    depends_on: [ build ]
+    settings:
+      registry: registry.furryverse.moe
+      repo: registry.furryverse.moe/furryverse/mira
+      dockerfile: mira/Dockerfile
+      use_cache: true
+      username: furryverse
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
+
+  - name: push-nanto
+    image: plugins/docker
+    depends_on: [ build ]
+    settings:
+      registry: registry.furryverse.moe
+      repo: registry.furryverse.moe/furryverse/nanto
+      dockerfile: nanto/Dockerfile
+      use_cache: true
+      username: furryverse
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
+
+  - name: push-naos
+    image: plugins/docker
+    depends_on: [ build ]
+    settings:
+      registry: registry.furryverse.moe
+      repo: registry.furryverse.moe/furryverse/naos
+      dockerfile: naos/Dockerfile
+      use_cache: true
+      username: furryverse
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
+
+  - name: push-nunki
+    image: plugins/docker
+    depends_on: [ build ]
+    settings:
+      registry: registry.furryverse.moe
+      repo: registry.furryverse.moe/furryverse/nunki
+      dockerfile: nunki/Dockerfile
+      use_cache: true
+      username: furryverse
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
+
+  - name: push-polis
+    image: plugins/docker
+    depends_on: [ build ]
+    settings:
+      registry: registry.furryverse.moe
+      repo: registry.furryverse.moe/furryverse/polis
+      dockerfile: polis/Dockerfile
+      use_cache: true
+      username: furryverse
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true

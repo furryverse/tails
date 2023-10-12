@@ -1,0 +1,25 @@
+# server
+server.port: 10002
+
+# spring
+spring.application.name: ascella
+
+# consul config
+spring.cloud.consul.enabled: true
+spring.cloud.consul.host: ${CONSUL_HOST}
+spring.cloud.consul.port: ${CONSUL_PORT}
+spring.cloud.consul.config.acl-token: ${CONSUL_ACL_TOKEN}
+spring.cloud.consul.config.default-context: application
+spring.cloud.consul.config.data-key: data
+spring.cloud.consul.config.format: yaml
+
+# consul discovery
+spring.cloud.consul.discovery.enabled: true
+spring.cloud.consul.discovery.acl-token: ${CONSUL_ACL_TOKEN}
+spring.cloud.consul.discovery.service-name: ${spring.application.name}
+spring.cloud.consul.discovery.instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+spring.cloud.consul.discovery.ip-address=: ${CONSUL_DISCOVERY_IP}
+spring.cloud.consul.discovery.prefer-ip-address: true
+spring.cloud.consul.discovery.health-check-path: /actuator/health
+spring.cloud.consul.discovery.health-check-interval: 10s
+spring.cloud.consul.discovery.query-passing: true

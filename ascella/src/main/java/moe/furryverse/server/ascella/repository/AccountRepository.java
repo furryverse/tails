@@ -1,0 +1,33 @@
+package moe.furryverse.server.ascella.repository;
+
+import moe.furryverse.server.common.model.Account;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+
+public interface AccountRepository extends MongoRepository<Account, String> {
+    <S extends Account> @NotNull S save(@NotNull S account);
+
+    // 根据 uid 查找和删除
+    Account findByAccountId(@NotNull String accountId);
+
+    Account deleteByAccountId(@NotNull String accountId);
+
+    // 根据 email 查找和删除
+    Account findByEmail(@NotNull String email);
+
+    Account deleteByEmail(@NotNull String email);
+
+    // 根据 username 查找
+    Account findByUsername(@NotNull String username);
+
+    // 查询是否存在 email
+    boolean existsByEmail(@NotNull String email);
+
+    // 查询是否存在 username
+    boolean existsByUsername(@NotNull String username);
+
+    // 更新
+    @Query("{'accountId': ?0}")
+    Account updateByAccountId(@NotNull String accountId, Account account);
+}
