@@ -8,22 +8,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class AccessService {
-    final RedisTemplate<String, HashMap<String, Session>> sessions;
+    // token - Session
+    final RedisTemplate<String, Session> sessions;
+    // account id - token
+    final RedisTemplate<String, List<String>> indexes;
 
-    public boolean check(String token, String accountId, List<Access> access) {
-        if (token == null || accountId == null) return false;
-
-        // 获取会话
-        Map<String, Session> set = sessions.opsForValue().get(accountId);
-        if (set == null) return false;
+    public boolean check(String token, List<Access> access) {
+        if (token == null) return false;
 
         // 获取会话中的令牌
-        Session session = set.get(token);
+        Session session = sessions.opsForValue().get(token);
         if (session == null) return false;
 
         // 检查令牌是否过期
@@ -33,30 +31,29 @@ public class AccessService {
         return session.token().access().containsAll(access);
     }
 
-    public boolean check(String token, String accountId, Access access) {
-        return check(token, accountId, List.of(access));
+    public boolean check(String token, Access access) {
+        return check(token, List.of(access));
     }
 
     public List<Session> getSession(String accountId) {
-        // 获取会话
-        Map<String, Session> set = sessions.opsForValue().get(accountId);
+        List<String> index = indexes.opsForValue().get(accountId);
+        if (index == null) return List.of();
 
-        // 只需要列表
-        return set == null ? null : List.copyOf(set.values());
+        return sessions.opsForValue().multiGet(index);
     }
 
-    public Session revokeSession(String token, String accountId) {
-        HashMap<String, Session> set = sessions.opsForValue().get(accountId);
-        if (set == null) return null;
+    public Session revokeSession(String token) {
+        Session session = sessions.opsForValue().get(token);
+        if (session == null) return null;
 
-        Session session = set.remove(token);
+        String accountId = session.token().belong();
+        List<String> index = indexes.opsForValue().get(accountId);
+        if (index == null) return null;
 
-        if (session == null) {
-            return null;
-        } else {
-            // 需要回写 Redis 更新会话信息
-            sessions.opsForValue().set(accountId, set);
-            return session;
-        }
+        index.remove(token);
+        indexes.opsForValue().set(accountId, index);
+        sessions.delete(token);
+
+        return session;
     }
 }

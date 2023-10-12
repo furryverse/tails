@@ -23,18 +23,18 @@ public class AccessController {
     /**
      * 校验权限
      *
-     * @param accountId 请求的账户 ID
      * @param access    请求的权限
      * @return 是否有权限
      */
     @PostMapping("/access")
     public Message<?> access(
-            @RequestHeader(value = Resource.CustomHeader.AUTHORIZE_HEADER) String token,
-            @RequestHeader(value = Resource.CustomHeader.ACCOUNT_ID_HEADER) String accountId,
+            @RequestHeader(value = Resource.CustomHeader.AUTHORIZE_HEADER) String authorization,
             @RequestBody List<Access> access
     ) {
+        String token = authorization.substring(Resource.CustomHeader.AUTHORIZE_HEADER_PREFIX.length());
+
         return Message.success(
-                Map.of("access", accessService.check(token, accountId, access))
+                Map.of("access", accessService.check(token, access))
         );
     }
 }

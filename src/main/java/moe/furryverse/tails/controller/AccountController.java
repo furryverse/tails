@@ -89,7 +89,7 @@ public class AccountController {
             throw new UnauthorizationException(Message.ReturnMessage.UNAUTHORIZED, "/account/" + id + "/session", "DELETE", accountId);
         }
 
-        Session session = accessService.revokeSession(token, id);
+        Session session = accessService.revokeSession(token);
         if (session == null) {
             throw new NotFoundDataException(Message.ReturnMessage.NOT_FOUND, "/account/" + id + "/session", "DELETE", accountId);
         }

@@ -3,11 +3,13 @@ package moe.furryverse.tails.annotation;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import moe.furryverse.tails.content.Resource;
 import moe.furryverse.tails.exception.UnauthorizationException;
 import moe.furryverse.tails.message.Message;
 import moe.furryverse.tails.security.Access;
+import moe.furryverse.tails.service.AccessService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,7 +25,6 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
@@ -36,8 +37,10 @@ public @interface AccessCheck {
 
     @Aspect
     @Component
+    @RequiredArgsConstructor
     @SuppressWarnings("all")
     public class AccessChecker {
+        final AccessService accessService;
         static ObjectMapper mapper = new ObjectMapper();
         static JavaType listType = mapper.getTypeFactory().constructParametricType(ArrayList.class, Access.class);
 
@@ -46,26 +49,17 @@ public @interface AccessCheck {
         public Message<?> check(ProceedingJoinPoint point) {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
-            String id = request.getHeader(Resource.CustomHeader.ACCOUNT_ID_HEADER);
-            String access = request.getHeader(Resource.CustomHeader.ACCOUNT_ACCESS_HEADER);
-
-            if (id == null) {
+            String authorization = request.getHeader(Resource.CustomHeader.AUTHORIZE_HEADER);
+            if (authorization == null || !authorization.startsWith(Resource.CustomHeader.AUTHORIZE_HEADER_PREFIX)) {
                 throw new UnauthorizationException(
-                        Message.ExceptionMessage.NOT_FOUND_ACCOUNT_ID_IN_REQUEST,
+                        Message.ExceptionMessage.NOT_FOUND_TOKEN_IN_REQUEST,
                         "token check service calling",
                         "GET",
                         null
                 );
             }
 
-            if (access == null) {
-                throw new UnauthorizationException(
-                        Message.ExceptionMessage.NOT_FOUND_ACCOUNT_ACCESS_IN_REQUEST,
-                        "token check service calling",
-                        "GET",
-                        null
-                );
-            }
+            String token = authorization.substring(Resource.CustomHeader.AUTHORIZE_HEADER_PREFIX.length());
 
             // 获取注解所规定的权限
             MethodSignature signature = (MethodSignature) point.getSignature();
@@ -73,25 +67,10 @@ public @interface AccessCheck {
             Method method = target.getClass().getMethod(signature.getName(), signature.getParameterTypes());
             AccessCheck annotation = method.getAnnotation(AccessCheck.class);
 
-            if (annotation.requiredLogin() && Objects.equals(id, Resource.ExtendInfo.NOT_LOGIN_ACCOUNT_ID)) {
-                throw new UnauthorizationException(
-                        Message.ExceptionMessage.NOT_LOGIN,
-                        "token check service calling",
-                        "GET",
-                        null
-                );
-            }
-
             List<Access> willBeCheck = List.of(annotation.access());
 
-            // 检查权限
-            List<Access> willBeMatch = mapper.readValue(access, listType);
-
-            boolean enoughAccess = annotation.requiredAllAccess()
-                    ? willBeMatch.containsAll(willBeCheck)
-                    : willBeCheck.stream().anyMatch(willBeMatch::contains);
-
-            if (!enoughAccess) {
+            // 检测权限
+            if (!accessService.check(token, willBeCheck)) {
                 throw new UnauthorizationException(
                         Message.ExceptionMessage.PERMISSION_DENIED,
                         "token check service calling",
