@@ -1,22 +1,11 @@
 package moe.furryverse.tails.content;
 
 public class Resource {
-    public static class ServiceName {
-        public static final String POST_SERVICE = "alnitak";
-        public static final String COMMENT_SERVICE = "ascella";
-        public static final String ACCOUNT_SERVICE = "ascella";
-        @SuppressWarnings("SpellCheckingInspection")
-        public static final String MANAGER_SERVICE = "borealis";
-        @SuppressWarnings("SpellCheckingInspection")
-        public static final String FILE_SERVICE = "hecatebolus";
-        public static final String FRIEND_SERVICE = "mira";
-        @SuppressWarnings("SpellCheckingInspection")
-        public static final String MAP_SERVICE = "naos";
-        @SuppressWarnings("SpellCheckingInspection")
-        public static final String CHAT_SERVICE = "nanto";
-        public static final String GATEWAYS_SERVICE = "nunki";
-        @SuppressWarnings("SpellCheckingInspection")
-        public static final String PUSH_SERVICE = "polis";
+    public static class Info {
+        public static final String VERSION = "1.0.0";
+        public static final String NAME = "Tails";
+        public static final String OPEN_SOURCE_LICENSE = "Apache 2.0";
+        public static final String OPEN_SOURCE_REPO = "https://github.com/furryverse/tails";
     }
 
     public static class CustomHeader {
