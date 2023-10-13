@@ -3,7 +3,6 @@ package moe.furryverse.tails.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -32,7 +31,7 @@ import java.util.List;
 public record Category(
         // 基本信息
         @Field("created") @JsonProperty("created") long created,
-        @Field("category_id") @JsonProperty("category_id") @NotNull @Id String categoryId,
+        @Field("category_id") @JsonProperty("category_id") @NotNull String categoryId,
         @Field("category_name") @JsonProperty("category_name") @NotNull String name,
         @Field("icon") @JsonProperty("icon") @NotNull String icon,
         @Field("color") @JsonProperty("color") @NotNull String color,

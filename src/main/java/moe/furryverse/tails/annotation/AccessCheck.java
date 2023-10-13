@@ -40,9 +40,9 @@ public @interface AccessCheck {
     @RequiredArgsConstructor
     @SuppressWarnings("all")
     public class AccessChecker {
-        final AccessService accessService;
         static ObjectMapper mapper = new ObjectMapper();
         static JavaType listType = mapper.getTypeFactory().constructParametricType(ArrayList.class, Access.class);
+        final AccessService accessService;
 
         @SneakyThrows
         @Around(value = "@annotation(moe.furryverse.tails.annotation.AccessCheck)")
@@ -70,13 +70,26 @@ public @interface AccessCheck {
             List<Access> willBeCheck = List.of(annotation.access());
 
             // 检测权限
-            if (!accessService.check(token, willBeCheck)) {
-                throw new UnauthorizationException(
-                        Message.ExceptionMessage.PERMISSION_DENIED,
-                        "token check service calling",
-                        "GET",
-                        null
-                );
+            if (!annotation.requiredAllAccess()) {
+                if (!accessService.check(token, willBeCheck)) {
+                    throw new UnauthorizationException(
+                            Message.ExceptionMessage.PERMISSION_DENIED,
+                            "token check service calling",
+                            "GET",
+                            null
+                    );
+                }
+            } else {
+                for (Access access : willBeCheck) {
+                    if (!accessService.check(token, access)) {
+                        throw new UnauthorizationException(
+                                Message.ExceptionMessage.PERMISSION_DENIED,
+                                "token check service calling",
+                                "GET",
+                                null
+                        );
+                    }
+                }
             }
 
             // 校验完成 继续执行业务代码

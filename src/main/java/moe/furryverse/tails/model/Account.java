@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
@@ -22,7 +21,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param isPublic    是否公开
  */
 public record Account(
-        @Field("account_id") @JsonProperty("account_id") @NotNull @Id String accountId,
+        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("created") @JsonProperty("created") long created,
         @Field("username") @JsonProperty("username") @NotNull String username,
         @Field("nickname") @JsonProperty("nickname") @NotNull String nickname,

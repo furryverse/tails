@@ -23,7 +23,7 @@ public class AccessController {
     /**
      * 校验权限
      *
-     * @param access    请求的权限
+     * @param access 请求的权限
      * @return 是否有权限
      */
     @PostMapping("/access")

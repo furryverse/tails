@@ -2,7 +2,6 @@ package moe.furryverse.tails.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -19,7 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document("reactions")
 public record Reaction(
         @Field("created") @JsonProperty("created") long created,
-        @Field("reaction_id") @JsonProperty("reaction_id") @NotNull @Id String reactionId,
+        @Field("reaction_id") @JsonProperty("reaction_id") @NotNull String reactionId,
         @Field("post_id") @JsonProperty("post_id") @NotNull String postId,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("emoji") @JsonProperty("emoji") @NotNull String emoji,

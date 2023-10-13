@@ -3,7 +3,6 @@ package moe.furryverse.tails.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -29,7 +28,7 @@ import java.util.List;
 public record Post(
         // 基本信息
         @Field("created") @JsonProperty("created") long created,
-        @Field("post_id") @JsonProperty("post_id") @NotNull @Id String postId,
+        @Field("post_id") @JsonProperty("post_id") @NotNull String postId,
         @Field("category_id") @JsonProperty("category_id") @NotNull String categoryId,
         @Field("title") @JsonProperty("title") @NotNull String title,
         @Field("background") @JsonProperty("background") @Nullable String background,
