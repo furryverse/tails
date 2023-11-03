@@ -1,4 +1,4 @@
-package moe.furryverse.tails.server;
+package moe.furryverse.tails.chat;
 
 import jakarta.websocket.server.ServerEndpoint;
 import moe.furryverse.tails.service.GroupService;
