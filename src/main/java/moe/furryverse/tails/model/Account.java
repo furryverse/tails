@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
@@ -20,6 +21,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param description 个人简介
  * @param isPublic    是否公开
  */
+@Document("accounts")
 public record Account(
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("created") @JsonProperty("created") long created,
