@@ -37,7 +37,7 @@ dependencies {
 
 	// minio
 	implementation("io.minio:minio:8.5.5")
-	@Suppress("SpellCheckingInspection") implementation("com.squareup.okhttp3:okhttp:4.11.0")
+	implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
 	// text diff
 	implementation("io.github.java-diff-utils:java-diff-utils:4.12")
@@ -50,8 +50,8 @@ dependencies {
 	implementation("org.jetbrains:annotations:24.0.1")
 
 	// lombok
-	@Suppress("SpellCheckingInspection") compileOnly("org.projectlombok:lombok")
-	@Suppress("SpellCheckingInspection") annotationProcessor("org.projectlombok:lombok")
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
 }
 
 tasks.withType<Test> {
