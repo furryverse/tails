@@ -7,6 +7,8 @@ import org.jetbrains.annotations.Nullable;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.io.File;
+
 /**
  * 用户账户
  *
@@ -18,8 +20,13 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param background  背景图片
  * @param color       主题颜色
  * @param email       邮箱
+ * @param password    密码
  * @param description 个人简介
  * @param isPublic    是否公开
+ * @param isBan       是否禁用账户
+ * @param isDeleted   账号是否进行了删除
+ * @param isVerified  账户是否已经通过邮件验证
+ * @param unbanTime   结束禁用账户的时间
  */
 @Document("accounts")
 public record Account(
@@ -34,8 +41,11 @@ public record Account(
         @Field("description") @JsonProperty("description") @Nullable String description,
         @Field("is_public") @JsonProperty("is_public") boolean isPublic,
         @Field("is_ban") @JsonProperty("is_ban") boolean isBan,
+        @Field("is_verified") @JsonProperty("verified") boolean isVerified,
 
         // 需要过滤一部分字段的信息
+        // 有点笨 什么时候来去掉密码 wq
+        @Field("password") @JsonIgnore String password,
         @Field("unban_time") @JsonIgnore long unbanTime,
         @Field("is_deleted") @JsonIgnore boolean isDeleted
 ) {
