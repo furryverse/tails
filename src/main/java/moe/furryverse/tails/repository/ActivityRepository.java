@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface ActivityRepository extends MongoRepository<Activity, String> {
     @NotNull <S extends Activity> S save(@NotNull S activity);
+
     Activity findByActivityId(@NotNull String activityId);
+
     Activity deleteByActivityId(@NotNull String activityId);
 }
