@@ -13,17 +13,18 @@ public class TailsRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         log.info(
                 """
-                                
-                ___________      .__.__                 \s
-                \\__    ___/____  |__|  |   ______      \s
-                  |    |  \\__  \\ |  |  |  /  ___/     \s
-                  |    |   / __ \\|  |  |__\\___ \\     \s
-                  |____|  (____  /__|____/____  >       \s
-                               \\/             \\/      \s
-                               
-                Furryverse Open Source.
-                EMail: opensource@furryverse.moe
-                """
+                                                
+                        ___________      .__.__                 \s
+                        \\__    ___/____  |__|  |   ______      \s
+                          |    |  \\__  \\ |  |  |  /  ___/     \s
+                          |    |   / __ \\|  |  |__\\___ \\     \s
+                          |____|  (____  /__|____/____  >       \s
+                                      \\/             \\/      \s
+                                               
+                        Furryverse Open Source.
+                        EMail: opensource@furryverse.moe
+                                        
+                        """
         );
     }
 }

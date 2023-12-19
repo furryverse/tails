@@ -64,6 +64,8 @@ public class AccountService {
                 account.description() != null ? account.description() : oldAccount.description(),
                 account.isPublic(),
                 account.isBan(),
+                oldAccount.isVerified(),
+                oldAccount.password(),
                 oldAccount.unbanTime(),
                 oldAccount.isDeleted()
         );
