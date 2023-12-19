@@ -1,0 +1,31 @@
+package moe.furryverse.tails.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.util.List;
+
+/**
+ * 活动
+ *
+ * @param activityId  活动唯一 ID
+ * @param created     创建时间
+ * @param accountId   创建账户
+ * @param title       标题
+ * @param description 描述
+ * @param cover       封面
+ * @param contents    活动内容
+ */
+@Document("activities")
+public record Activity(
+        @Field("activity_id") @JsonProperty("activity_id") String activityId,
+        @Field("created") @JsonProperty("created") long created,
+        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("title") @JsonProperty("title") @NotNull String title,
+        @Field("description") @JsonProperty("description") @NotNull String description,
+        @Field("cover") @JsonProperty("cover") String cover,
+        @Field("contents") @JsonProperty("contents") @NotNull List<String> contents
+) {
+}

@@ -8,23 +8,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
- * * 用户账户
- * *
- * * @param accountId   用户唯一 ID
- * * @param created     创建时间
- * * @param username    用户唯一用户名
- * * @param nickname    昵称
- * * @param avatar      头像
- * * @param background  背景图片
- * * @param color       主题颜色
- * * @param email       邮箱
- * * @param password    密码
- * * @param description 个人简介
- * * @param isPublic    是否公开
- * * @param isBan       是否禁用账户
- * * @param isDeleted   账号是否进行了删除
- * * @param isVerified  账户是否已经通过邮件验证
- * * @param unbanTime   结束禁用账户的时间
+ * 用户账户
+ *
+ * @param accountId   用户唯一 ID
+ * @param created     创建时间
+ * @param username    用户唯一用户名
+ * @param nickname    昵称
+ * @param avatar      头像
+ * @param background  背景图片
+ * @param color       主题颜色
+ * @param email       邮箱
+ * @param password    密码
+ * @param description 个人简介
+ * @param isPublic    是否公开
+ * @param isBan       是否禁用账户
+ * @param isDeleted   账号是否进行了删除
+ * @param isVerified  账户是否已经通过邮件验证
+ * @param unbanTime   结束禁用账户的时间
  */
 @Document("accounts")
 public record Account(
