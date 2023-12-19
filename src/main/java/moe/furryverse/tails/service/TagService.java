@@ -58,7 +58,7 @@ public class TagService {
         if (tag1 == null)
             throw new NotFoundDataException("could not find tag", "/api/v0/tag/" + tagId, "PUT", accountId);
 
-        return tagRepository.updateByTagId(tagId, tag);
+        return tagRepository.save(tag);
     }
 
     public Tag deleteTag(String accountId, String tagId) {

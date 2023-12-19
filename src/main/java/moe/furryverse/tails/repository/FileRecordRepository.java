@@ -3,7 +3,6 @@ package moe.furryverse.tails.repository;
 import moe.furryverse.tails.model.FileRecord;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 
@@ -13,9 +12,6 @@ public interface FileRecordRepository extends MongoRepository<FileRecord, String
     @NotNull FileRecord findByFileId(@NotNull String fileId);
 
     FileRecord deleteByFileIdAndAccountId(@NotNull String fileId, @NotNull String accountId);
-
-    @Query("{'fid': ?0}")
-    FileRecord updateByFid(@NotNull String fileId, @NotNull FileRecord fileRecord);
 
     List<FileRecord> findAllByAccountId(@NotNull String accountId);
 }

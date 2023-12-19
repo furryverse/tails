@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface HistoryRepository extends MongoRepository<History, String> {
-    <S extends History> @NotNull S save(@NotNull S history);
+    <S extends History> @NotNull S insert(@NotNull S history);
 
     History findByPostIdAndBindIdAndHistoryId(String postId, String bindId, String historyId);
 

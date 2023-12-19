@@ -49,7 +49,9 @@ public class CommentService {
         List<String> diffs = textService.unifiedDiff(oldComment.contents(), comment.contents());
 
         historyService.createHistory(comment.accountId(), postId, commentId, diffs);
-        return commentRepository.updateByPostIdAndCommentId(postId, commentId, comment);
+
+        // todo: 这里的更新必须使用 postId commentId 才能够准确更新
+        return commentRepository.save(comment);
     }
 
     public Comment deleteComment(String accountId, String postId, String commentId) {

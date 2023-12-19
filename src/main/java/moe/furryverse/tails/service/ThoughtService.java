@@ -49,7 +49,7 @@ public class ThoughtService {
         List<String> diffs = textService.unifiedDiff(oldThought.contents(), thought.contents());
 
         historyService.createHistory(thought.accountId(), postId, thoughtId, diffs);
-        return thoughtRepository.updateByPostIdAndThoughtId(postId, thoughtId, thought);
+        return thoughtRepository.save(thought);
     }
 
     public Thought deleteThought(String accountId, String postId, String thoughtId) {

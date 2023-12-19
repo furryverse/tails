@@ -3,7 +3,6 @@ package moe.furryverse.tails.repository;
 import moe.furryverse.tails.model.Account;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 
 public interface AccountRepository extends MongoRepository<Account, String> {
     <S extends Account> @NotNull S save(@NotNull S account);
@@ -26,8 +25,4 @@ public interface AccountRepository extends MongoRepository<Account, String> {
 
     // 查询是否存在 username
     boolean existsByUsername(@NotNull String username);
-
-    // 更新
-    @Query("{'accountId': ?0}")
-    Account updateByAccountId(@NotNull String accountId, Account account);
 }

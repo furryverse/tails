@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface ReactionRepository extends MongoRepository<Reaction, String> {
-    <S extends Reaction> @NotNull S save(@NotNull S reaction);
+    <S extends Reaction> @NotNull S insert(@NotNull S reaction);
 
     Reaction findByPostIdAndReactionId(String postId, String reactionId);
 

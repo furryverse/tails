@@ -70,6 +70,6 @@ public class AccountService {
                 oldAccount.isDeleted()
         );
 
-        return accountRepository.updateByAccountId(accountId, newAccount);
+        return accountRepository.save(newAccount);
     }
 }

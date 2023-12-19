@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface OAuthRepository extends MongoRepository<OAuth, String> {
-    <S extends OAuth> @NotNull S save(@NotNull S oauth);
+    <S extends OAuth> @NotNull S insert(@NotNull S oauth);
 
     // 根据 uid 查找和删除
     OAuth findByAccountId(@NotNull String accountId);

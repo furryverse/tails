@@ -12,9 +12,6 @@ public interface PostRepository extends MongoRepository<Post, String> {
 
     Post findByPostId(String postId);
 
-    @Query(value = "{ 'post_id' : ?0 }")
-    Post updateByPostId(String postId, Post post);
-
     Post deleteByPostId(String postId);
 
     boolean existsByPostId(String postId);

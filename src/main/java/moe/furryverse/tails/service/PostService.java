@@ -65,7 +65,7 @@ public class PostService {
         if (oldPost == null)
             throw new NotFoundDataException("could not find post", "/api/v0/post/" + postId, "PUT", accountId);
 
-        return postRepository.updateByPostId(postId, post);
+        return postRepository.save(post);
     }
 
     public Post deletePost(String accountId, String postId) {

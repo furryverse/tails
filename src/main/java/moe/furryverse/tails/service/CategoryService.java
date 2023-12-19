@@ -57,7 +57,7 @@ public class CategoryService {
         if (old == null)
             throw new NotFoundDataException("could not find category", "/api/v0/category/" + categoryId, "PUT", accountId);
 
-        return categoryRepository.updateByCategoryId(categoryId, category);
+        return categoryRepository.save(category);
     }
 
     public Category deleteCategory(String accountId, String categoryId) {
