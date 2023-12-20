@@ -4,10 +4,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.List;
+
+/**
+ * 店铺
+ *
+ * @param shopId    店铺 ID
+ * @param created   创建时间
+ * @param accountId 创建的账户
+ * @param name      店铺名称
+ * @param cover     店铺封面
+ * @param tags      标签
+ * @param contents  详细介绍内容
+ */
 @Document("shops")
 public record Shop(
         @Field("shop_id") @JsonProperty("shop_id") String shopId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") String accountId
+        @Field("account_id") @JsonProperty("account_id") String accountId,
+        @Field("name") @JsonProperty("name") String name,
+        @Field("cover") @JsonProperty("cover") String cover,
+        @Field("tags") @JsonProperty("tags") List<String> tags,
+        @Field("contents") @JsonProperty("contents") List<String> contents
 ) {
 }
