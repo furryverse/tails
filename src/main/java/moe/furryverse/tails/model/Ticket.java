@@ -1,5 +1,6 @@
 package moe.furryverse.tails.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -33,7 +34,7 @@ public record Ticket(
         @Field("stub_cover") @JsonProperty("stub_cover") String stubCover,
         @Field("description") @JsonProperty("description") @NotNull String description,
         @Field("price") @JsonProperty("price") int price,
-        @Field("stock") @JsonProperty("stock") int stock,
+        @Field("stock") @JsonIgnore int stock,
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents
 ) {
 }

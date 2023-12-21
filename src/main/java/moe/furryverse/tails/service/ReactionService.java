@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ReactionService {
-    final TextService textService;
     final HistoryService historyService;
     final ReactionRepository reactionRepository;
 

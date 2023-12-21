@@ -1,5 +1,6 @@
 package moe.furryverse.tails.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,6 +18,7 @@ import java.util.List;
  * @param description 描述
  * @param cover       封面
  * @param contents    活动内容
+ * @param secret      用于签名验证票据的密钥（用于验票）
  */
 @Document("activities")
 public record Activity(
@@ -26,6 +28,7 @@ public record Activity(
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("description") @JsonProperty("description") @NotNull String description,
         @Field("cover") @JsonProperty("cover") String cover,
-        @Field("contents") @JsonProperty("contents") @NotNull List<String> contents
+        @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
+        @Field("secret") @JsonIgnore @NotNull String secret
 ) {
 }

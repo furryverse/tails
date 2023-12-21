@@ -1,15 +1,13 @@
-package moe.furryverse.tails.service;
+package moe.furryverse.tails.utils;
 
 import com.github.difflib.DiffUtils;
 import com.github.difflib.UnifiedDiffUtils;
 import com.github.difflib.patch.Patch;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class TextService {
-    public List<String> unifiedDiff(List<String> original, List<String> modified) {
+public class Text {
+    public static List<String> unifiedDiff(List<String> original, List<String> modified) {
         Patch<String> patch = DiffUtils.diff(original, modified);
         return UnifiedDiffUtils.generateUnifiedDiff(
                 "original",
@@ -20,7 +18,7 @@ public class TextService {
         );
     }
 
-    public List<String> getOriginal(List<String> modified, List<String> diff) {
+    public static List<String> getOriginal(List<String> modified, List<String> diff) {
         Patch<String> patch = UnifiedDiffUtils.parseUnifiedDiff(diff);
         return patch.restore(modified);
     }

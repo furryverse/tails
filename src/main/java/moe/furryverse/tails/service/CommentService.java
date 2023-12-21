@@ -5,6 +5,7 @@ import moe.furryverse.tails.exception.NotFoundDataException;
 import moe.furryverse.tails.model.Comment;
 import moe.furryverse.tails.repository.CommentRepository;
 import moe.furryverse.tails.utils.Random;
+import moe.furryverse.tails.utils.Text;
 import moe.furryverse.tails.utils.Time;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CommentService {
-    final TextService textService;
     final HistoryService historyService;
     final CommentRepository commentRepository;
 
@@ -46,7 +46,7 @@ public class CommentService {
         if (oldComment == null)
             throw new NotFoundDataException("could not find comment", "/api/v0/comment/" + commentId, "PUT", comment.accountId());
 
-        List<String> diffs = textService.unifiedDiff(oldComment.contents(), comment.contents());
+        List<String> diffs = Text.unifiedDiff(oldComment.contents(), comment.contents());
 
         historyService.createHistory(comment.accountId(), postId, commentId, diffs);
 

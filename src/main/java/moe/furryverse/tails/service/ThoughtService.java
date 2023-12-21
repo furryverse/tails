@@ -5,6 +5,7 @@ import moe.furryverse.tails.exception.NotFoundDataException;
 import moe.furryverse.tails.model.Thought;
 import moe.furryverse.tails.repository.ThoughtRepository;
 import moe.furryverse.tails.utils.Random;
+import moe.furryverse.tails.utils.Text;
 import moe.furryverse.tails.utils.Time;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ThoughtService {
-    final TextService textService;
     final HistoryService historyService;
     final ThoughtRepository thoughtRepository;
 
@@ -46,7 +46,7 @@ public class ThoughtService {
         if (oldThought == null)
             throw new NotFoundDataException("could not find thought", "/api/v0/thought/" + thoughtId, "PUT", accountId);
 
-        List<String> diffs = textService.unifiedDiff(oldThought.contents(), thought.contents());
+        List<String> diffs = Text.unifiedDiff(oldThought.contents(), thought.contents());
 
         historyService.createHistory(thought.accountId(), postId, thoughtId, diffs);
         return thoughtRepository.save(thought);

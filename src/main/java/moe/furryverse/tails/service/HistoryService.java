@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class HistoryService {
-    final TextService textService;
     final HistoryRepository historyRepository;
 
     public List<History> listHistory(String postId, String bindId) {
