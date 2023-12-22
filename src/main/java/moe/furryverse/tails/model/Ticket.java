@@ -33,7 +33,7 @@ public record Ticket(
         @Field("cover") @JsonProperty("cover") String cover,
         @Field("stub_cover") @JsonProperty("stub_cover") String stubCover,
         @Field("description") @JsonProperty("description") @NotNull String description,
-        @Field("price") @JsonProperty("price") int price,
+        @Field("price") @JsonProperty("price") double price,
         @Field("stock") @JsonIgnore int stock,
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents
 ) {

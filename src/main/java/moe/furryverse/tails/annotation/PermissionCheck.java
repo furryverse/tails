@@ -8,7 +8,7 @@ import lombok.SneakyThrows;
 import moe.furryverse.tails.content.Resource;
 import moe.furryverse.tails.exception.UnauthorizationException;
 import moe.furryverse.tails.message.Message;
-import moe.furryverse.tails.security.Access;
+import moe.furryverse.tails.security.Permission;
 import moe.furryverse.tails.service.AccessService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -28,8 +28,8 @@ import java.util.List;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AccessCheck {
-    Access[] access();
+public @interface PermissionCheck {
+    String[] access();
 
     boolean requiredLogin() default true;
 
@@ -41,12 +41,21 @@ public @interface AccessCheck {
     @SuppressWarnings("all")
     public class AccessChecker {
         static ObjectMapper mapper = new ObjectMapper();
-        static JavaType listType = mapper.getTypeFactory().constructParametricType(ArrayList.class, Access.class);
+        static JavaType listType = mapper.getTypeFactory().constructParametricType(ArrayList.class, Permission.class);
         final AccessService accessService;
 
         @SneakyThrows
-        @Around(value = "@annotation(moe.furryverse.tails.annotation.AccessCheck)")
+        @Around(value = "@annotation(moe.furryverse.tails.annotation.PermissionCheck)")
         public Message<?> check(ProceedingJoinPoint point) {
+            // 获取注解所规定的权限
+            MethodSignature signature = (MethodSignature) point.getSignature();
+            Object target = point.getTarget();
+            Method method = target.getClass().getMethod(signature.getName(), signature.getParameterTypes());
+            PermissionCheck annotation = method.getAnnotation(PermissionCheck.class);
+
+            // 如果没有要求登录的话
+            if (!annotation.requiredLogin()) return (Message<?>) point.proceed();
+
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
             String authorization = request.getHeader(Resource.CustomHeader.AUTHORIZE_HEADER);
@@ -60,14 +69,7 @@ public @interface AccessCheck {
             }
 
             String token = authorization.substring(Resource.CustomHeader.AUTHORIZE_HEADER_PREFIX.length());
-
-            // 获取注解所规定的权限
-            MethodSignature signature = (MethodSignature) point.getSignature();
-            Object target = point.getTarget();
-            Method method = target.getClass().getMethod(signature.getName(), signature.getParameterTypes());
-            AccessCheck annotation = method.getAnnotation(AccessCheck.class);
-
-            List<Access> willBeCheck = List.of(annotation.access());
+            List<String> willBeCheck = List.of(annotation.access());
 
             // 检测权限
             if (!annotation.requiredAllAccess()) {
@@ -80,8 +82,8 @@ public @interface AccessCheck {
                     );
                 }
             } else {
-                for (Access access : willBeCheck) {
-                    if (!accessService.check(token, access)) {
+                for (String permission : willBeCheck) {
+                    if (!accessService.check(token, permission)) {
                         throw new UnauthorizationException(
                                 Message.ExceptionMessage.PERMISSION_DENIED,
                                 "token check service calling",

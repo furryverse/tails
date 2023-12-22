@@ -6,7 +6,7 @@ import com.github.difflib.patch.Patch;
 
 import java.util.List;
 
-public class Text {
+public class TextUtils {
     public static List<String> unifiedDiff(List<String> original, List<String> modified) {
         Patch<String> patch = DiffUtils.diff(original, modified);
         return UnifiedDiffUtils.generateUnifiedDiff(

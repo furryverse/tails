@@ -1,7 +1,6 @@
 package moe.furryverse.tails.annotation;
 
 import lombok.RequiredArgsConstructor;
-import moe.furryverse.tails.security.Access;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface WebSocketCheck {
-    Access[] access();
+    String[] permission();
 
     @Aspect
     @Component

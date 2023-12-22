@@ -28,7 +28,7 @@ public record Item(
         @Field("tags") @JsonProperty("tags") List<String> tags,
         @Field("shows") @JsonProperty("shows") List<String> shows,
         @Field("contents") @JsonProperty("contents") List<String> contents,
-        @Field("price") @JsonProperty("price") int price,
+        @Field("price") @JsonProperty("price") double price,
         @Field("stock") @JsonProperty("stock") int stock
 ) {
 }

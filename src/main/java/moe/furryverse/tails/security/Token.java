@@ -8,7 +8,7 @@ import java.util.Set;
 public record Token(
         @JsonIgnore String token,
         @JsonIgnore String belong,
-        @JsonProperty("access") Set<Access> access,
+        @JsonProperty("access") Set<String> access,
         @JsonProperty("expire") long expire,
         @JsonProperty("created") long created
 ) {

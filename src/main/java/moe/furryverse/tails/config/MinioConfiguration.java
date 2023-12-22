@@ -14,7 +14,7 @@ public class MinioConfiguration {
     String minioEndpoint;
     @Value("${minio.access.key}")
     String minioAccessKey;
-    @Value("${minio.secret.secret}")
+    @Value("${minio.access.secret}")
     String minioAccessSecret;
     @Value("${minio.bucket}")
     String minioBucket;

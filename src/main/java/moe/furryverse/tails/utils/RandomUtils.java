@@ -1,7 +1,7 @@
 package moe.furryverse.tails.utils;
 
 @SuppressWarnings("unused")
-public class Random {
+public class RandomUtils {
     public static int number() {
         return (int) (Math.random() * 100);
     }
