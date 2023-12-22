@@ -56,3 +56,7 @@ $ gradle build
 | Tag        | 标签                                                         |            |
 | Thought    | 思绪 这种类型的回复将会附加在帖子的某一个版本的某一段选定语句中 | 关联类回复 |
 | Ticket     | 票                                                           |            |
+
+这是数据结构间的关系图表（非关系型数据库结构图）：
+
+![Model](https://i.miji.bid/2023/12/23/7aef9d9c3b0d06a6e8757429ea0db503.png)
