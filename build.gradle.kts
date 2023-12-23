@@ -25,9 +25,9 @@ repositories {
 dependencies {
 	// spring web
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
 	implementation("org.springframework.boot:spring-boot-starter-web-services")
+	implementation("org.springframework.security:spring-security-crypto:6.2.1")
 
 	// spring database
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -37,7 +37,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-mail")
 
 	// minio
-	implementation("io.minio:minio:8.5.5")
+	implementation("io.minio:minio:8.5.7")
 	implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
 	// text diff
@@ -53,6 +53,7 @@ dependencies {
 	// lombok
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
+	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 tasks.withType<Test> {
