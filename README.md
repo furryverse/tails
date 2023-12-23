@@ -59,4 +59,4 @@ $ gradle build
 
 这是数据结构间的关系图表（非关系型数据库结构图）：
 
-![Model](https://i.miji.bid/2023/12/23/7aef9d9c3b0d06a6e8757429ea0db503.png)
+![Model](https://i.miji.bid/2023/12/23/f851ac75c900b91e9433bf31ddde929f.png)

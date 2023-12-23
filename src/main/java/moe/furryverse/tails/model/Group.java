@@ -1,6 +1,8 @@
 package moe.furryverse.tails.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -17,19 +19,19 @@ import java.util.Map;
  * @param descriptions 群聊介绍
  * @param members      群聊成员
  * @param admins       群聊管理
- * @param nicks        昵称列表
- * @param awards       称号列表
+ * @param nicks        昵称列表 - Map<Account ID - 昵称>
+ * @param awards       称号列表 - Map<Account ID - 称号>
  */
 @Document("groups")
 public record Group(
-        @Field("group_id") @JsonProperty("group_id") String groupId,
+        @Field("group_id") @JsonProperty("group_id") @NotNull @Id String groupId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("name") @JsonProperty("name") String name,
-        @Field("account_id") @JsonProperty("account_id") String accountId,
-        @Field("description") @JsonProperty("description") List<String> descriptions,
-        @Field("members") @JsonProperty("members") List<String> members,
-        @Field("admins") @JsonProperty("admins") List<String> admins,
-        @Field("nicks") @JsonProperty("nicks") Map<String, String> nicks,
-        @Field("awards") @JsonProperty("awards") Map<String, String> awards
+        @Field("name") @JsonProperty("name") @NotNull String name,
+        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("description") @JsonProperty("description") @NotNull List<String> descriptions,
+        @Field("members") @JsonProperty("members") @NotNull List<String> members,
+        @Field("admins") @JsonProperty("admins") @NotNull List<String> admins,
+        @Field("nicks") @JsonProperty("nicks") @NotNull Map<String, String> nicks,
+        @Field("awards") @JsonProperty("awards") @NotNull Map<String, String> awards
 ) {
 }

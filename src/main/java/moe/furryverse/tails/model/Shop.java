@@ -1,6 +1,9 @@
 package moe.furryverse.tails.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -19,12 +22,12 @@ import java.util.List;
  */
 @Document("shops")
 public record Shop(
-        @Field("shop_id") @JsonProperty("shop_id") String shopId,
+        @Field("shop_id") @JsonProperty("shop_id") @NotNull @Id String shopId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") String accountId,
-        @Field("name") @JsonProperty("name") String name,
-        @Field("cover") @JsonProperty("cover") String cover,
-        @Field("tags") @JsonProperty("tags") List<String> tags,
-        @Field("contents") @JsonProperty("contents") List<String> contents
+        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("name") @JsonProperty("name") @NotNull String name,
+        @Field("cover") @JsonProperty("cover") @Nullable String cover,
+        @Field("tags") @JsonProperty("tags") @NotNull List<String> tags,
+        @Field("contents") @JsonProperty("contents") @NotNull List<String> contents
 ) {
 }

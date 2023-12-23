@@ -3,6 +3,7 @@ package moe.furryverse.tails.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -13,7 +14,6 @@ import java.util.List;
  *
  * @param ticketId    票据 ID
  * @param created     创建时间
- * @param activityId  活动 ID
  * @param accountId   创建该票据的账户 ID
  * @param name        票据名称
  * @param cover       票据封面
@@ -22,12 +22,12 @@ import java.util.List;
  * @param price       价格
  * @param stock       数量
  * @param contents    详细介绍内容
+ * @param activityId  活动 ID - 与 Activity 的 activity_id 相关联
  */
 @Document("tickets")
 public record Ticket(
-        @Field("ticket_id") @JsonProperty("ticket_id") String ticketId,
+        @Field("ticket_id") @JsonProperty("ticket_id") @NotNull @Id String ticketId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("activity_id") @JsonProperty("activity_id") String activityId,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("cover") @JsonProperty("cover") String cover,
@@ -35,6 +35,9 @@ public record Ticket(
         @Field("description") @JsonProperty("description") @NotNull String description,
         @Field("price") @JsonProperty("price") double price,
         @Field("stock") @JsonIgnore int stock,
-        @Field("contents") @JsonProperty("contents") @NotNull List<String> contents
+        @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
+
+        // 关联键
+        @Field("activity_id") @JsonProperty("activity_id") String activityId
 ) {
 }
