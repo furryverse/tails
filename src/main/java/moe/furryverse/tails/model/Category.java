@@ -31,7 +31,7 @@ import java.util.List;
 @Document("categories")
 public record Category(
         // 基本信息
-        @Field("category_id") @JsonProperty("category_id") @NotNull @Id String categoryId,
+        @Id @JsonProperty("category_id") @NotNull String categoryId,
         @Field("created") @JsonProperty("created") long created,
         @Field("category_name") @JsonProperty("category_name") @NotNull String name,
         @Field("icon") @JsonProperty("icon") @NotNull String icon,

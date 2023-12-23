@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Document("shops")
 public record Shop(
-        @Field("shop_id") @JsonProperty("shop_id") @NotNull @Id String shopId,
+        @Id @JsonProperty("shop_id") @NotNull String shopId,
         @Field("created") @JsonProperty("created") long created,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("name") @JsonProperty("name") @NotNull String name,

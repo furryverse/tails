@@ -29,7 +29,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document("accounts")
 public record Account(
-        @Field("account_id") @JsonProperty("account_id") @NotNull @Id String accountId,
+        @Id @JsonProperty("account_id") @NotNull String accountId,
         @Field("created") @JsonProperty("created") long created,
         @Field("username") @JsonProperty("username") @NotNull String username,
         @Field("nickname") @JsonProperty("nickname") @NotNull String nickname,

@@ -1,6 +1,5 @@
-package moe.furryverse.tails.data;
+package moe.furryverse.tails.security;
 
-import moe.furryverse.tails.security.Token;
 import org.jetbrains.annotations.NotNull;
 
 /**

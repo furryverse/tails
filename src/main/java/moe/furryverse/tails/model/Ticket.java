@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Document("tickets")
 public record Ticket(
-        @Field("ticket_id") @JsonProperty("ticket_id") @NotNull @Id String ticketId,
+        @Id @JsonProperty("ticket_id") @NotNull String ticketId,
         @Field("created") @JsonProperty("created") long created,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("name") @JsonProperty("name") @NotNull String name,

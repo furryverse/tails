@@ -22,7 +22,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document("stubs")
 public record Stub(
-        @Field("stub_id") @JsonProperty("stub_id") @NotNull @Id String stubId,
+        @Id @JsonProperty("stub_id") @NotNull String stubId,
         @Field("created") @JsonProperty("created") long created,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("start_time") @JsonProperty("start_time") long startTime,

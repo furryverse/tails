@@ -18,7 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document("reactions")
 public record Reaction(
-        @Field("reaction_id") @JsonProperty("reaction_id") @NotNull @Id String reactionId,
+        @Id @JsonProperty("reaction_id") @NotNull String reactionId,
         @Field("created") @JsonProperty("created") long created,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("emoji") @JsonProperty("emoji") @NotNull String emoji,

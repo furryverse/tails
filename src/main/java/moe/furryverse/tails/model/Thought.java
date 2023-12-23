@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Document("thoughts")
 public record Thought(
-        @Field("thought_id") @JsonProperty("thought_id") @NotNull @Id String thoughtId,
+        @Id @JsonProperty("thought_id") @NotNull String thoughtId,
         @Field("created") @JsonProperty("created") long created,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,

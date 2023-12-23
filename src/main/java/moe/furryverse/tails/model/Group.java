@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @Document("groups")
 public record Group(
-        @Field("group_id") @JsonProperty("group_id") @NotNull @Id String groupId,
+        @Id @JsonProperty("group_id") @NotNull String groupId,
         @Field("created") @JsonProperty("created") long created,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,

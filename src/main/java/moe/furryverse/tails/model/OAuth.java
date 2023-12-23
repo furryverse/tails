@@ -18,7 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @SuppressWarnings("SpellCheckingInspection")
 @Document("oauths")
 public record OAuth(
-        @Field("oauth_id") @JsonProperty("oauth_id") @NotNull @Id String oauthId,
+        @Id @JsonProperty("oauth_id") @NotNull String oauthId,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("created") @JsonProperty("created") long created,
         @Field("openid") @JsonProperty("openid") @NotNull String openid,

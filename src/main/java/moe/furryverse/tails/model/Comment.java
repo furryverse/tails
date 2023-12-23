@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Document("comments")
 public record Comment(
-        @Field("comment_id") @JsonProperty("comment_id") @NotNull @Id String commentId,
+        @Id @JsonProperty("comment_id") @NotNull String commentId,
         @Field("created") @JsonProperty("created") long created,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,

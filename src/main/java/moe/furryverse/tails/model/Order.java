@@ -24,7 +24,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document("orders")
 public record Order(
-        @Field("order_id") @JsonProperty("order_id") @NotNull @Id String orderId,
+        @Id @JsonProperty("order_id") @NotNull String orderId,
         @Field("created") @JsonProperty("created") long created,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("title") @JsonProperty("title") @NotNull String title,

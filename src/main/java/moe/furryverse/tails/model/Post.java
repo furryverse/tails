@@ -28,7 +28,7 @@ import java.util.List;
 @Document("posts")
 public record Post(
         // 基本信息
-        @Field("post_id") @JsonProperty("post_id") @NotNull @Id String postId,
+        @Id @JsonProperty("post_id") @NotNull String postId,
         @Field("created") @JsonProperty("created") long created,
         @Field("title") @JsonProperty("title") @NotNull String title,
         @Field("background") @JsonProperty("background") @Nullable String background,

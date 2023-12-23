@@ -17,7 +17,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document("tags")
 public record Tag(
-        @Field("tag_id") @JsonProperty("tag_id") @NotNull @Id String tagId,
+        @Id @JsonProperty("tag_id") @NotNull String tagId,
         @Field("created") @JsonProperty("created") long created,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("color") @JsonProperty("color") @NotNull String color,

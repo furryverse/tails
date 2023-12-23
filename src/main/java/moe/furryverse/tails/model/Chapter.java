@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Document("chapters")
 public record Chapter(
-        @Field("chapter_id") @JsonProperty("chapter_id") @NotNull @Id String chapterId,
+        @Id @JsonProperty("chapter_id") @NotNull String chapterId,
         @Field("created") @JsonProperty("created") long created,
         @Field("title") @JsonProperty("title") String title,
         @Field("contents") @JsonProperty("contents") List<String> contents,

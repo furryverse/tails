@@ -20,7 +20,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document("file_records")
 public record FileRecord(
-        @Field("file_id") @JsonProperty("file_id") @NotNull @Id String fileId,
+        @Id @JsonProperty("file_id") @NotNull String fileId,
         @Field("created") @JsonProperty("created") long created,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("name") @JsonProperty("name") @NotNull String name,
