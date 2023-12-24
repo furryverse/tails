@@ -24,7 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
@@ -69,7 +69,7 @@ public @interface PermissionCheck {
             }
 
             String token = authorization.substring(Resource.CustomHeader.AUTHORIZE_HEADER_PREFIX.length());
-            List<String> willBeCheck = List.of(annotation.access());
+            Set<String> willBeCheck = Set.of(annotation.access());
 
             // 检测权限
             if (!annotation.requiredAllAccess()) {

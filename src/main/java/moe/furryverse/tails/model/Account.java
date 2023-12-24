@@ -8,6 +8,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.Set;
+
 /**
  * 用户账户
  *
@@ -38,6 +40,7 @@ public record Account(
         @Field("color") @JsonProperty("color") @Nullable String color,
         @Field("email") @JsonProperty("email") @NotNull String email,
         @Field("description") @JsonProperty("description") @Nullable String description,
+        @Field("permission") @JsonProperty("permission") @NotNull Set<String> permission,
         @Field("is_public") @JsonProperty("is_public") boolean isPublic,
         @Field("is_ban") @JsonProperty("is_ban") boolean isBan,
         @Field("is_verified") @JsonProperty("verified") boolean isVerified,

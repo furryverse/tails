@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.exception.NotFoundDataException;
 import moe.furryverse.tails.model.Account;
 import moe.furryverse.tails.repository.AccountRepository;
+import moe.furryverse.tails.security.Role;
 import moe.furryverse.tails.security.Token;
 import moe.furryverse.tails.utils.RandomUtils;
 import moe.furryverse.tails.utils.SecurityUtils;
@@ -11,14 +12,13 @@ import moe.furryverse.tails.utils.TimeUtils;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-
 @Service
 @RequiredArgsConstructor
 public class AccountService {
+    final AccessService accessService;
     final AccountRepository accountRepository;
 
-    public Token login(String identify, String password) {
+    public Token login(String device, String ip, String useragent, String identify, String password) {
         Account account = accountRepository.existsByUsername(identify)
                 ? accountRepository.findByUsername(identify)
                 : accountRepository.findByEmail(identify);
@@ -27,13 +27,7 @@ public class AccountService {
 
         String decrypt = SecurityUtils.decrypt(password);
         if (Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8().matches(decrypt, account.password())) {
-            return new Token(
-                    RandomUtils.uuid(),
-                    account.accountId(),
-                    new HashSet<>(),
-                    0,
-                    TimeUtils.getMilliUnixTime()
-            );
+            return accessService.create(device, ip, useragent, account.accountId(), account.permission());
         }
 
         return null;
@@ -56,6 +50,7 @@ public class AccountService {
                 null,
                 email,
                 null,
+                Role.allPermissions(),
                 false,
                 false,
                 false,
