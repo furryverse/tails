@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 活动
@@ -37,6 +38,6 @@ public record Activity(
         @Field("cover") @JsonProperty("cover") @Nullable String cover,
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
         @Field("secret") @JsonIgnore @NotNull String secret,
-        @Field("administrators") @JsonProperty("administrators") @NotNull List<String> administrators
+        @Field("administrators") @JsonProperty("administrators") @NotNull Set<String> administrators
 ) {
 }

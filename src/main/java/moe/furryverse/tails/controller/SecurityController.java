@@ -13,4 +13,9 @@ public class SecurityController {
     public Message<?> security() {
         return Message.success(SecurityUtils.publicKey());
     }
+
+    @GetMapping("/verify/email")
+    public Message<?> verifyEmail() {
+        return Message.success(null);
+    }
 }
