@@ -24,6 +24,7 @@ import java.util.List;
  * @param isLocked      是否锁定（不允许查看不允许修改）
  * @param isReviewing   是否正在审核
  * @param isArchived    是否已归档（不允许修改）
+ * @param isDeleted     是否删除
  */
 @Document("posts")
 public record Post(
@@ -43,6 +44,7 @@ public record Post(
         @Field("is_public") @JsonProperty("is_public") boolean isPublic,
         @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
         @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
-        @Field("is_archived") @JsonProperty("is_archived") boolean isArchived
+        @Field("is_archived") @JsonProperty("is_archived") boolean isArchived,
+        @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) {
 }

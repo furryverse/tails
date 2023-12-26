@@ -139,6 +139,32 @@ public class ActivityService {
         return activityRepository.save(activity);
     }
 
+    public Activity addAdministrator(String accountId, String addAccountId, String activityId) {
+        Activity record = activityRepository.findById(activityId).orElse(null);
+        if (record == null) return null;
+
+        // 查询是否为活动管理员
+        if (!record.administrators().contains(accountId) || !Objects.equals(accountId, record.accountId())) {
+            throw new UnauthorizationException("unauthorized", null, null, accountId);
+        }
+
+        record.administrators().add(addAccountId);
+        return activityRepository.save(record);
+    }
+
+    public Activity removeAdministrator(String accountId, String removeAccountId, String activityId) {
+        Activity record = activityRepository.findById(activityId).orElse(null);
+        if (record == null) return null;
+
+        // 查询是否为活动管理员
+        if (!record.administrators().contains(accountId) || !Objects.equals(accountId, record.accountId())) {
+            throw new UnauthorizationException("unauthorized", null, null, accountId);
+        }
+
+        record.administrators().remove(removeAccountId);
+        return activityRepository.save(record);
+    }
+
     public List<Ticket> listTicket(String accountId, String activityId, int page, int size) {
         Activity activity = activityRepository.findById(activityId).orElse(null);
         if (activity == null) return null;

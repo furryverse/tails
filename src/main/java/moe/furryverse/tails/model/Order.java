@@ -31,10 +31,18 @@ public record Order(
         @Field("sell_price") @JsonProperty("sell_price") int sellPrice,
         @Field("buy_price") @JsonProperty("buy_price") int buyPrice,
         @Field("status") @JsonProperty("status") @NotNull OrderStatus status,
+        @Field("type") @JsonProperty("type") @NotNull OrderType type,
 
         // 关联键
         @Field("bind_id") @JsonProperty("bind_id") @NotNull String bindId
 ) {
+    public enum OrderType {
+        @JsonProperty("novel") NOVEL,
+        @JsonProperty("chapter") CHAPTER,
+        @JsonProperty("ticket") TICKET,
+        @JsonProperty("item") ITEM
+    }
+
     public enum OrderStatus {
         // 订单创建
         @JsonProperty("created") CREATED,

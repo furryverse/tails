@@ -8,17 +8,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 一本小说
  *
- * @param novelId     小说唯一 ID
- * @param created     创建时间
- * @param title       标题
- * @param description 简介
- * @param cover       封面
- * @param accountId   创建小说的账户 ID
- * @param tags        标签 - 本字段的值与 Tag 中的 tag_id 相关联
+ * @param novelId       小说唯一 ID
+ * @param created       创建时间
+ * @param title         标题
+ * @param description   简介
+ * @param cover         封面
+ * @param accountId     创建小说的账户 ID
+ * @param tags          标签
+ * @param viewers       未公开状态下可以查看帖子的用户
+ * @param collaborators 可以编辑帖子的用户
+ * @param isPublic      是否公开
+ * @param isLocked      是否锁定（不允许查看不允许修改）
+ * @param isReviewing   是否正在审核
+ * @param isDeleted     是否删除
  */
 @Document("novels")
 public record Novel(
@@ -30,6 +37,14 @@ public record Novel(
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
 
         // 关联键
-        @Field("tags") @JsonProperty("tags") @NotNull List<String> tags
+        @Field("tags") @JsonProperty("tags") @NotNull List<String> tags,
+
+        // 管理功能
+        @Field("viewers") @JsonProperty("viewers") @NotNull List<String> viewers,
+        @Field("collaborators") @JsonProperty("collaborators") @NotNull Set<String> collaborators,
+        @Field("is_public") @JsonProperty("is_public") boolean isPublic,
+        @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
+        @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) {
 }

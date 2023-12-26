@@ -12,13 +12,16 @@ import java.util.List;
 /**
  * 店铺
  *
- * @param shopId    店铺 ID
- * @param created   创建时间
- * @param accountId 创建的账户
- * @param name      店铺名称
- * @param cover     店铺封面
- * @param tags      标签
- * @param contents  详细介绍内容
+ * @param shopId        店铺 ID
+ * @param created       创建时间
+ * @param accountId     创建的账户
+ * @param name          店铺名称
+ * @param cover         店铺封面
+ * @param tags          标签
+ * @param contents      详细介绍内容
+ * @param administrator 管理员
+ * @param isLocked      是否锁定
+ * @param isDeleted     是否删除
  */
 @Document("shops")
 public record Shop(
@@ -28,6 +31,11 @@ public record Shop(
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("cover") @JsonProperty("cover") @Nullable String cover,
         @Field("tags") @JsonProperty("tags") @NotNull List<String> tags,
-        @Field("contents") @JsonProperty("contents") @NotNull List<String> contents
+        @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
+
+        // 管理功能
+        @Field("administrator") @JsonProperty("administrator") @Nullable String administrator,
+        @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) {
 }

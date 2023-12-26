@@ -2,6 +2,7 @@ package moe.furryverse.tails.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import moe.furryverse.tails.interfaces.Payable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.annotation.Id;
@@ -24,6 +25,8 @@ import java.util.List;
  * @param price     价格
  * @param stock     库存
  * @param shopId    店铺 ID - 与 Shop 的 shop_id 相关联
+ * @param isLocked  是否锁定
+ * @param isDeleted 是否删除
  */
 @Document("items")
 public record Item(
@@ -39,6 +42,10 @@ public record Item(
         @Field("stock") @JsonIgnore int stock,
 
         // 关联键
-        @Field("shop_id") @JsonProperty("shop_id") @Nullable String shopId
-) {
+        @Field("shop_id") @JsonProperty("shop_id") @Nullable String shopId,
+
+        // 管理
+        @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
+) implements Payable {
 }

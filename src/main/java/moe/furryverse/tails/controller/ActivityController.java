@@ -2,7 +2,7 @@ package moe.furryverse.tails.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import moe.furryverse.tails.annotation.AccountId;
+import moe.furryverse.tails.annotation.GetAccount;
 import moe.furryverse.tails.message.Message;
 import moe.furryverse.tails.service.ActivityService;
 import moe.furryverse.tails.utils.RandomUtils;
@@ -27,7 +27,7 @@ public class ActivityController {
 
     @PostMapping
     public Message<?> createActivity(
-            @AccountId String accountId,
+            @GetAccount String accountId,
             @RequestParam(name = "name") String name,
             @RequestParam(name = "description") String description,
             @RequestParam(name = "startTime") Long startTime,
@@ -52,7 +52,7 @@ public class ActivityController {
 
     @GetMapping("/{activityId}")
     public Message<?> readActivity(
-            @AccountId String accountId,
+            @GetAccount String accountId,
             @PathVariable String activityId
     ) {
         return Message.success(activityService.readActivity(accountId, activityId));
@@ -60,7 +60,7 @@ public class ActivityController {
 
     @PostMapping("/{activityId}")
     public Message<?> updateActivity(
-            @AccountId String accountId,
+            @GetAccount String accountId,
             @PathVariable String activityId,
             @RequestParam(name = "name", required = false) String name,
             @RequestParam(name = "description", required = false) String description,
@@ -83,9 +83,27 @@ public class ActivityController {
         );
     }
 
+    @PostMapping("/{activityId}/administrator")
+    public Message<?> addAdministrator(
+            @GetAccount String accountId,
+            @PathVariable String activityId,
+            @RequestParam(name = "administrator") String administrator
+    ) {
+        return Message.success(activityService.addAdministrator(accountId, administrator, activityId));
+    }
+
+    @DeleteMapping("/{activityId}/administrator")
+    public Message<?> deleteAdministrator(
+            @GetAccount String accountId,
+            @PathVariable String activityId,
+            @RequestParam(name = "administrator") String administrator
+    ) {
+        return Message.success(activityService.removeAdministrator(accountId, administrator, activityId));
+    }
+
     @DeleteMapping("/{activityId}")
     public Message<?> deleteActivity(
-            @AccountId String accountId,
+            @GetAccount String accountId,
             @PathVariable String activityId
     ) {
         return Message.success(activityService.deleteActivity(accountId, activityId));
@@ -93,7 +111,7 @@ public class ActivityController {
 
     @GetMapping("/{activityId}/ticket")
     public Message<?> listTicket(
-            @AccountId String accountId,
+            @GetAccount String accountId,
             @PathVariable String activityId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -103,7 +121,7 @@ public class ActivityController {
 
     @PostMapping("/{activityId}/ticket")
     public Message<?> createTicket(
-            @AccountId String accountId,
+            @GetAccount String accountId,
             @PathVariable String activityId,
             @RequestParam(name = "name") String name,
             @RequestParam(name = "description") String cover,
@@ -131,7 +149,7 @@ public class ActivityController {
 
     @PostMapping("/{activityId}/ticket/{ticketId}")
     public Message<?> updateTicket(
-            @AccountId String accountId,
+            @GetAccount String accountId,
             @PathVariable String activityId,
             @PathVariable String ticketId,
             @RequestParam(name = "name", required = false) String name,
@@ -160,7 +178,7 @@ public class ActivityController {
 
     @GetMapping("/{activityId}/ticket/{ticketId}")
     public Message<?> readTicket(
-            @AccountId String accountId,
+            @GetAccount String accountId,
             @PathVariable String activityId,
             @PathVariable String ticketId
     ) {
@@ -169,7 +187,7 @@ public class ActivityController {
 
     @DeleteMapping("/{activityId}/ticket/{ticketId}")
     public Message<?> deleteTicket(
-            @AccountId String accountId,
+            @GetAccount String accountId,
             @PathVariable String activityId,
             @PathVariable String ticketId
     ) {
@@ -178,7 +196,7 @@ public class ActivityController {
 
     @GetMapping("/{activityId}/stub")
     public Message<?> listStub(
-            @AccountId String accountId,
+            @GetAccount String accountId,
             @PathVariable String activityId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -188,7 +206,7 @@ public class ActivityController {
 
     @GetMapping("/{activityId}/stub/{stubId}")
     public Message<?> listStub(
-            @AccountId String accountId,
+            @GetAccount String accountId,
             @PathVariable String activityId,
             @PathVariable String stubId
     ) {

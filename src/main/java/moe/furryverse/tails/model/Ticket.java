@@ -2,6 +2,7 @@ package moe.furryverse.tails.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import moe.furryverse.tails.interfaces.Payable;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -41,5 +42,5 @@ public record Ticket(
         // 关联键
         @Field("activity_id") @JsonProperty("activity_id") String activityId,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
-) {
+) implements Payable {
 }
