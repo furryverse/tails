@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface StubRepository extends MongoRepository<Stub, String> {
     @NotNull <S extends Stub> S save(@NotNull S entity);
 
-    Page<Stub> findAllByActivityId(String activityId, Pageable pageable);
+    Page<Stub> findAllByAccountIdAndActivityId(String accountId, String activityId, Pageable pageable);
 
     Stub findStubByStubId(String stubId);
 

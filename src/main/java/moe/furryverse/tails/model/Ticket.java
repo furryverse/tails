@@ -23,6 +23,7 @@ import java.util.List;
  * @param stock       数量
  * @param contents    详细介绍内容
  * @param activityId  活动 ID - 与 Activity 的 activity_id 相关联
+ * @param isDeleted   是否被删除 标记软删除
  */
 @Document("tickets")
 public record Ticket(
@@ -38,6 +39,7 @@ public record Ticket(
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
 
         // 关联键
-        @Field("activity_id") @JsonProperty("activity_id") String activityId
+        @Field("activity_id") @JsonProperty("activity_id") String activityId,
+        @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) {
 }
