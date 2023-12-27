@@ -83,4 +83,11 @@ public class AccessService {
 
         return session;
     }
+
+    public String getAccountId(String token) {
+        Session session = redisTemplate.opsForValue().get(token);
+        if (session == null) return null;
+
+        return session.token().belong();
+    }
 }

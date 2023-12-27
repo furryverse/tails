@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param orderId   订单 ID
  * @param created   创建时间
  * @param accountId 创建订单的账户 ID
- * @param title     订单标题
+ * @param name      订单名
  * @param sellPrice 商品在商品页面的出售价格
  * @param buyPrice  实际需要付款的价格
  * @param status    订单状态
@@ -21,13 +21,14 @@ import org.springframework.data.mongodb.core.mapping.Field;
  *                  - 与 Chapter 的 chapter_id 相关
  *                  - 与 Ticket 的 ticket_id 相关
  *                  - 与 Item 的 item_id 相关
+ *                  - 与 Commission 的 commission_id 相关
  */
 @Document("orders")
 public record Order(
         @Id @JsonProperty("order_id") @NotNull String orderId,
         @Field("created") @JsonProperty("created") long created,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
-        @Field("title") @JsonProperty("title") @NotNull String title,
+        @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("sell_price") @JsonProperty("sell_price") int sellPrice,
         @Field("buy_price") @JsonProperty("buy_price") int buyPrice,
         @Field("status") @JsonProperty("status") @NotNull OrderStatus status,
@@ -40,7 +41,8 @@ public record Order(
         @JsonProperty("novel") NOVEL,
         @JsonProperty("chapter") CHAPTER,
         @JsonProperty("ticket") TICKET,
-        @JsonProperty("item") ITEM
+        @JsonProperty("item") ITEM,
+        @JsonProperty("commission") COMMISSION
     }
 
     public enum OrderStatus {

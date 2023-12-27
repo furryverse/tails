@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.config.PageConfiguration;
 import moe.furryverse.tails.model.Order;
 import moe.furryverse.tails.repository.OrderRepository;
-import org.apache.catalina.LifecycleState;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +30,15 @@ public class OrderService {
         return orderRepository.findById(orderId).orElse(null);
     }
 
-    public Order createOrder(String accountId, String bindId, Order order) {
+    public Order createOrder(String accountId, String bindId, Order.OrderType type) {
+        return null;
+    }
+
+    public Order cancelOrder(String accountId, String orderId) {
+        return null;
+    }
+
+    public Order changedStatus(String orderId, Order.OrderStatus status) {
         return null;
     }
 }

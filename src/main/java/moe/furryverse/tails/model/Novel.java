@@ -1,6 +1,7 @@
 package moe.furryverse.tails.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import moe.furryverse.tails.interfaces.Payable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.annotation.Id;
@@ -15,9 +16,10 @@ import java.util.Set;
  *
  * @param novelId       小说唯一 ID
  * @param created       创建时间
- * @param title         标题
+ * @param name          名字
  * @param description   简介
  * @param cover         封面
+ * @param price         价格
  * @param accountId     创建小说的账户 ID
  * @param tags          标签
  * @param viewers       未公开状态下可以查看帖子的用户
@@ -31,9 +33,10 @@ import java.util.Set;
 public record Novel(
         @Id @JsonProperty("novel_id") @NotNull String novelId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("title") @JsonProperty("title") @NotNull String title,
+        @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("description") @JsonProperty("description") @Nullable String description,
         @Field("cover") @JsonProperty("cover") @Nullable String cover,
+        @Field("price") @JsonProperty("price") double price,
         @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
 
         // 关联键
@@ -46,5 +49,5 @@ public record Novel(
         @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
         @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
-) {
+) implements Payable {
 }

@@ -7,17 +7,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface AccountRepository extends MongoRepository<Account, String> {
     @NotNull <S extends Account> S save(@NotNull S entity);
 
-    Account findAccountByAccountId(String accountId);
-
     // 根据 email 查找和删除
     Account findByEmail(@NotNull String email);
 
     // 根据 username 查找
     Account findByUsername(@NotNull String username);
-
-    Account deleteAccountByAccountId(String accountId);
-
-    Account deleteByEmail(@NotNull String email);
 
     // 查询是否存在 email
     boolean existsByEmail(@NotNull String email);
