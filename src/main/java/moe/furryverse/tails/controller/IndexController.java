@@ -20,6 +20,16 @@ public class IndexController {
         return Message.success();
     }
 
+    @GetMapping("/recommendation/novel")
+    public Message<?> recommendingNovel() {
+        return Message.success();
+    }
+
+    @GetMapping("/recommendation/commission")
+    public Message<?> recommendingCommission() {
+        return Message.success();
+    }
+
     @GetMapping("/recommendation/user")
     public Message<?> recommendingUser() {
         return Message.success();
@@ -27,11 +37,6 @@ public class IndexController {
 
     @GetMapping("/recommendation/keyword")
     public Message<?> recommendingKeyword() {
-        return Message.success();
-    }
-
-    @GetMapping("/recommendation/novel")
-    public Message<?> recommendingNovel() {
         return Message.success();
     }
 }
