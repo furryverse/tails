@@ -14,18 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/v0/account")
 public class AccountController {
+    final HttpServletRequest request;
     final AccountService accountService;
 
     @PostMapping("/login")
     public Message<?> login(
-            HttpServletRequest request,
             @RequestParam(name = "device") String device,
             @RequestParam(name = "identify") String identify,
             @RequestParam(name = "password") String password
     ) {
         return Message.success(
                 accountService.login(
-                        device, IpUtils.getIp(request), request.getHeader("User-Agent"),
+                        device,
+                        IpUtils.getIp(request),
+                        request.getHeader("User-Agent"),
                         identify, password
                 )
         );

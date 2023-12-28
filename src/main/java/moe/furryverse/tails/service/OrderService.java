@@ -41,7 +41,6 @@ public class OrderService {
     public Order createOrder(String accountId, String bindId, Order.OrderType type) {
         Payable payable = getPayable(bindId, type);
 
-
         return null;
     }
 

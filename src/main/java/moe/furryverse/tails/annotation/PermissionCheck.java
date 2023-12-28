@@ -94,6 +94,9 @@ public @interface PermissionCheck {
                 }
             }
 
+            // 设置 Account ID 到请求中
+            request.setAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER, accessService.getAccountId(token));
+
             // 校验完成 继续执行业务代码
             return (Message<?>) point.proceed();
         }

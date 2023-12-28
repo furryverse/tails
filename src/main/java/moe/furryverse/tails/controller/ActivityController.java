@@ -1,8 +1,9 @@
 package moe.furryverse.tails.controller;
 
-
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import moe.furryverse.tails.annotation.GetAccount;
+import moe.furryverse.tails.annotation.PermissionCheck;
+import moe.furryverse.tails.content.Resource;
 import moe.furryverse.tails.message.Message;
 import moe.furryverse.tails.service.ActivityService;
 import moe.furryverse.tails.utils.RandomUtils;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v0/activity")
 public class ActivityController {
+    final HttpServletRequest request;
     final ActivityService activityService;
 
     @GetMapping
@@ -26,8 +28,8 @@ public class ActivityController {
     }
 
     @PostMapping
+    @PermissionCheck(access = {})
     public Message<?> createActivity(
-            @GetAccount String accountId,
             @RequestParam(name = "name") String name,
             @RequestParam(name = "description") String description,
             @RequestParam(name = "startTime") Long startTime,
@@ -38,7 +40,7 @@ public class ActivityController {
     ) {
         return Message.success(
                 activityService.createActivity(
-                        accountId,
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                         name,
                         description,
                         startTime == null ? TimeUtils.getMilliUnixTime() : startTime,
@@ -52,7 +54,7 @@ public class ActivityController {
 
     @GetMapping("/{activityId}")
     public Message<?> readActivity(
-            @GetAccount String accountId,
+            String accountId,
             @PathVariable String activityId
     ) {
         return Message.success(activityService.readActivity(accountId, activityId));
@@ -60,7 +62,6 @@ public class ActivityController {
 
     @PostMapping("/{activityId}")
     public Message<?> updateActivity(
-            @GetAccount String accountId,
             @PathVariable String activityId,
             @RequestParam(name = "name", required = false) String name,
             @RequestParam(name = "description", required = false) String description,
@@ -71,7 +72,7 @@ public class ActivityController {
     ) {
         return Message.success(
                 activityService.updateActivity(
-                        accountId,
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                         activityId,
                         name,
                         description,
@@ -85,43 +86,54 @@ public class ActivityController {
 
     @PostMapping("/{activityId}/administrator")
     public Message<?> addAdministrator(
-            @GetAccount String accountId,
             @PathVariable String activityId,
             @RequestParam(name = "administrator") String administrator
     ) {
-        return Message.success(activityService.addAdministrator(accountId, administrator, activityId));
+        return Message.success(activityService.addAdministrator(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                administrator,
+                activityId)
+        );
     }
 
     @DeleteMapping("/{activityId}/administrator")
     public Message<?> deleteAdministrator(
-            @GetAccount String accountId,
             @PathVariable String activityId,
             @RequestParam(name = "administrator") String administrator
     ) {
-        return Message.success(activityService.removeAdministrator(accountId, administrator, activityId));
+        return Message.success(activityService.removeAdministrator(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                administrator,
+                activityId)
+        );
     }
 
     @DeleteMapping("/{activityId}")
     public Message<?> deleteActivity(
-            @GetAccount String accountId,
             @PathVariable String activityId
     ) {
-        return Message.success(activityService.deleteActivity(accountId, activityId));
+        return Message.success(activityService.deleteActivity(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                activityId)
+        );
     }
 
     @GetMapping("/{activityId}/ticket")
     public Message<?> listTicket(
-            @GetAccount String accountId,
             @PathVariable String activityId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return Message.success(activityService.listTicket(accountId, activityId, page, size));
+        return Message.success(activityService.listTicket(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                activityId,
+                page,
+                size)
+        );
     }
 
     @PostMapping("/{activityId}/ticket")
     public Message<?> createTicket(
-            @GetAccount String accountId,
             @PathVariable String activityId,
             @RequestParam(name = "name") String name,
             @RequestParam(name = "description") String cover,
@@ -133,7 +145,7 @@ public class ActivityController {
     ) {
         return Message.success(
                 activityService.createTicket(
-                        accountId,
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                         activityId,
                         name == null ? RandomUtils.string(6) : name,
                         cover == null ? "" : cover,
@@ -149,7 +161,6 @@ public class ActivityController {
 
     @PostMapping("/{activityId}/ticket/{ticketId}")
     public Message<?> updateTicket(
-            @GetAccount String accountId,
             @PathVariable String activityId,
             @PathVariable String ticketId,
             @RequestParam(name = "name", required = false) String name,
@@ -162,7 +173,7 @@ public class ActivityController {
     ) {
         return Message.success(
                 activityService.updateTicket(
-                        accountId,
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                         activityId,
                         ticketId,
                         name,
@@ -178,38 +189,51 @@ public class ActivityController {
 
     @GetMapping("/{activityId}/ticket/{ticketId}")
     public Message<?> readTicket(
-            @GetAccount String accountId,
             @PathVariable String activityId,
             @PathVariable String ticketId
     ) {
-        return Message.success(activityService.readTicket(accountId, activityId, ticketId));
+        return Message.success(activityService.readTicket(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                activityId,
+                ticketId)
+        );
     }
 
     @DeleteMapping("/{activityId}/ticket/{ticketId}")
     public Message<?> deleteTicket(
-            @GetAccount String accountId,
             @PathVariable String activityId,
             @PathVariable String ticketId
     ) {
-        return Message.success(activityService.deleteTicket(accountId, activityId, ticketId));
+        return Message.success(activityService.deleteTicket(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                activityId,
+                ticketId)
+        );
     }
 
     @GetMapping("/{activityId}/stub")
     public Message<?> listStub(
-            @GetAccount String accountId,
             @PathVariable String activityId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return Message.success(activityService.listStub(accountId, activityId, page, size));
+        return Message.success(activityService.listStub(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                activityId,
+                page,
+                size)
+        );
     }
 
     @GetMapping("/{activityId}/stub/{stubId}")
     public Message<?> listStub(
-            @GetAccount String accountId,
             @PathVariable String activityId,
             @PathVariable String stubId
     ) {
-        return Message.success(activityService.readStub(accountId, activityId, stubId));
+        return Message.success(activityService.readStub(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                activityId,
+                stubId)
+        );
     }
 }
