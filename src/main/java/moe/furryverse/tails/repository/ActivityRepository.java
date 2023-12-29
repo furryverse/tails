@@ -12,4 +12,7 @@ public interface ActivityRepository extends MongoRepository<Activity, String> {
 
     @Query("{'is_deleted': ?0}")
     @NotNull Page<Activity> findAll(boolean isDeleted, @NotNull Pageable pageable);
+
+    @Query("{'account_id': ?0}")
+    @NotNull Page<Activity> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
 }

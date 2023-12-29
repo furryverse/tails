@@ -19,19 +19,19 @@ public class ShopService {
     final ShopRepository shopRepository;
     final ItemRepository itemRepository;
 
-    public List<Shop> listShop(int page, int size) {
+    public List<Shop> listShop(String accountId, int page, int size) {
         Pageable pageable = PageRequest.of(
                 page,
                 Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE)
         );
-        Page<Shop> shops = shopRepository.findAll(pageable);
+        Page<Shop> shops = shopRepository.findAllByAccountId(accountId, pageable);
 
         return shops.getContent();
     }
 
-    public List<Item> listItem(int page, int size) {
+    public List<Item> listItem(String accountId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, 30));
-        Page<Item> items = itemRepository.findAll(pageable);
+        Page<Item> items = itemRepository.findAllByAccountId(accountId, pageable);
 
         return items.getContent();
     }

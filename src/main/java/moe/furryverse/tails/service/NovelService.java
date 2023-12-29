@@ -19,12 +19,12 @@ public class NovelService {
     final NovelRepository novelRepository;
     final ChapterRepository chapterRepository;
 
-    public List<Novel> listNovel(int page, int size) {
+    public List<Novel> listNovel(String accountId, int page, int size) {
         Pageable pageable = PageRequest.of(
                 page,
                 Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE)
         );
-        Page<Novel> novels = novelRepository.findAll(pageable);
+        Page<Novel> novels = novelRepository.findAllByAccountId(accountId, pageable);
 
         return novels.getContent();
     }

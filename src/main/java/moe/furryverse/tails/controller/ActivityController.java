@@ -24,7 +24,12 @@ public class ActivityController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return Message.success(activityService.listActivity(page, size));
+        return Message.success(activityService.listActivity(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        page,
+                        size
+                )
+        );
     }
 
     @PostMapping

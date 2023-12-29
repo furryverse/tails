@@ -10,8 +10,4 @@ public interface TicketRepository extends MongoRepository<Ticket, String> {
     @NotNull <S extends Ticket> S save(@NotNull S entity);
 
     Page<Ticket> findAllByActivityId(String activityId, Pageable pageable);
-
-    Ticket findTicketByTicketId(String ticketId);
-
-    Ticket deleteTicketByTicketId(String ticketId);
 }

@@ -29,12 +29,12 @@ public class ActivityService {
     final TicketRepository ticketRepository;
     final StubRepository stubRepository;
 
-    public List<Activity> listActivity(int page, int size) {
+    public List<Activity> listActivity(String accountId, int page, int size) {
         Pageable pageable = PageRequest.of(
                 page,
                 Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE)
         );
-        Page<Activity> activities = activityRepository.findAll(false, pageable);
+        Page<Activity> activities = activityRepository.findAllByAccountId(accountId, pageable);
 
         return activities.getContent();
     }
