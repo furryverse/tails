@@ -10,7 +10,8 @@ import org.springframework.data.mongodb.repository.Query;
 public interface ShopRepository extends MongoRepository<Shop, String> {
     @NotNull <S extends Shop> S save(@NotNull S entity);
 
-    @NotNull Page<Shop> findAll(@NotNull Pageable pageable);
+    @Query("{'is_deleted': ?0}")
+    @NotNull Page<Shop> findAll(boolean isDeleted, @NotNull Pageable pageable);
 
     @Query("{'account_id': ?0}")
     @NotNull Page<Shop> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);

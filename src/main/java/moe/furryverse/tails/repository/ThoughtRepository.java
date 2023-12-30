@@ -10,7 +10,8 @@ import org.springframework.data.mongodb.repository.Query;
 public interface ThoughtRepository extends MongoRepository<Thought, String> {
     @NotNull <S extends Thought> S save(@NotNull S entity);
 
-    @NotNull Page<Thought> findAll(@NotNull Pageable pageable);
+    @Query("{'is_deleted': ?0}")
+    @NotNull Page<Thought> findAll(boolean isDeleted, @NotNull Pageable pageable);
 
     @Query("{'account_id': ?0}")
     @NotNull Page<Thought> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);

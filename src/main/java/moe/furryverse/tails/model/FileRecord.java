@@ -27,6 +27,9 @@ public record FileRecord(
         @Field("url") @JsonProperty("url") @NotNull String url,
         @Field("type") @JsonProperty("type") @NotNull String type,
         @Field("size") @JsonProperty("size") long size,
-        @Field("is_public") @JsonProperty("is_public") boolean isPublic
+
+        // 管理
+        @Field("is_public") @JsonProperty("is_public") boolean isPublic,
+        @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) {
 }

@@ -12,6 +12,7 @@ import moe.furryverse.tails.repository.StubRepository;
 import moe.furryverse.tails.repository.TicketRepository;
 import moe.furryverse.tails.utils.RandomUtils;
 import moe.furryverse.tails.utils.TimeUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +35,9 @@ public class ActivityService {
                 page,
                 Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE)
         );
-        Page<Activity> activities = activityRepository.findAllByAccountId(accountId, pageable);
+        Page<Activity> activities = accountId == null
+                ? activityRepository.findAll(false, pageable)
+                : activityRepository.findAllByAccountId(accountId, pageable);
 
         return activities.getContent();
     }
@@ -301,7 +304,7 @@ public class ActivityService {
         return ticketRepository.save(ticket);
     }
 
-    public List<Stub> listStub(String accountId, String activityId, int page, int size) {
+    public List<Stub> listStub(@NotNull String accountId, String activityId, int page, int size) {
         Pageable pageable = PageRequest.of(
                 page,
                 Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE)

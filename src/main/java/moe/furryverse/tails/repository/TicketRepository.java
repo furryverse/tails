@@ -5,11 +5,13 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 public interface TicketRepository extends MongoRepository<Ticket, String> {
     @NotNull <S extends Ticket> S save(@NotNull S entity);
 
-    @NotNull Page<Ticket> findAll(@NotNull Pageable pageable);
+    @Query("{'is_deleted': ?0}")
+    @NotNull Page<Ticket> findAll(boolean isDeleted, @NotNull Pageable pageable);
 
     Page<Ticket> findAllByActivityId(String activityId, Pageable pageable);
 }

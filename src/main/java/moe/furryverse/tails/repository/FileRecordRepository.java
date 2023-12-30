@@ -10,7 +10,8 @@ import org.springframework.data.mongodb.repository.Query;
 public interface FileRecordRepository extends MongoRepository<FileRecord, String> {
     @NotNull <S extends FileRecord> S save(@NotNull S entity);
 
-    @NotNull Page<FileRecord> findAll(@NotNull Pageable pageable);
+    @Query("{'is_deleted': ?0}")
+    @NotNull Page<FileRecord> findAll(boolean isDeleted, @NotNull Pageable pageable);
 
     @Query("{'account_id': ?0}")
     @NotNull Page<FileRecord> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);

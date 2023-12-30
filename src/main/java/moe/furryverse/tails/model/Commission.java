@@ -13,17 +13,23 @@ import java.util.List;
  *
  * @param commissionId 委托 ID
  * @param created      创建时间
+ * @param accountId    账号
  * @param name         委托名称
  * @param contents     详细内容
  * @param price        价格
  * @param processing   需要进行的交付次数
+ * @param isDeleted    是否被删除
  */
 public record Commission(
         @Id @JsonProperty("commission_id") @NotNull String commissionId,
         @Field("created") @JsonProperty("created") long created,
+        @Field("account_id") @JsonProperty("account_id") String accountId,
         @Field("name") @JsonProperty("name") String name,
         @Field("contents") @JsonProperty("contents") List<String> contents,
         @Field("price") @JsonProperty("price") double price,
-        @Field("processing") @JsonProperty("processing") int processing
+        @Field("processing") @JsonProperty("processing") int processing,
+
+        // 管理功能
+        @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) implements Payable {
 }

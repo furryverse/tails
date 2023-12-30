@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param emoji      表情
  * @param content    短评
  * @param postId     帖子 ID - 与 Post 的 post_id 相关联
+ * @param isDeleted  是否删除
  */
 @Document("reactions")
 public record Reaction(
@@ -25,6 +26,9 @@ public record Reaction(
         @Field("content") @JsonProperty("content") @NotNull String content,
 
         // 关联键
-        @Field("post_id") @JsonProperty("post_id") @NotNull String postId
+        @Field("post_id") @JsonProperty("post_id") @NotNull String postId,
+
+        // 管理
+        @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) {
 }

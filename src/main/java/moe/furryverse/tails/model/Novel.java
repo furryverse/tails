@@ -33,11 +33,12 @@ import java.util.Set;
 public record Novel(
         @Id @JsonProperty("novel_id") @NotNull String novelId,
         @Field("created") @JsonProperty("created") long created,
+        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("description") @JsonProperty("description") @Nullable String description,
         @Field("cover") @JsonProperty("cover") @Nullable String cover,
         @Field("price") @JsonProperty("price") double price,
-        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
 
         // 关联键
         @Field("tags") @JsonProperty("tags") @NotNull List<String> tags,

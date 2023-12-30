@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.config.PageConfiguration;
 import moe.furryverse.tails.model.Category;
 import moe.furryverse.tails.repository.CategoryRepository;
+import moe.furryverse.tails.utils.RandomUtils;
+import moe.furryverse.tails.utils.TimeUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,5 +25,37 @@ public class CategoryService {
                 : categoryRepository.findAllByAccountId(accountId, pageable);
 
         return categories.getContent();
+    }
+
+    public Category createCategory(
+            String accountId,
+            String categoryName, String icon, String color, String banner,
+            String bannerBackground, String background, String description,
+            boolean isPublic
+    ) {
+        Category category = new Category(
+                RandomUtils.uuid(),
+                TimeUtils.getMilliUnixTime(),
+                categoryName,
+                accountId,
+                icon,
+                color,
+                banner,
+                bannerBackground,
+                background,
+                description,
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                isPublic,
+                false
+        );
+
+        return categoryRepository.save(category);
+    }
+
+    public Category getCategory(String categoryId) {
+        return categoryRepository.findById(categoryId).orElse(null);
     }
 }

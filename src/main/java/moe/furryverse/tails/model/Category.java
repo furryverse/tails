@@ -15,6 +15,7 @@ import java.util.List;
  * @param created          创建时间
  * @param categoryId       分类 ID
  * @param name             分类名称
+ * @param accountId        所属账号
  * @param icon             分类图标
  * @param color            主题颜色
  * @param banner           横幅
@@ -33,9 +34,10 @@ public record Category(
         // 基本信息
         @Id @JsonProperty("category_id") @NotNull String categoryId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("category_name") @JsonProperty("category_name") @NotNull String name,
-        @Field("icon") @JsonProperty("icon") @NotNull String icon,
-        @Field("color") @JsonProperty("color") @NotNull String color,
+        @Field("name") @JsonProperty("name") @NotNull String name,
+        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("icon") @JsonProperty("icon") @Nullable String icon,
+        @Field("color") @JsonProperty("color") @Nullable String color,
         @Field("banner") @JsonProperty("banner") @Nullable String banner,
         @Field("banner_background") @JsonProperty("banner_background") @Nullable String bannerBackground,
         @Field("background") @JsonProperty("background") @Nullable String background,

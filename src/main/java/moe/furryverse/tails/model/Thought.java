@@ -16,6 +16,7 @@ import java.util.List;
  * @param accountId 账户 ID
  * @param contents  内容
  * @param postId    帖子 ID - 与 Post 的 post_id 相关联
+ * @param isDeleted 是否删除
  */
 @Document("thoughts")
 public record Thought(
@@ -25,6 +26,9 @@ public record Thought(
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
 
         // 关联键
-        @Field("post_id") @JsonProperty("post_id") @NotNull String postId
+        @Field("post_id") @JsonProperty("post_id") @NotNull String postId,
+
+        // 管理
+        @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) {
 }
