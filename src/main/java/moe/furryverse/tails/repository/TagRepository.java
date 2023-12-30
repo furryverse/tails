@@ -10,6 +10,10 @@ import org.springframework.data.mongodb.repository.Query;
 public interface TagRepository extends MongoRepository<Tag, String> {
     @NotNull <S extends Tag> S save(@NotNull S entity);
 
-    @Query("{‘account_id’: ?0}")
+    @NotNull Page<Tag> findAll(@NotNull Pageable pageable);
+
+    @Query("{'account_id': ?0}")
     @NotNull Page<Tag> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+
+    Tag deleteTagByTagId(String tagId);
 }

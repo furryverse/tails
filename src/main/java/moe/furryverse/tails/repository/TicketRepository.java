@@ -9,5 +9,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface TicketRepository extends MongoRepository<Ticket, String> {
     @NotNull <S extends Ticket> S save(@NotNull S entity);
 
+    @NotNull Page<Ticket> findAll(@NotNull Pageable pageable);
+
     Page<Ticket> findAllByActivityId(String activityId, Pageable pageable);
 }

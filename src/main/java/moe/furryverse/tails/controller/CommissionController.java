@@ -1,13 +1,20 @@
 package moe.furryverse.tails.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.message.Message;
+import moe.furryverse.tails.service.CommissionService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v0/commission")
 public class CommissionController {
+    final HttpServletRequest request;
+    final CommissionService commissionService;
+
+    //////////////////////////////////////////////////////////////// Commission
+
     @GetMapping()
     public Message<?> listCommissions() {
         return Message.success();
@@ -32,6 +39,8 @@ public class CommissionController {
     public Message<?> deleteCommission(@PathVariable String commissionId) {
         return Message.success();
     }
+
+    //////////////////////////////////////////////////////////////// Workflow
 
     @GetMapping("/{commissionId}/workflow")
     public Message<?> listCommissionWorkflows(@PathVariable String commissionId) {

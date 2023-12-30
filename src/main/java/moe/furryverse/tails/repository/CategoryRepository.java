@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.repository.Query;
 public interface CategoryRepository extends MongoRepository<Category, String> {
     @NotNull <S extends Category> S save(@NotNull S entity);
 
+    @NotNull Page<Category> findAll(@NotNull Pageable pageable);
+
     @Query("account_id = ?0")
     @NotNull Page<Category> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
 }

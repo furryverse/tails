@@ -1,7 +1,9 @@
 package moe.furryverse.tails.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.message.Message;
+import moe.furryverse.tails.service.IndexService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/v0/index")
 public class IndexController {
+    final HttpServletRequest request;
+    final IndexService indexService;
+
     @GetMapping("/recommendation/shop")
     public Message<?> recommendingShop() {
         return Message.success();

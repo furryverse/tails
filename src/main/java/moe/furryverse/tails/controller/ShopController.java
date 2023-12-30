@@ -1,13 +1,20 @@
 package moe.furryverse.tails.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.message.Message;
+import moe.furryverse.tails.service.ShopService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v0/shop")
 public class ShopController {
+    final HttpServletRequest request;
+    final ShopService shopService;
+
+    //////////////////////////////////////////////////////////////// Shop
+
     @GetMapping()
     public Message<?> listShop() {
         return Message.success();
@@ -32,6 +39,8 @@ public class ShopController {
     public Message<?> deleteShop(@PathVariable String shopId) {
         return Message.success();
     }
+
+    //////////////////////////////////////////////////////////////// Item
 
     @GetMapping("/{shopId}/item")
     public Message<?> listShopItem(@PathVariable String shopId) {

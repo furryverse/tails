@@ -4,10 +4,10 @@ import moe.furryverse.tails.model.OAuth;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
+
 public interface OAuthRepository extends MongoRepository<OAuth, String> {
     @NotNull <S extends OAuth> S save(@NotNull S entity);
 
-    OAuth findOAuthByAccountId(String oAuthId);
-
-    OAuth deleteOAuthByAccountId(String oAuthId);
+    @NotNull List<OAuth> findAll();
 }

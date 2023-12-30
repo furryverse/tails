@@ -11,6 +11,8 @@ public interface OrderRepository extends MongoRepository<Order, String> {
 
     @NotNull <S extends Order> S save(@NotNull S entity);
 
+    @NotNull Page<Order> findAll(@NotNull Pageable pageable);
+
     @Query("{'account_id': ?0}")
     @NotNull Page<Order> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
 }

@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.repository.Query;
 public interface ReactionRepository extends MongoRepository<Reaction, String> {
     @NotNull <S extends Reaction> S save(@NotNull S entity);
 
+    @NotNull Page<Reaction> findAll(@NotNull Pageable pageable);
+
     @Query("{'account_id': ?0}")
     @NotNull Page<Reaction> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
 }

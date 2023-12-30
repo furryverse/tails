@@ -1,13 +1,20 @@
 package moe.furryverse.tails.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.message.Message;
+import moe.furryverse.tails.service.NovelService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v0/novel")
 public class NovelController {
+    final HttpServletRequest request;
+    final NovelService novelService;
+
+    //////////////////////////////////////////////////////////////// Novel
+
     @GetMapping()
     public Message<?> listNovel() {
         return Message.success();
@@ -32,6 +39,8 @@ public class NovelController {
     public Message<?> deleteNovel(@PathVariable String novelId) {
         return Message.success();
     }
+
+    //////////////////////////////////////////////////////////////// Chapter
 
     @GetMapping("/{novelId}/chapter")
     public Message<?> listChapter(@PathVariable String novelId) {

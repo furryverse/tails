@@ -11,6 +11,8 @@ public interface PostRepository extends MongoRepository<Post, String> {
 
     @NotNull <S extends Post> S save(@NotNull S entity);
 
+    @NotNull Page<Post> findAll(@NotNull Pageable pageable);
+
     @Query("{'account_id': ?0}")
     @NotNull Page<Post> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
 }
