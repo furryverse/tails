@@ -18,7 +18,9 @@ public class CategoryService {
 
     public List<Category> listCategory(String accountId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE));
-        Page<Category> categories = categoryRepository.findAllByAccountId(accountId, pageable);
+        Page<Category> categories = accountId == null
+                ? categoryRepository.findAll(pageable)
+                : categoryRepository.findAllByAccountId(accountId, pageable);
 
         return categories.getContent();
     }
