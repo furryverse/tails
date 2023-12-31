@@ -21,6 +21,7 @@ import java.util.List;
  * @param contents      详细介绍内容
  * @param administrator 管理员
  * @param isLocked      是否锁定
+ * @param isReviewing   是否审核
  * @param isDeleted     是否删除
  */
 @Document("shops")
@@ -36,6 +37,7 @@ public record Shop(
         // 管理功能
         @Field("administrator") @JsonProperty("administrator") @Nullable String administrator,
         @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) {
 }

@@ -18,7 +18,9 @@ import java.util.List;
  * @param contents     详细内容
  * @param price        价格
  * @param processing   需要进行的交付次数
- * @param isDeleted    是否被删除
+ * @param isLocked     是否锁定
+ * @param isReviewing  是否正在审核
+ * @param isDeleted    是否删除
  */
 public record Commission(
         @Id @JsonProperty("commission_id") @NotNull String commissionId,
@@ -30,6 +32,8 @@ public record Commission(
         @Field("processing") @JsonProperty("processing") int processing,
 
         // 管理功能
+        @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) implements Payable {
 }

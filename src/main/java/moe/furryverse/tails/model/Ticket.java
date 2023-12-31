@@ -24,7 +24,9 @@ import java.util.List;
  * @param stock       数量
  * @param contents    详细介绍内容
  * @param activityId  活动 ID - 与 Activity 的 activity_id 相关联
- * @param isDeleted   是否被删除 标记软删除
+ * @param isLocked    是否锁定
+ * @param isReviewing 是否正在审核
+ * @param isDeleted   是否删除
  */
 @Document("tickets")
 public record Ticket(
@@ -41,6 +43,8 @@ public record Ticket(
 
         // 关联键
         @Field("activity_id") @JsonProperty("activity_id") String activityId,
+        @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) implements Payable {
 }

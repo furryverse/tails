@@ -7,11 +7,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import java.util.List;
+
 public interface ChapterRepository extends MongoRepository<Chapter, String> {
     @NotNull <S extends Chapter> S save(@NotNull S entity);
 
     @Query("{'is_deleted': ?0}")
     @NotNull Page<Chapter> findAll(boolean isDeleted, @NotNull Pageable pageable);
+
+    @NotNull List<Chapter> findAllByNovelId(String novelId);
 
     @Query("account_id = ?0")
     @NotNull Page<Chapter> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);

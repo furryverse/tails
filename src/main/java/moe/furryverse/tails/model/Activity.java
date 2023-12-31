@@ -24,7 +24,9 @@ import java.util.Set;
  * @param cover          封面
  * @param contents       活动内容
  * @param administrators 管理员
- * @param isDeleted      是否被删除 标记软删除
+ * @param isLocked       是否锁定
+ * @param isReviewing    是否在审核中
+ * @param isDeleted      是否删除
  * @param secret         用于签名验证票据的密钥（用于验票）
  */
 @Document("activities")
@@ -38,7 +40,11 @@ public record Activity(
         @Field("end_time") @JsonProperty("end_time") long endTime,
         @Field("cover") @JsonProperty("cover") @Nullable String cover,
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
+
+        // 管理功能
         @Field("administrators") @JsonProperty("administrators") @NotNull Set<String> administrators,
+        @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted,
         @Field("secret") @JsonIgnore @NotNull String secret
 ) {

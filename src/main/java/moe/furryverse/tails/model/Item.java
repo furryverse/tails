@@ -14,19 +14,20 @@ import java.util.List;
 /**
  * 商城物品
  *
- * @param itemId    物品唯一 ID
- * @param created   创建时间
- * @param accountId 创建的账户
- * @param name      商品名称
- * @param cover     封面
- * @param tags      商品标签
- * @param shows     商品展示图
- * @param contents  商品详细介绍内容
- * @param price     价格
- * @param stock     库存
- * @param shopId    店铺 ID - 与 Shop 的 shop_id 相关联
- * @param isLocked  是否锁定
- * @param isDeleted 是否删除
+ * @param itemId      物品唯一 ID
+ * @param created     创建时间
+ * @param accountId   创建的账户
+ * @param name        商品名称
+ * @param cover       封面
+ * @param tags        商品标签
+ * @param shows       商品展示图
+ * @param contents    商品详细介绍内容
+ * @param price       价格
+ * @param stock       库存
+ * @param shopId      店铺 ID - 与 Shop 的 shop_id 相关联
+ * @param isLocked    是否锁定
+ * @param isReviewing 是否审核
+ * @param isDeleted   是否删除
  */
 @Document("items")
 public record Item(
@@ -46,6 +47,7 @@ public record Item(
 
         // 管理
         @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) implements Payable {
 }

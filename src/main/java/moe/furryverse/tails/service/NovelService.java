@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.config.PageConfiguration;
 import moe.furryverse.tails.exception.IsDeletedException;
 import moe.furryverse.tails.exception.UnauthorizationException;
+import moe.furryverse.tails.model.Chapter;
 import moe.furryverse.tails.model.Novel;
 import moe.furryverse.tails.repository.ChapterRepository;
 import moe.furryverse.tails.repository.NovelRepository;
@@ -31,8 +32,8 @@ public class NovelService {
                 Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE)
         );
         Page<Novel> novels = accountId == null
-                ? novelRepository.findAll(pageable)
-                : novelRepository.findAllByAccountId(accountId, pageable);
+                ? novelRepository.findAll(true, false, false, false, pageable)
+                : novelRepository.findAllByAccountId(accountId, false, pageable);
 
         return novels.getContent();
     }
@@ -55,7 +56,7 @@ public class NovelService {
                 Set.of(),
                 isPublic,
                 false,
-                false,
+                true,
                 false
         );
 
@@ -64,9 +65,9 @@ public class NovelService {
 
     public Novel getNovel(String accountId, String novelId) {
         Novel novel = novelRepository.findById(novelId).orElse(null);
-        if (novel == null) return null;
+        if (novel == null || novel.isDeleted()) return null;
 
-        if (novel.isLocked() || novel.isDeleted() || !novel.isPublic()) {
+        if (novel.isLocked() || !novel.isPublic()) {
             if (!Objects.equals(novel.accountId(), accountId) || !novel.viewers().contains(accountId)) {
                 return null;
             }
@@ -80,7 +81,7 @@ public class NovelService {
             String cover, List<String> tags, List<String> contents, boolean isPublic
     ) {
         Novel record = novelRepository.findById(novelId).orElse(null);
-        if (record == null) return null;
+        if (record == null || record.isLocked()) return null;
 
         // 查询是否为小说管理员
         if (!record.collaborators().contains(accountId) || !Objects.equals(accountId, record.accountId())) {
@@ -103,7 +104,7 @@ public class NovelService {
                 record.viewers(),
                 record.collaborators(),
                 isPublic,
-                record.isLocked(),
+                false,
                 record.isReviewing(),
                 false
         );
@@ -141,6 +142,27 @@ public class NovelService {
                 true
         );
 
-        return novelRepository.save(novel);
+        Novel deleted = novelRepository.save(record);
+
+        // 遍历本小说的全部章节 并且一一删除
+        List<Chapter> chapters = chapterRepository.findAllByNovelId(novelId);
+        for (Chapter chapter : chapters) {
+            Chapter deleting = new Chapter(
+                    chapter.chapterId(),
+                    chapter.created(),
+                    chapter.name(),
+                    chapter.contents(),
+                    chapter.price(),
+                    chapter.novelId(),
+                    chapter.isDraft(),
+                    chapter.isLocked(),
+                    chapter.isReviewing(),
+                    true
+            );
+
+            chapterRepository.save(deleting);
+        }
+
+        return deleted;
     }
 }

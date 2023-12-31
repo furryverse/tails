@@ -1,58 +1,59 @@
 package moe.furryverse.tails.security;
 
 public class Permission {
-    // Cluster Category
-    public static final String CATEGORY_LIST = "category.list";
-    public static final String CATEGORY_GET = "category.get";
-    public static final String CATEGORY_CREATE = "category.create";
-    public static final String CATEGORY_UPDATE = "category.update";
-    public static final String CATEGORY_DELETE = "category.delete";
+    // Account
+    public static final String ACCOUNT_LIST = "account:list";
+    public static final String ACCOUNT_READ = "account:read";
+    public static final String ACCOUNT_WRITE = "account:write";
+    public static final String ACCOUNT_UPDATE = "account:update";
+    public static final String ACCOUNT_DELETE = "account:delete";
 
-    // Galaxy Post
-    public static final String POST_LIST = "post.list";
-    public static final String POST_GET = "post.get";
-    public static final String POST_CREATE = "post.create";
-    public static final String POST_UPDATE = "post.update";
-    public static final String POST_DELETE = "post.delete";
+    // Activity
+    public static final String ACTIVITY_LIST = "activity:list";
+    public static final String ACTIVITY_READ = "activity:read";
+    public static final String ACTIVITY_WRITE = "activity:write";
+    public static final String ACTIVITY_UPDATE = "activity:update";
+    public static final String ACTIVITY_DELETE = "activity:delete";
 
-    // Nucleus Tag
-    public static final String TAG_LIST = "tag.list";
-    public static final String TAG_GET = "tag.get";
-    public static final String TAG_CREATE = "tag.create";
-    public static final String TAG_UPDATE = "tag.update";
-    public static final String TAG_DELETE = "tag.delete";
+    // Activity - Ticket
+    public static final String TICKET_LIST = "activity.ticket:list";
+    public static final String TICKET_READ = "activity.ticket:read";
+    public static final String TICKET_WRITE = "activity.ticket:write";
+    public static final String TICKET_UPDATE = "activity.ticket:update";
+    public static final String TICKET_DELETE = "activity.ticket:delete";
 
-    // Asteroid Thought
-    public static final String THOUGHT_LIST = "thought.list";
-    public static final String THOUGHT_GET = "thought.get";
-    public static final String THOUGHT_CREATE = "thought.create";
-    public static final String THOUGHT_UPDATE = "thought.update";
-    public static final String THOUGHT_DELETE = "thought.delete";
+    // Activity - Stub
+    public static final String STUB_LIST = "activity.stub:list";
+    public static final String STUB_READ = "activity.stub:read";
+    public static final String STUB_WRITE = "activity.stub:write";
+    public static final String STUB_UPDATE = "activity.stub:update";
+    public static final String STUB_DELETE = "activity.stub:delete";
 
-    // Comet Reaction
-    public static final String REACTION_LIST = "reaction.list";
-    public static final String REACTION_GET = "reaction.get";
-    public static final String REACTION_CREATE = "reaction.create";
-    public static final String REACTION_UPDATE = "reaction.update";
-    public static final String REACTION_DELETE = "reaction.delete";
+    // Novel
+    public static final String NOVEL_LIST = "novel:list";
+    public static final String NOVEL_READ = "novel:read";
+    public static final String NOVEL_WRITE = "novel:write";
+    public static final String NOVEL_UPDATE = "novel:update";
+    public static final String NOVEL_DELETE = "novel:delete";
 
-    // Planet Comment
-    public static final String COMMENT_LIST = "comment.list";
-    public static final String COMMENT_GET = "comment.get";
-    public static final String COMMENT_CREATE = "comment.create";
-    public static final String COMMENT_UPDATE = "comment.update";
-    public static final String COMMENT_DELETE = "comment.delete";
+    // Novel - Chapter
+    public static final String CHAPTER_LIST = "novel.chapter:list";
+    public static final String CHAPTER_READ = "novel.chapter:read";
+    public static final String CHAPTER_WRITE = "novel.chapter:write";
+    public static final String CHAPTER_UPDATE = "novel.chapter:update";
+    public static final String CHAPTER_DELETE = "novel.chapter:delete";
 
-    // Stardust History
-    public static final String HISTORY_LIST = "history.list";
-    public static final String HISTORY_GET = "history.get";
-    public static final String HISTORY_CREATE = "history.create";
-    public static final String HISTORY_UPDATE = "history.update";
-    public static final String HISTORY_DELETE = "history.delete";
+    // Shop
+    public static final String SHOP_LIST = "shop:list";
+    public static final String SHOP_READ = "shop:read";
+    public static final String SHOP_WRITE = "shop:write";
+    public static final String SHOP_UPDATE = "shop:update";
+    public static final String SHOP_DELETE = "shop:delete";
 
-    // File
-    public static final String FILE_LIST = "file.list";
-    public static final String FILE_GET = "file.get";
-    public static final String FILE_UPLOAD = "file.upload";
-    public static final String FILE_DELETE = "file.delete";
+    // Shop - Item
+    public static final String ITEM_LIST = "shop.item:list";
+    public static final String ITEM_READ = "shop.item:read";
+    public static final String ITEM_WRITE = "shop.item:write";
+    public static final String ITEM_UPDATE = "shop.item:update";
+    public static final String ITEM_DELETE = "shop.item:delete";
 }

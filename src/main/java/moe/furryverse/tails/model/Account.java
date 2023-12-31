@@ -49,6 +49,8 @@ public record Account(
         // 有点笨 什么时候来去掉密码 wq
         @Field("password") @JsonIgnore @NotNull String password,
         @Field("unban_time") @JsonIgnore long unbanTime,
+
+        // 管理功能
         @Field("is_deleted") @JsonIgnore boolean isDeleted
 ) {
 }

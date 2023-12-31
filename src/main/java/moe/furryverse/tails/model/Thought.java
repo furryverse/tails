@@ -11,12 +11,14 @@ import java.util.List;
 /**
  * 某个主题贴或者回复贴的一行文字的单评
  *
- * @param thoughtId 单评 ID
- * @param created   创建时间
- * @param accountId 账户 ID
- * @param contents  内容
- * @param postId    帖子 ID - 与 Post 的 post_id 相关联
- * @param isDeleted 是否删除
+ * @param thoughtId   单评 ID
+ * @param created     创建时间
+ * @param accountId   账户 ID
+ * @param contents    内容
+ * @param postId      帖子 ID - 与 Post 的 post_id 相关联
+ * @param isLocked    是否锁定
+ * @param isReviewing 是否在审核中
+ * @param isDeleted   是否删除
  */
 @Document("thoughts")
 public record Thought(
@@ -29,6 +31,8 @@ public record Thought(
         @Field("post_id") @JsonProperty("post_id") @NotNull String postId,
 
         // 管理
+        @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) {
 }
