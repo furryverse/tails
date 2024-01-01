@@ -62,7 +62,7 @@ public class ActivityController {
             String accountId,
             @PathVariable String activityId
     ) {
-        return Message.success(activityService.readActivity(accountId, activityId));
+        return Message.success(activityService.getActivity(accountId, activityId));
     }
 
     @PostMapping("/{activityId}")

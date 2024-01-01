@@ -13,5 +13,5 @@ public interface StubRepository extends MongoRepository<Stub, String> {
 
     @NotNull Page<Stub> findAll(@NotNull Pageable pageable);
 
-    Stub findStubByStubId(String stubId);
+    Stub findStubByAccountIdAndActivityIdAndStubId(String accountId, String activityId, String stubId);
 }

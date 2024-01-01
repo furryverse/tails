@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import java.util.List;
+
 public interface TicketRepository extends MongoRepository<Ticket, String> {
     @NotNull <S extends Ticket> S save(@NotNull S entity);
 
@@ -14,4 +16,6 @@ public interface TicketRepository extends MongoRepository<Ticket, String> {
     @NotNull Page<Ticket> findAll(boolean isDeleted, @NotNull Pageable pageable);
 
     Page<Ticket> findAllByActivityId(String activityId, Pageable pageable);
+    List<Ticket> findAllByActivityId(String activityId);
+    Ticket findByActivityIdAndTicketId(String activityId, String ticketId);
 }
