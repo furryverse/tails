@@ -14,6 +14,7 @@ import java.util.List;
  *
  * @param postId        帖子 ID
  * @param created       创建时间
+ * @param createdBy     创建的账户
  * @param title         主题标题
  * @param background    背景
  * @param categoryId    分类 ID - 本字段与 Category 中的 category_id 相关联
@@ -31,6 +32,7 @@ public record Post(
         // 基本信息
         @Id @JsonProperty("post_id") @NotNull String postId,
         @Field("created") @JsonProperty("created") long created,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("title") @JsonProperty("title") @NotNull String title,
         @Field("background") @JsonProperty("background") @Nullable String background,
 

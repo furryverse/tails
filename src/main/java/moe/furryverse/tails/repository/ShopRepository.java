@@ -13,6 +13,6 @@ public interface ShopRepository extends MongoRepository<Shop, String> {
     @Query("{'is_deleted': ?0}")
     @NotNull Page<Shop> findAll(boolean isDeleted, @NotNull Pageable pageable);
 
-    @Query("{'account_id': ?0}")
-    @NotNull Page<Shop> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0}")
+    @NotNull Page<Shop> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

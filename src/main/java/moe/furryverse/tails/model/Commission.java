@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @param commissionId 委托 ID
  * @param created      创建时间
- * @param accountId    账号
+ * @param createdBy    账号
  * @param name         委托名称
  * @param contents     详细内容
  * @param price        价格
@@ -25,7 +25,7 @@ import java.util.List;
 public record Commission(
         @Id @JsonProperty("commission_id") @NotNull String commissionId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") String accountId,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("name") @JsonProperty("name") String name,
         @Field("contents") @JsonProperty("contents") List<String> contents,
         @Field("price") @JsonProperty("price") double price,

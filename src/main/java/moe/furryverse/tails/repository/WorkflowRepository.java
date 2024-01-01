@@ -12,6 +12,6 @@ public interface WorkflowRepository extends MongoRepository<Workflow, String> {
 
     @NotNull Page<Workflow> findAll(@NotNull Pageable pageable);
 
-    @Query("{'account_id': ?0}")
-    @NotNull Page<Workflow> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0}")
+    @NotNull Page<Workflow> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

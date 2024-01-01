@@ -12,6 +12,6 @@ public interface CommissionRepository extends MongoRepository<Commission, String
 
     @NotNull Page<Commission> findAll(@NotNull Pageable pageable);
 
-    @Query("{'account_id': ?0}")
-    @NotNull Page<Commission> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0}")
+    @NotNull Page<Commission> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

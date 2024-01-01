@@ -16,6 +16,8 @@ public interface TicketRepository extends MongoRepository<Ticket, String> {
     @NotNull Page<Ticket> findAll(boolean isDeleted, @NotNull Pageable pageable);
 
     Page<Ticket> findAllByActivityId(String activityId, Pageable pageable);
+
     List<Ticket> findAllByActivityId(String activityId);
+
     Ticket findByActivityIdAndTicketId(String activityId, String ticketId);
 }

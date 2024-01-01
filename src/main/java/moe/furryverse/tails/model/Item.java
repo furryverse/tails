@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @param itemId      物品唯一 ID
  * @param created     创建时间
- * @param accountId   创建的账户
+ * @param createdBy   创建的账户
  * @param name        商品名称
  * @param cover       封面
  * @param tags        商品标签
@@ -33,7 +33,7 @@ import java.util.List;
 public record Item(
         @Id @JsonProperty("item_id") @NotNull String itemId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("cover") @JsonProperty("cover") @Nullable String cover,
         @Field("tags") @JsonProperty("tags") @NotNull List<String> tags,

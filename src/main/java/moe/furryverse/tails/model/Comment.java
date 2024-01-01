@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @param created     创建时间
  * @param commentId   回复 ID
- * @param accountId   账户 ID
+ * @param createdBy   账户 ID
  * @param contents    内容
  * @param bindId      绑定的相关联数据模型
  *                    - 绑定的帖子的 post_id
@@ -30,7 +30,7 @@ import java.util.List;
 public record Comment(
         @Id @JsonProperty("comment_id") @NotNull String commentId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
 
         // 关联键

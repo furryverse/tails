@@ -3,6 +3,7 @@ package moe.furryverse.tails.service;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.config.PageConfiguration;
 import moe.furryverse.tails.exception.IsDeletedException;
+import moe.furryverse.tails.exception.NotFoundDataException;
 import moe.furryverse.tails.exception.UnauthorizationException;
 import moe.furryverse.tails.model.Chapter;
 import moe.furryverse.tails.model.Novel;
@@ -33,7 +34,7 @@ public class NovelService {
         );
         Page<Novel> novels = accountId == null
                 ? novelRepository.findAll(true, false, false, false, pageable)
-                : novelRepository.findAllByAccountId(accountId, false, pageable);
+                : novelRepository.findAllByCreatedBy(accountId, false, pageable);
 
         return novels.getContent();
     }
@@ -65,10 +66,13 @@ public class NovelService {
 
     public Novel getNovel(String accountId, String novelId) {
         Novel novel = novelRepository.findById(novelId).orElse(null);
-        if (novel == null || novel.isDeleted()) return null;
+        if (novel == null) throw new NotFoundDataException("resource not found", null, null, accountId);
+
+        // 如果小说被删除了则无法查看
+        if (novel.isDeleted()) throw new IsDeletedException("this novel is deleted", null, null, accountId);
 
         if (novel.isLocked() || !novel.isPublic()) {
-            if (!Objects.equals(novel.accountId(), accountId) || !novel.viewers().contains(accountId)) {
+            if (!Objects.equals(novel.createdBy(), accountId) || !novel.viewers().contains(accountId)) {
                 return null;
             }
         }
@@ -84,7 +88,7 @@ public class NovelService {
         if (record == null || record.isLocked()) return null;
 
         // 查询是否为小说管理员
-        if (!record.collaborators().contains(accountId) || !Objects.equals(accountId, record.accountId())) {
+        if (!record.collaborators().contains(accountId) || !Objects.equals(accountId, record.createdBy())) {
             throw new UnauthorizationException("unauthorized", null, null, accountId);
         }
 
@@ -94,7 +98,7 @@ public class NovelService {
         Novel novel = new Novel(
                 record.novelId(),
                 record.created(),
-                record.accountId(),
+                record.createdBy(),
                 name == null ? record.name() : name,
                 description == null ? record.description() : description,
                 cover == null ? record.cover() : cover,
@@ -117,7 +121,7 @@ public class NovelService {
         if (record == null) return null;
 
         // 查询是否为小说管理员
-        if (!record.collaborators().contains(accountId) || !Objects.equals(accountId, record.accountId())) {
+        if (!record.collaborators().contains(accountId) || !Objects.equals(accountId, record.createdBy())) {
             throw new UnauthorizationException("unauthorized", null, null, accountId);
         }
 
@@ -127,7 +131,7 @@ public class NovelService {
         Novel novel = new Novel(
                 record.novelId(),
                 record.created(),
-                record.accountId(),
+                record.createdBy(),
                 record.name(),
                 record.description(),
                 record.cover(),
@@ -150,6 +154,7 @@ public class NovelService {
             Chapter deleting = new Chapter(
                     chapter.chapterId(),
                     chapter.created(),
+                    chapter.createdBy(),
                     chapter.name(),
                     chapter.contents(),
                     chapter.price(),
@@ -164,5 +169,28 @@ public class NovelService {
         }
 
         return deleted;
+    }
+
+    public List<Chapter> listChapter(String accountId, String novelId) {
+        Novel novel = novelRepository.findById(novelId).orElse(null);
+        if (novel == null) throw new NotFoundDataException("resource not found", null, null, accountId);
+
+        return null;
+    }
+
+    public Chapter createChapter(String novelId) {
+        return null;
+    }
+
+    public Chapter getChapter(String novelId, String chapterId) {
+        return null;
+    }
+
+    public Chapter updateChapter(String novelId, String chapterId) {
+        return null;
+    }
+
+    public Chapter deleteChapter(String novelId, String chapterId) {
+        return null;
     }
 }

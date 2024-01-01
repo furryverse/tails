@@ -12,6 +12,6 @@ public interface CategoryRepository extends MongoRepository<Category, String> {
 
     @NotNull Page<Category> findAll(@NotNull Pageable pageable);
 
-    @Query("account_id = ?0")
-    @NotNull Page<Category> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0}")
+    @NotNull Page<Category> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

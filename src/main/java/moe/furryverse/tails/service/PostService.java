@@ -27,28 +27,28 @@ public class PostService {
 
     public List<Post> listPost(String accountId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE));
-        Page<Post> posts = postRepository.findAllByAccountId(accountId, pageable);
+        Page<Post> posts = postRepository.findAllByCreatedBy(accountId, pageable);
 
         return posts.getContent();
     }
 
     public List<Thought> listThought(String accountId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE));
-        Page<Thought> thoughts = thoughtRepository.findAllByAccountId(accountId, pageable);
+        Page<Thought> thoughts = thoughtRepository.findAllByCreatedBy(accountId, pageable);
 
         return thoughts.getContent();
     }
 
     public List<Reaction> listReaction(String accountId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE));
-        Page<Reaction> reactions = reactionRepository.findAllByAccountId(accountId, pageable);
+        Page<Reaction> reactions = reactionRepository.findAllByCreatedBy(accountId, pageable);
 
         return reactions.getContent();
     }
 
     public List<Comment> listComment(String accountId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE));
-        Page<Comment> comments = commentRepository.findAllByAccountId(accountId, pageable);
+        Page<Comment> comments = commentRepository.findAllByCreatedBy(accountId, pageable);
 
         return comments.getContent();
     }

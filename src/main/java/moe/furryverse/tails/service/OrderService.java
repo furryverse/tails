@@ -29,7 +29,7 @@ public class OrderService {
                 page,
                 Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE)
         );
-        Page<Order> orders = orderRepository.findAllByAccountId(accountId, pageable);
+        Page<Order> orders = orderRepository.findAllByCreatedBy(accountId, pageable);
 
         return orders.getContent();
     }
@@ -59,14 +59,14 @@ public class OrderService {
         if (record == null) return null;
 
         if (
-                record.accountId().equals(accountId) &&
+                record.createdBy().equals(accountId) &&
                         record.status() != Order.OrderStatus.PAID &&
                         record.status() != Order.OrderStatus.SUCCESS
         ) {
             return orderRepository.save(new Order(
                     record.orderId(),
                     record.created(),
-                    record.accountId(),
+                    record.createdBy(),
                     record.name(),
                     record.sellPrice(),
                     record.buyPrice(),
@@ -86,7 +86,7 @@ public class OrderService {
         Order order = new Order(
                 record.orderId(),
                 record.created(),
-                record.accountId(),
+                record.createdBy(),
                 record.name(),
                 record.sellPrice(),
                 record.buyPrice(),

@@ -22,7 +22,7 @@ public class CategoryService {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE));
         Page<Category> categories = accountId == null
                 ? categoryRepository.findAll(pageable)
-                : categoryRepository.findAllByAccountId(accountId, pageable);
+                : categoryRepository.findAllByCreatedBy(accountId, pageable);
 
         return categories.getContent();
     }

@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  *
  * @param reactionId  反应 ID
  * @param created     创建时间
- * @param accountId   账户 ID
+ * @param createdBy   账户 ID
  * @param emoji       表情
  * @param content     短评
  * @param postId      帖子 ID - 与 Post 的 post_id 相关联
@@ -23,7 +23,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public record Reaction(
         @Id @JsonProperty("reaction_id") @NotNull String reactionId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("emoji") @JsonProperty("emoji") @NotNull String emoji,
         @Field("content") @JsonProperty("content") @NotNull String content,
 

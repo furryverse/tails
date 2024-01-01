@@ -16,11 +16,11 @@ import java.util.Set;
  *
  * @param novelId       小说唯一 ID
  * @param created       创建时间
+ * @param createdBy     创建小说的账户 ID
  * @param name          名字
  * @param description   简介
  * @param cover         封面
  * @param price         价格
- * @param accountId     创建小说的账户 ID
  * @param tags          标签
  * @param viewers       未公开状态下可以查看帖子的用户
  * @param collaborators 可以编辑帖子的用户
@@ -33,7 +33,7 @@ import java.util.Set;
 public record Novel(
         @Id @JsonProperty("novel_id") @NotNull String novelId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("description") @JsonProperty("description") @Nullable String description,
         @Field("cover") @JsonProperty("cover") @Nullable String cover,

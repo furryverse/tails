@@ -14,6 +14,7 @@ import java.util.List;
  *
  * @param chapterId   章节 ID
  * @param created     创建时间
+ * @param createdBy   创建人
  * @param name        名字
  * @param contents    内容
  * @param price       单篇收费价格
@@ -27,6 +28,7 @@ import java.util.List;
 public record Chapter(
         @Id @JsonProperty("chapter_id") @NotNull String chapterId,
         @Field("created") @JsonProperty("created") long created,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("name") @JsonProperty("name") String name,
         @Field("contents") @JsonProperty("contents") List<String> contents,
         @Field("price") @JsonProperty("price") double price,

@@ -14,6 +14,6 @@ public interface PostRepository extends MongoRepository<Post, String> {
     @Query("{'is_deleted': ?0}")
     @NotNull Page<Post> findAll(boolean isDeleted, @NotNull Pageable pageable);
 
-    @Query("{'account_id': ?0}")
-    @NotNull Page<Post> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0}")
+    @NotNull Page<Post> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

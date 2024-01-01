@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @param ticketId    票据 ID
  * @param created     创建时间
- * @param accountId   创建该票据的账户 ID
+ * @param createdBy   创建该票据的账户 ID
  * @param name        票据名称
  * @param cover       票据封面
  * @param stubCover   票据存根的封面
@@ -32,7 +32,7 @@ import java.util.List;
 public record Ticket(
         @Id @JsonProperty("ticket_id") @NotNull String ticketId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("cover") @JsonProperty("cover") String cover,
         @Field("stub_cover") @JsonProperty("stub_cover") String stubCover,

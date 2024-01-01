@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  *
  * @param stubId     存根 ID
  * @param created    创建时间
- * @param accountId  购买的账户
+ * @param createdBy  购买的账户
  * @param startTime  票据有效时间
  * @param endTime    票据结束时间
  * @param isUsed     是否已使用
@@ -24,7 +24,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public record Stub(
         @Id @JsonProperty("stub_id") @NotNull String stubId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("start_time") @JsonProperty("start_time") long startTime,
         @Field("end_time") @JsonProperty("end_time") long endTime,
         @Field("is_used") @JsonProperty("is_used") boolean isUsed,

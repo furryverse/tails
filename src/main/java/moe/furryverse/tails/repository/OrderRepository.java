@@ -13,6 +13,6 @@ public interface OrderRepository extends MongoRepository<Order, String> {
 
     @NotNull Page<Order> findAll(@NotNull Pageable pageable);
 
-    @Query("{'account_id': ?0}")
-    @NotNull Page<Order> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0}")
+    @NotNull Page<Order> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

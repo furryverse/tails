@@ -17,6 +17,6 @@ public interface ChapterRepository extends MongoRepository<Chapter, String> {
 
     @NotNull List<Chapter> findAllByNovelId(String novelId);
 
-    @Query("account_id = ?0")
-    @NotNull Page<Chapter> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0}")
+    @NotNull Page<Chapter> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

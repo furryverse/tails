@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @param thoughtId   单评 ID
  * @param created     创建时间
- * @param accountId   账户 ID
+ * @param createdBy   账户 ID
  * @param contents    内容
  * @param postId      帖子 ID - 与 Post 的 post_id 相关联
  * @param isLocked    是否锁定
@@ -24,7 +24,7 @@ import java.util.List;
 public record Thought(
         @Id @JsonProperty("thought_id") @NotNull String thoughtId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
 
         // 关联键

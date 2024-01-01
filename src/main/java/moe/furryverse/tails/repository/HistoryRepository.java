@@ -12,6 +12,6 @@ public interface HistoryRepository extends MongoRepository<History, String> {
 
     @NotNull Page<History> findAll(@NotNull Pageable pageable);
 
-    @Query("{'account_id': ?0}")
-    @NotNull Page<History> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0}")
+    @NotNull Page<History> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

@@ -2,10 +2,7 @@ package moe.furryverse.tails.service;
 
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.config.PageConfiguration;
-import moe.furryverse.tails.exception.IsDeletedException;
-import moe.furryverse.tails.exception.IsLockedException;
-import moe.furryverse.tails.exception.NotFoundDataException;
-import moe.furryverse.tails.exception.UnauthorizationException;
+import moe.furryverse.tails.exception.*;
 import moe.furryverse.tails.model.Activity;
 import moe.furryverse.tails.model.Stub;
 import moe.furryverse.tails.model.Ticket;
@@ -38,7 +35,7 @@ public class ActivityService {
 
         Page<Activity> activities = accountId == null
                 ? activityRepository.findAll(false, false, false, pageable)
-                : activityRepository.findAllByAccountId(accountId, false, pageable);
+                : activityRepository.findAllByCreatedBy(accountId, false, pageable);
 
         return activities.getContent();
     }
@@ -81,14 +78,14 @@ public class ActivityService {
         if (activity.isLocked()) throw new IsLockedException("activity is locked", null, null, accountId);
 
         // 判断是否为创建者或管理员
-        if (!activity.administrators().contains(accountId) || !Objects.equals(activity.accountId(), accountId)) {
+        if (!activity.administrators().contains(accountId) || !Objects.equals(activity.createdBy(), accountId)) {
             throw new UnauthorizationException("unauthorized", null, null, accountId);
         }
 
         Activity updated = new Activity(
                 activity.activityId(),
                 activity.created(),
-                activity.accountId(),
+                activity.createdBy(),
                 name == null ? activity.name() : name,
                 description == null ? activity.description() : description,
                 startTime == 0 ? activity.startTime() : startTime,
@@ -111,14 +108,16 @@ public class ActivityService {
 
         // 判断是否为删除
         // 如果未删除正常返回
-        if (!activity.isDeleted()) return activity;
+        if (!activity.isDeleted() && !activity.isReviewing()) return activity;
 
         // 如果删除了则判断是否为创建者或管理员或购买了该活动票的其他用户
-        if (activity.administrators().contains(accountId) || Objects.equals(activity.accountId(), accountId)) {
+        if (activity.administrators().contains(accountId) || Objects.equals(activity.createdBy(), accountId)) {
             return activity;
         }
 
-        throw new UnauthorizationException("unauthorized", null, null, accountId);
+        if (activity.isDeleted()) throw new IsDeletedException("activity is deleted", null, null, accountId);
+
+        throw new IsReviewingException("activity is reviewing", null, null, accountId);
     }
 
     public Activity deleteActivity(String accountId, String activityId) {
@@ -126,7 +125,7 @@ public class ActivityService {
         if (activity == null) throw new NotFoundDataException("activity not found", null, null, accountId);
 
         // 是否为创建者或管理员
-        if (!activity.administrators().contains(accountId) || !Objects.equals(activity.accountId(), accountId)) {
+        if (!activity.administrators().contains(accountId) || !Objects.equals(activity.createdBy(), accountId)) {
             throw new UnauthorizationException("unauthorized", null, null, accountId);
         }
 
@@ -136,7 +135,7 @@ public class ActivityService {
         Activity deleted = new Activity(
                 activity.activityId(),
                 activity.created(),
-                activity.accountId(),
+                activity.createdBy(),
                 activity.name(),
                 activity.description(),
                 activity.startTime(),
@@ -156,7 +155,7 @@ public class ActivityService {
             Ticket deletedTicket = new Ticket(
                     ticket.ticketId(),
                     ticket.created(),
-                    ticket.accountId(),
+                    ticket.createdBy(),
                     ticket.name(),
                     ticket.cover(),
                     ticket.stubCover(),
@@ -183,14 +182,14 @@ public class ActivityService {
         // 是否已经被删除
         if (activity.isDeleted()) throw new IsDeletedException("activity is deleted", null, null, accountId);
         // 是否为创建者或管理员
-        if (!activity.administrators().contains(accountId) || !Objects.equals(activity.accountId(), accountId)) {
+        if (!activity.administrators().contains(accountId) || !Objects.equals(activity.createdBy(), accountId)) {
             throw new UnauthorizationException("unauthorized", null, null, accountId);
         }
 
         Activity deleted = new Activity(
                 activity.activityId(),
                 activity.created(),
-                activity.accountId(),
+                activity.createdBy(),
                 activity.name(),
                 activity.description(),
                 activity.startTime(),
@@ -217,14 +216,14 @@ public class ActivityService {
         // 是否已经被删除
         if (activity.isDeleted()) throw new IsDeletedException("activity is deleted", null, null, accountId);
         // 是否为创建者或管理员
-        if (!activity.administrators().contains(accountId) || !Objects.equals(activity.accountId(), accountId)) {
+        if (!activity.administrators().contains(accountId) || !Objects.equals(activity.createdBy(), accountId)) {
             throw new UnauthorizationException("unauthorized", null, null, accountId);
         }
 
         Activity deleted = new Activity(
                 activity.activityId(),
                 activity.created(),
-                activity.accountId(),
+                activity.createdBy(),
                 activity.name(),
                 activity.description(),
                 activity.startTime(),
@@ -257,7 +256,7 @@ public class ActivityService {
         }
 
         // 如果删除了则判断是否为创建者或管理员或购买了该活动票的其他用户
-        if (activity.administrators().contains(accountId) || Objects.equals(activity.accountId(), accountId)) {
+        if (activity.administrators().contains(accountId) || Objects.equals(activity.createdBy(), accountId)) {
             Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.MAX_PAGE_SIZE));
 
             return ticketRepository.findAllByActivityId(activityId, pageable).getContent();
@@ -275,7 +274,7 @@ public class ActivityService {
         if (activity == null) throw new NotFoundDataException("activity not found", null, null, accountId);
 
         // 是否为创建者或管理员
-        if (!activity.administrators().contains(accountId) || !Objects.equals(activity.accountId(), accountId)) {
+        if (!activity.administrators().contains(accountId) || !Objects.equals(activity.createdBy(), accountId)) {
             throw new UnauthorizationException("unauthorized", null, null, accountId);
         }
         // 是否已经被删除
@@ -323,8 +322,8 @@ public class ActivityService {
 
         if (
                 !activity.administrators().contains(accountId)
-                        || !Objects.equals(ticket.accountId(), accountId)
-                        || !Objects.equals(ticket.accountId(), activity.accountId())
+                        || !Objects.equals(ticket.createdBy(), accountId)
+                        || !Objects.equals(ticket.createdBy(), activity.createdBy())
         ) {
             throw new NotFoundDataException("ticket not found", null, null, accountId);
         }
@@ -332,7 +331,7 @@ public class ActivityService {
         Ticket updated = new Ticket(
                 ticket.ticketId(),
                 ticket.created(),
-                ticket.accountId(),
+                ticket.createdBy(),
                 name == null ? ticket.name() : name,
                 cover == null ? ticket.cover() : cover,
                 stubCover == null ? ticket.stubCover() : stubCover,
@@ -361,8 +360,8 @@ public class ActivityService {
             // 如果删除了则判断是否为创建者或管理员或购买了该活动票的其他用户
             if (
                     activity.administrators().contains(accountId)
-                            || Objects.equals(ticket.accountId(), accountId)
-                            || Objects.equals(ticket.accountId(), activity.accountId())
+                            || Objects.equals(ticket.createdBy(), accountId)
+                            || Objects.equals(ticket.createdBy(), activity.createdBy())
             ) {
                 return ticket;
             }
@@ -391,8 +390,8 @@ public class ActivityService {
         // 是否为创建者或管理员
         if (
                 !activity.administrators().contains(accountId)
-                        || !Objects.equals(ticket.accountId(), accountId)
-                        || !Objects.equals(ticket.accountId(), activity.accountId())
+                        || !Objects.equals(ticket.createdBy(), accountId)
+                        || !Objects.equals(ticket.createdBy(), activity.createdBy())
         ) {
             throw new UnauthorizationException("cannot delete ticket", null, null, accountId);
         }
@@ -401,7 +400,7 @@ public class ActivityService {
                 new Ticket(
                         ticket.ticketId(),
                         ticket.created(),
-                        ticket.accountId(),
+                        ticket.createdBy(),
                         ticket.name(),
                         ticket.cover(),
                         ticket.stubCover(),
@@ -420,10 +419,10 @@ public class ActivityService {
     public List<Stub> listStub(@NotNull String accountId, String activityId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.MAX_PAGE_SIZE));
 
-        return stubRepository.findAllByAccountIdAndActivityId(accountId, activityId, pageable).getContent();
+        return stubRepository.findAllByCreatedByAndActivityId(accountId, activityId, pageable).getContent();
     }
 
     public Stub readStub(@NotNull String accountId, String activityId, String stubId) {
-        return stubRepository.findStubByAccountIdAndActivityIdAndStubId(accountId, activityId, stubId);
+        return stubRepository.findStubByCreatedByAndActivityIdAndStubId(accountId, activityId, stubId);
     }
 }

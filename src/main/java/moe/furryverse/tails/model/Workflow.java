@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param workflowId   工作流 ID
  * @param created      创建时间
  * @param name         工作流名称
- * @param accountId    发起委托的账户 ID
+ * @param createdBy    发起委托的账户 ID
  * @param commissionId 原委托 ID
  * @param orderId      订单 ID
  * @param status       状态
@@ -19,8 +19,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public record Workflow(
         @Id @JsonProperty("workflow_id") @NotNull String workflowId,
         @Field("created") @JsonProperty("created") long created,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("name") @JsonProperty("name") String name,
-        @Field("account_id") @JsonProperty("account_id") String accountId,
         @Field("commission_id") @JsonProperty("commission_id") @NotNull String commissionId,
         @Field("order_id") @JsonProperty("order_id") String orderId,
         @Field("status") @JsonProperty("status") WorkflowStatus status,

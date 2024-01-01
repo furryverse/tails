@@ -13,6 +13,6 @@ public interface ItemRepository extends MongoRepository<Item, String> {
     @Query("{'is_deleted': ?0}")
     @NotNull Page<Item> findAll(boolean isDeleted, @NotNull Pageable pageable);
 
-    @Query("{'account_id': ?0}")
-    @NotNull Page<Item> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0}")
+    @NotNull Page<Item> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

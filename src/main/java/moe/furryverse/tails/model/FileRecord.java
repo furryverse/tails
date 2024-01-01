@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  *
  * @param fileId      文件 ID
  * @param created     创建时间
- * @param accountId   用户账户 ID
+ * @param createdBy   用户账户 ID
  * @param name        文件名
  * @param url         文件 URL
  * @param type        文件类型
@@ -25,7 +25,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public record FileRecord(
         @Id @JsonProperty("file_id") @NotNull String fileId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("url") @JsonProperty("url") @NotNull String url,
         @Field("type") @JsonProperty("type") @NotNull String type,

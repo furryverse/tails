@@ -13,6 +13,6 @@ public interface NovelRepository extends MongoRepository<Novel, String> {
     @Query("{'is_public': ?0, 'is_locked': ?1, 'is_reviewing': ?2, 'is_deleted': ?3}")
     @NotNull Page<Novel> findAll(boolean isPublic, boolean isLocked, boolean isReviewing, boolean isDeleted, @NotNull Pageable pageable);
 
-    @Query("{'account_id': ?0, 'is_deleted':  ?1}")
-    @NotNull Page<Novel> findAllByAccountId(@NotNull String accountId, boolean isDeleted, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0, 'is_deleted':  ?1}")
+    @NotNull Page<Novel> findAllByCreatedBy(@NotNull String createdBy, boolean isDeleted, @NotNull Pageable pageable);
 }

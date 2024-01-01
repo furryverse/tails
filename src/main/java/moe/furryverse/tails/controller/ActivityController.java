@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.annotation.PermissionCheck;
 import moe.furryverse.tails.content.Resource;
 import moe.furryverse.tails.message.Message;
+import moe.furryverse.tails.security.Permission;
 import moe.furryverse.tails.service.ActivityService;
 import moe.furryverse.tails.utils.RandomUtils;
 import moe.furryverse.tails.utils.TimeUtils;
@@ -20,6 +21,7 @@ public class ActivityController {
     final ActivityService activityService;
 
     @GetMapping
+    @PermissionCheck(access = {Permission.ACTIVITY_LIST})
     public Message<?> listAllActivity(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -33,7 +35,7 @@ public class ActivityController {
     }
 
     @PostMapping
-    @PermissionCheck(access = {})
+    @PermissionCheck(access = {Permission.ACTIVITY_WRITE})
     public Message<?> createActivity(
             @RequestParam(name = "name") String name,
             @RequestParam(name = "description") String description,
@@ -58,6 +60,7 @@ public class ActivityController {
     }
 
     @GetMapping("/{activityId}")
+    @PermissionCheck(access = {Permission.ACTIVITY_READ})
     public Message<?> readActivity(
             String accountId,
             @PathVariable String activityId
@@ -66,6 +69,7 @@ public class ActivityController {
     }
 
     @PostMapping("/{activityId}")
+    @PermissionCheck(access = {Permission.ACTIVITY_UPDATE})
     public Message<?> updateActivity(
             @PathVariable String activityId,
             @RequestParam(name = "name", required = false) String name,
@@ -90,6 +94,7 @@ public class ActivityController {
     }
 
     @PostMapping("/{activityId}/administrator")
+    @PermissionCheck(access = {Permission.ACTIVITY_UPDATE})
     public Message<?> addAdministrator(
             @PathVariable String activityId,
             @RequestParam(name = "administrator") String administrator
@@ -102,6 +107,7 @@ public class ActivityController {
     }
 
     @DeleteMapping("/{activityId}/administrator")
+    @PermissionCheck(access = {Permission.ACTIVITY_UPDATE})
     public Message<?> deleteAdministrator(
             @PathVariable String activityId,
             @RequestParam(name = "administrator") String administrator
@@ -114,6 +120,7 @@ public class ActivityController {
     }
 
     @DeleteMapping("/{activityId}")
+    @PermissionCheck(access = {Permission.ACTIVITY_DELETE})
     public Message<?> deleteActivity(
             @PathVariable String activityId
     ) {
@@ -124,6 +131,7 @@ public class ActivityController {
     }
 
     @GetMapping("/{activityId}/ticket")
+    @PermissionCheck(access = {Permission.TICKET_LIST})
     public Message<?> listTicket(
             @PathVariable String activityId,
             @RequestParam(defaultValue = "0") int page,
@@ -138,6 +146,7 @@ public class ActivityController {
     }
 
     @PostMapping("/{activityId}/ticket")
+    @PermissionCheck(access = {Permission.TICKET_WRITE})
     public Message<?> createTicket(
             @PathVariable String activityId,
             @RequestParam(name = "name") String name,
@@ -165,6 +174,7 @@ public class ActivityController {
 
 
     @PostMapping("/{activityId}/ticket/{ticketId}")
+    @PermissionCheck(access = {Permission.TICKET_UPDATE})
     public Message<?> updateTicket(
             @PathVariable String activityId,
             @PathVariable String ticketId,
@@ -193,6 +203,7 @@ public class ActivityController {
     }
 
     @GetMapping("/{activityId}/ticket/{ticketId}")
+    @PermissionCheck(access = {Permission.TICKET_READ})
     public Message<?> readTicket(
             @PathVariable String activityId,
             @PathVariable String ticketId
@@ -205,6 +216,7 @@ public class ActivityController {
     }
 
     @DeleteMapping("/{activityId}/ticket/{ticketId}")
+    @PermissionCheck(access = {Permission.TICKET_DELETE})
     public Message<?> deleteTicket(
             @PathVariable String activityId,
             @PathVariable String ticketId
@@ -217,6 +229,7 @@ public class ActivityController {
     }
 
     @GetMapping("/{activityId}/stub")
+    @PermissionCheck(access = {Permission.STUB_LIST})
     public Message<?> listStub(
             @PathVariable String activityId,
             @RequestParam(defaultValue = "0") int page,
@@ -231,7 +244,8 @@ public class ActivityController {
     }
 
     @GetMapping("/{activityId}/stub/{stubId}")
-    public Message<?> listStub(
+    @PermissionCheck(access = {Permission.STUB_READ})
+    public Message<?> getStub(
             @PathVariable String activityId,
             @PathVariable String stubId
     ) {

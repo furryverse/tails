@@ -13,6 +13,6 @@ public interface ReactionRepository extends MongoRepository<Reaction, String> {
     @Query("{'is_deleted': ?0}")
     @NotNull Page<Reaction> findAll(boolean isDeleted, @NotNull Pageable pageable);
 
-    @Query("{'account_id': ?0}")
-    @NotNull Page<Reaction> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0}")
+    @NotNull Page<Reaction> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

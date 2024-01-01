@@ -13,6 +13,6 @@ public interface FileRecordRepository extends MongoRepository<FileRecord, String
     @Query("{'is_deleted': ?0}")
     @NotNull Page<FileRecord> findAll(boolean isDeleted, @NotNull Pageable pageable);
 
-    @Query("{'account_id': ?0}")
-    @NotNull Page<FileRecord> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0}")
+    @NotNull Page<FileRecord> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

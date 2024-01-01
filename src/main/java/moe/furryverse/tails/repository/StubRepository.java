@@ -9,9 +9,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface StubRepository extends MongoRepository<Stub, String> {
     @NotNull <S extends Stub> S save(@NotNull S entity);
 
-    Page<Stub> findAllByAccountIdAndActivityId(String accountId, String activityId, Pageable pageable);
+    Page<Stub> findAllByCreatedByAndActivityId(String createdBy, String activityId, Pageable pageable);
 
     @NotNull Page<Stub> findAll(@NotNull Pageable pageable);
 
-    Stub findStubByAccountIdAndActivityIdAndStubId(String accountId, String activityId, String stubId);
+    Stub findStubByCreatedByAndActivityIdAndStubId(String createdBy, String activityId, String stubId);
 }

@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  *
  * @param orderId   订单 ID
  * @param created   创建时间
- * @param accountId 创建订单的账户 ID
+ * @param createdBy 创建订单的账户 ID
  * @param name      订单名
  * @param sellPrice 商品在商品页面的出售价格
  * @param buyPrice  实际需要付款的价格
@@ -27,7 +27,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public record Order(
         @Id @JsonProperty("order_id") @NotNull String orderId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("sell_price") @JsonProperty("sell_price") int sellPrice,
         @Field("buy_price") @JsonProperty("buy_price") int buyPrice,

@@ -13,6 +13,6 @@ public interface ThoughtRepository extends MongoRepository<Thought, String> {
     @Query("{'is_deleted': ?0}")
     @NotNull Page<Thought> findAll(boolean isDeleted, @NotNull Pageable pageable);
 
-    @Query("{'account_id': ?0}")
-    @NotNull Page<Thought> findAllByAccountId(@NotNull String accountId, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0}")
+    @NotNull Page<Thought> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

@@ -16,7 +16,7 @@ import java.util.Set;
  *
  * @param activityId     活动 ID
  * @param created        创建时间
- * @param accountId      创建账户
+ * @param createdBy      创建账户
  * @param name           活动名称
  * @param description    描述
  * @param startTime      开始时间
@@ -33,7 +33,7 @@ import java.util.Set;
 public record Activity(
         @Id @JsonProperty("activity_id") @NotNull String activityId,
         @Field("created") @JsonProperty("created") long created,
-        @Field("account_id") @JsonProperty("account_id") @NotNull String accountId,
+        @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("description") @JsonProperty("description") @NotNull String description,
         @Field("start_time") @JsonProperty("start_time") long startTime,
