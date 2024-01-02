@@ -24,7 +24,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-@SuppressWarnings("Duplicates")
+@SuppressWarnings("DuplicatedCode")
 public class ActivityService {
     final ActivityRepository activityRepository;
     final TicketRepository ticketRepository;

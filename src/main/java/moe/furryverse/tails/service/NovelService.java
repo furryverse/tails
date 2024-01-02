@@ -22,7 +22,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-@SuppressWarnings("Duplicates")
+@SuppressWarnings("DuplicatedCode")
 public class NovelService {
     final NovelRepository novelRepository;
     final ChapterRepository chapterRepository;
