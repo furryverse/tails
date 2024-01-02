@@ -11,6 +11,8 @@ public interface StubRepository extends MongoRepository<Stub, String> {
 
     Page<Stub> findAllByCreatedByAndActivityId(String createdBy, String activityId, Pageable pageable);
 
+    int countAllByCreatedByAndActivityId(String createdBy, String activityId);
+
     @NotNull Page<Stub> findAll(@NotNull Pageable pageable);
 
     Stub findStubByCreatedByAndActivityIdAndStubId(String createdBy, String activityId, String stubId);

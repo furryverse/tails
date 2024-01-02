@@ -2,7 +2,6 @@ package moe.furryverse.tails.service;
 
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.config.PageConfiguration;
-import moe.furryverse.tails.exception.NotFoundDataException;
 import moe.furryverse.tails.model.Activity;
 import moe.furryverse.tails.model.Stub;
 import moe.furryverse.tails.model.Ticket;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -98,7 +96,14 @@ public class ActivityService {
 
     public Activity getActivity(String accountId, String activityId) {
         Activity activity = activityRepository.findById(activityId).orElse(null);
-        ManageStatusUtils.checkReadStatus(activity, accountId);
+        ManageStatusUtils.checkReadStatus(
+                activity,
+                accountId,
+                () -> {
+                    // 如果用户购买过该票则无论票处于什么状态都能显示
+                    int count = stubRepository.countAllByCreatedByAndActivityId(activityId, activityId);
+                    return count != 0;
+                });
 
         return activity;
     }
@@ -286,24 +291,17 @@ public class ActivityService {
 
     public Ticket readTicket(String accountId, String activityId, String ticketId) {
         Ticket ticket = ticketRepository.findByActivityIdAndTicketId(activityId, ticketId);
-        if (ticket == null) throw new NotFoundDataException("ticket not found", null, null, accountId);
+        Activity activity = activityRepository.findById(activityId).orElse(null);
 
-        // 是否被删除
-        if (ticket.isDeleted()) {
-            Activity activity = activityRepository.findById(activityId).orElse(null);
-            if (activity == null) throw new NotFoundDataException("activity not found", null, null, accountId);
-
-            // 如果删除了则判断是否为创建者或管理员或购买了该活动票的其他用户
-            if (
-                    activity.administrators().contains(accountId)
-                            || Objects.equals(ticket.createdBy(), accountId)
-                            || Objects.equals(ticket.createdBy(), activity.createdBy())
-            ) {
-                return ticket;
-            }
-
-            throw new NotFoundDataException("ticket already deleted", null, null, accountId);
-        }
+        ManageStatusUtils.checkParentsStatus(
+                ticket,
+                activity,
+                accountId,
+                () -> {
+                    // 如果用户购买过该票则无论票处于什么状态都能显示
+                    int count = stubRepository.countAllByCreatedByAndActivityId(activityId, activityId);
+                    return count != 0;
+                });
 
         // 如果未删除正常返回
         return ticket;
