@@ -1,7 +1,9 @@
 package moe.furryverse.tails.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import moe.furryverse.tails.interfaces.Attributable;
 import moe.furryverse.tails.interfaces.Payable;
+import moe.furryverse.tails.interfaces.Traceable;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -32,8 +34,10 @@ public record Commission(
         @Field("processing") @JsonProperty("processing") int processing,
 
         // 管理功能
+        @Field("is_public") @JsonProperty("is_public") boolean isPublic,
         @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_archived") @JsonProperty("is_archived") boolean isArchived,
         @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
-) implements Payable {
+) implements Payable, Attributable, Traceable {
 }

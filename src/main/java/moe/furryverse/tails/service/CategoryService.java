@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -44,11 +45,14 @@ public class CategoryService {
                 bannerBackground,
                 background,
                 description,
-                List.of(),
-                List.of(),
-                List.of(),
-                List.of(),
+                Set.of(),
+                Set.of(),
+                Set.of(),
+                Set.of(),
                 isPublic,
+                false,
+                false,
+                true,
                 false
         );
 

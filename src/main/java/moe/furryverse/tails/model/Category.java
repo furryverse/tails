@@ -1,13 +1,16 @@
 package moe.furryverse.tails.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import moe.furryverse.tails.interfaces.Attributable;
+import moe.furryverse.tails.interfaces.Manageable;
+import moe.furryverse.tails.interfaces.Traceable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * 板块 / 分区
@@ -44,11 +47,14 @@ public record Category(
         @Field("description") @JsonProperty("description") @Nullable String description,
 
         // 管理功能
-        @Field("reviewers") @JsonProperty("reviewers") @NotNull List<String> reviewers,
-        @Field("administrators") @JsonProperty("administrators") @NotNull List<String> administrators,
-        @Field("editors") @JsonProperty("editors") @NotNull List<String> editors,
-        @Field("viewers") @JsonProperty("viewers") @NotNull List<String> viewers,
+        @Field("reviewers") @JsonProperty("reviewers") @NotNull Set<String> reviewers,
+        @Field("administrators") @JsonProperty("administrators") @NotNull Set<String> administrators,
+        @Field("editors") @JsonProperty("editors") @NotNull Set<String> editors,
+        @Field("viewers") @JsonProperty("viewers") @NotNull Set<String> viewers,
         @Field("is_public") @JsonProperty("is_public") boolean isPublic,
-        @Field("is_locked") @JsonProperty("is_locked") boolean isLocked
-) {
+        @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_archived") @JsonProperty("is_archived") boolean isArchived,
+        @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
+        @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
+) implements Attributable, Manageable, Traceable {
 }

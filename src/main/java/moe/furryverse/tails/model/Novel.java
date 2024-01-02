@@ -1,7 +1,10 @@
 package moe.furryverse.tails.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import moe.furryverse.tails.interfaces.Attributable;
+import moe.furryverse.tails.interfaces.Contributable;
 import moe.furryverse.tails.interfaces.Payable;
+import moe.furryverse.tails.interfaces.Traceable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.annotation.Id;
@@ -44,11 +47,12 @@ public record Novel(
         @Field("tags") @JsonProperty("tags") @NotNull List<String> tags,
 
         // 管理功能
-        @Field("viewers") @JsonProperty("viewers") @NotNull List<String> viewers,
+        @Field("viewers") @JsonProperty("viewers") @NotNull Set<String> viewers,
         @Field("collaborators") @JsonProperty("collaborators") @NotNull Set<String> collaborators,
         @Field("is_public") @JsonProperty("is_public") boolean isPublic,
         @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_archived") @JsonProperty("is_archived") boolean isArchived,
         @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
-) implements Payable {
+) implements Payable, Attributable, Contributable, Traceable {
 }

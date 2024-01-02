@@ -2,6 +2,9 @@ package moe.furryverse.tails.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import moe.furryverse.tails.interfaces.Attributable;
+import moe.furryverse.tails.interfaces.Manageable;
+import moe.furryverse.tails.interfaces.Traceable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.annotation.Id;
@@ -43,9 +46,11 @@ public record Activity(
 
         // 管理功能
         @Field("administrators") @JsonProperty("administrators") @NotNull Set<String> administrators,
+        @Field("is_public") @JsonProperty("is_public") boolean isPublic,
         @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_archived") @JsonProperty("is_archived") boolean isArchived,
         @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted,
         @Field("secret") @JsonIgnore @NotNull String secret
-) {
+) implements Attributable, Manageable, Traceable {
 }

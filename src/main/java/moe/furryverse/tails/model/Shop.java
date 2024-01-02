@@ -1,6 +1,9 @@
 package moe.furryverse.tails.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import moe.furryverse.tails.interfaces.Attributable;
+import moe.furryverse.tails.interfaces.Manageable;
+import moe.furryverse.tails.interfaces.Traceable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.annotation.Id;
@@ -8,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 店铺
@@ -35,9 +39,11 @@ public record Shop(
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
 
         // 管理功能
-        @Field("administrator") @JsonProperty("administrator") @Nullable String administrator,
+        @Field("administrators") @JsonProperty("administrators") @Nullable Set<String> administrators,
+        @Field("is_public") @JsonProperty("is_public") boolean isPublic,
         @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
+        @Field("is_archived") @JsonProperty("is_archived") boolean isArchived,
         @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
-) {
+) implements Attributable, Manageable, Traceable {
 }

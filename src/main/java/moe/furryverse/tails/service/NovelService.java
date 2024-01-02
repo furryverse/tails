@@ -2,13 +2,12 @@ package moe.furryverse.tails.service;
 
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.config.PageConfiguration;
-import moe.furryverse.tails.exception.IsDeletedException;
 import moe.furryverse.tails.exception.NotFoundDataException;
-import moe.furryverse.tails.exception.UnauthorizationException;
 import moe.furryverse.tails.model.Chapter;
 import moe.furryverse.tails.model.Novel;
 import moe.furryverse.tails.repository.ChapterRepository;
 import moe.furryverse.tails.repository.NovelRepository;
+import moe.furryverse.tails.utils.ManageStatusUtils;
 import moe.furryverse.tails.utils.RandomUtils;
 import moe.furryverse.tails.utils.TimeUtils;
 import org.springframework.data.domain.Page;
@@ -17,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -53,9 +51,10 @@ public class NovelService {
                 0,
                 contents == null ? List.of() : contents,
                 tags == null ? List.of() : tags,
-                List.of(),
+                Set.of(),
                 Set.of(),
                 isPublic,
+                false,
                 false,
                 true,
                 false
@@ -66,16 +65,7 @@ public class NovelService {
 
     public Novel getNovel(String accountId, String novelId) {
         Novel novel = novelRepository.findById(novelId).orElse(null);
-        if (novel == null) throw new NotFoundDataException("resource not found", null, null, accountId);
-
-        // 如果小说被删除了则无法查看
-        if (novel.isDeleted()) throw new IsDeletedException("this novel is deleted", null, null, accountId);
-
-        if (novel.isLocked() || !novel.isPublic()) {
-            if (!Objects.equals(novel.createdBy(), accountId) || !novel.viewers().contains(accountId)) {
-                return null;
-            }
-        }
+        ManageStatusUtils.checkReadStatus(novel, accountId);
 
         return novel;
     }
@@ -85,15 +75,7 @@ public class NovelService {
             String cover, List<String> tags, List<String> contents, boolean isPublic
     ) {
         Novel record = novelRepository.findById(novelId).orElse(null);
-        if (record == null || record.isLocked()) return null;
-
-        // 查询是否为小说管理员
-        if (!record.collaborators().contains(accountId) || !Objects.equals(accountId, record.createdBy())) {
-            throw new UnauthorizationException("unauthorized", null, null, accountId);
-        }
-
-        // 如果小说被删除了则无法修改
-        if (record.isDeleted()) throw new IsDeletedException("resource is deleted", null, null, accountId);
+        ManageStatusUtils.checkUpdateStatus(record, accountId);
 
         Novel novel = new Novel(
                 record.novelId(),
@@ -108,7 +90,8 @@ public class NovelService {
                 record.viewers(),
                 record.collaborators(),
                 isPublic,
-                false,
+                record.isLocked(),
+                record.isArchived(),
                 record.isReviewing(),
                 false
         );
@@ -118,15 +101,7 @@ public class NovelService {
 
     public Novel deleteNovel(String accountId, String novelId) {
         Novel record = novelRepository.findById(novelId).orElse(null);
-        if (record == null) return null;
-
-        // 查询是否为小说管理员
-        if (!record.collaborators().contains(accountId) || !Objects.equals(accountId, record.createdBy())) {
-            throw new UnauthorizationException("unauthorized", null, null, accountId);
-        }
-
-        // 如果小说被删除了则无法修改
-        if (record.isDeleted()) throw new IsDeletedException("resource is deleted", null, null, accountId);
+        ManageStatusUtils.checkDeleteStatus(record, accountId);
 
         Novel novel = new Novel(
                 record.novelId(),
@@ -142,6 +117,7 @@ public class NovelService {
                 record.collaborators(),
                 record.isPublic(),
                 record.isLocked(),
+                record.isArchived(),
                 record.isReviewing(),
                 true
         );
@@ -160,7 +136,9 @@ public class NovelService {
                     chapter.price(),
                     chapter.novelId(),
                     chapter.isDraft(),
+                    record.isPublic(),
                     chapter.isLocked(),
+                    record.isArchived(),
                     chapter.isReviewing(),
                     true
             );
