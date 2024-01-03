@@ -15,6 +15,11 @@ public class IndexController {
     final HttpServletRequest request;
     final IndexService indexService;
 
+    @GetMapping
+    public Message<?> search() {
+        return Message.success();
+    }
+
     @GetMapping("/recommendation/shop")
     public Message<?> recommendingShop() {
         return Message.success();

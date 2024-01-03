@@ -105,31 +105,102 @@ public class ShopController {
 
     @GetMapping("/{shopId}/item")
     @PermissionCheck(access = {Permission.ITEM_LIST}, requiredLogin = false)
-    public Message<?> listShopItem(@PathVariable String shopId) {
-        return Message.success();
+    public Message<?> listShopItem(
+            @PathVariable String shopId,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "20") int size
+    ) {
+        return Message.success(
+                shopService.listItem(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        shopId,
+                        page,
+                        size
+                )
+        );
     }
 
     @PostMapping("/{shopId}/item")
     @PermissionCheck(access = {Permission.ITEM_WRITE})
-    public Message<?> createShopItem(@PathVariable String shopId) {
-        return Message.success();
+    public Message<?> createShopItem(
+            @PathVariable String shopId,
+            @RequestParam(name = "name") String name,
+            @RequestParam(name = "cover") String cover,
+            @RequestParam(name = "tags") List<String> tags,
+            @RequestParam(name = "shows") List<String> shows,
+            @RequestParam(name = "contents") List<String> contents,
+            @RequestParam(name = "price") int price,
+            @RequestParam(name = "stock") int stock,
+            @RequestParam(name = "is_public") boolean isPublic
+    ) {
+        return Message.success(
+                shopService.createItem(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        shopId,
+                        name,
+                        cover,
+                        tags,
+                        shows,
+                        contents,
+                        price,
+                        stock,
+                        isPublic
+                )
+        );
     }
 
     @PostMapping("/{shopId}/item/{itemId}")
     @PermissionCheck(access = {Permission.ITEM_UPDATE})
-    public Message<?> updateShopItem(@PathVariable String shopId, @PathVariable String itemId) {
-        return Message.success();
+    public Message<?> updateShopItem(
+            @PathVariable String shopId,
+            @PathVariable String itemId,
+            @RequestParam(name = "name") String name,
+            @RequestParam(name = "cover") String cover,
+            @RequestParam(name = "tags") List<String> tags,
+            @RequestParam(name = "shows") List<String> shows,
+            @RequestParam(name = "contents") List<String> contents,
+            @RequestParam(name = "price") int price,
+            @RequestParam(name = "stock") int stock,
+            @RequestParam(name = "is_public") boolean isPublic
+    ) {
+        return Message.success(
+                shopService.updateItem(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        shopId,
+                        itemId,
+                        name,
+                        cover,
+                        tags,
+                        shows,
+                        contents,
+                        price,
+                        stock,
+                        isPublic
+                )
+        );
     }
 
     @GetMapping("/{shopId}/item/{itemId}")
     @PermissionCheck(access = {Permission.ITEM_READ})
     public Message<?> getShopItem(@PathVariable String shopId, @PathVariable String itemId) {
-        return Message.success();
+        return Message.success(
+                shopService.getItem(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        shopId,
+                        itemId
+                )
+        );
     }
 
     @DeleteMapping("/{shopId}/item/{itemId}")
     @PermissionCheck(access = {Permission.ITEM_DELETE})
     public Message<?> deleteShopItem(@PathVariable String shopId, @PathVariable String itemId) {
-        return Message.success();
+        return Message.success(
+                shopService.deleteItem(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        shopId,
+                        itemId
+                )
+        );
     }
 }
