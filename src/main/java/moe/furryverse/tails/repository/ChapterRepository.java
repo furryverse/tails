@@ -12,11 +12,11 @@ import java.util.List;
 public interface ChapterRepository extends MongoRepository<Chapter, String> {
     @NotNull <S extends Chapter> S save(@NotNull S entity);
 
-    @Query("{'is_deleted': ?0}")
-    @NotNull Page<Chapter> findAll(boolean isDeleted, @NotNull Pageable pageable);
+    @Query("{'is_locked': ?0,'is_reviewing': ?1, 'is_deleted': ?2, 'is_draft': ?3, 'is_public': ?4, 'novel_id':  ?5}")
+    @NotNull Page<Chapter> findAll(boolean isLocked, boolean isReviewing, boolean isDeleted, boolean isDraft, boolean isPublic, String novelId, @NotNull Pageable pageable);
+
+    @Query("{'created_by': ?0, 'is_deleted': ?1, 'novel_id':  ?2}")
+    @NotNull Page<Chapter> findAll(@NotNull String createdBy, boolean isDeleted, String novelId, @NotNull Pageable pageable);
 
     @NotNull List<Chapter> findAllByNovelId(String novelId);
-
-    @Query("{'created_by': ?0}")
-    @NotNull Page<Chapter> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
 }

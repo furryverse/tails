@@ -21,7 +21,7 @@ public class ActivityController {
     final ActivityService activityService;
 
     @GetMapping
-    @PermissionCheck(access = {Permission.ACTIVITY_LIST})
+    @PermissionCheck(access = {Permission.ACTIVITY_LIST}, requiredLogin = false)
     public Message<?> listAllActivity(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -99,11 +99,13 @@ public class ActivityController {
             @PathVariable String activityId,
             @RequestParam(name = "administrator") String administrator
     ) {
-        return Message.success(activityService.addAdministrator(
-                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                administrator,
-                activityId)
-        );
+        return Message.success
+                (activityService.addAdministrator(
+                                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                                administrator,
+                                activityId
+                        )
+                );
     }
 
     @DeleteMapping("/{activityId}/administrator")
@@ -112,10 +114,12 @@ public class ActivityController {
             @PathVariable String activityId,
             @RequestParam(name = "administrator") String administrator
     ) {
-        return Message.success(activityService.removeAdministrator(
-                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                administrator,
-                activityId)
+        return Message.success(
+                activityService.removeAdministrator(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        administrator,
+                        activityId
+                )
         );
     }
 
@@ -124,24 +128,28 @@ public class ActivityController {
     public Message<?> deleteActivity(
             @PathVariable String activityId
     ) {
-        return Message.success(activityService.deleteActivity(
-                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                activityId)
+        return Message.success(
+                activityService.deleteActivity(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        activityId
+                )
         );
     }
 
     @GetMapping("/{activityId}/ticket")
-    @PermissionCheck(access = {Permission.TICKET_LIST})
+    @PermissionCheck(access = {Permission.TICKET_LIST}, requiredLogin = false)
     public Message<?> listTicket(
             @PathVariable String activityId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return Message.success(activityService.listTicket(
-                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                activityId,
-                page,
-                size)
+        return Message.success(
+                activityService.listTicket(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        activityId,
+                        page,
+                        size
+                )
         );
     }
 

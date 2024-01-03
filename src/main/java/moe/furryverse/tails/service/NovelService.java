@@ -122,7 +122,7 @@ public class NovelService {
                 true
         );
 
-        Novel deleted = novelRepository.save(record);
+        Novel deleted = novelRepository.save(novel);
 
         // 遍历本小说的全部章节 并且一一删除
         List<Chapter> chapters = chapterRepository.findAllByNovelId(novelId);
@@ -151,24 +151,107 @@ public class NovelService {
 
     public List<Chapter> listChapter(String accountId, String novelId) {
         Novel novel = novelRepository.findById(novelId).orElse(null);
-        if (novel == null) throw new NotFoundDataException("resource not found", null, null, accountId);
+        ManageStatusUtils.checkReadStatus(novel, accountId);
 
-        return null;
+        Pageable pageable = PageRequest.of(0, PageConfiguration.DEFAULT_PAGE_SIZE);
+        Page<Chapter> chapters = accountId == null
+                ? chapterRepository.findAll(false, false, false, false, true, novelId, pageable)
+                : chapterRepository.findAll(accountId, false, novelId, pageable);
+
+        return chapters.getContent();
     }
 
-    public Chapter createChapter(String novelId) {
-        return null;
+    public Chapter createChapter(String accountId, String novelId, String name, List<String> contents, boolean isPublic, boolean isDraft) {
+        Chapter chapter = new Chapter(
+                RandomUtils.uuid(),
+                TimeUtils.getMilliUnixTime(),
+                accountId,
+                name,
+                contents == null ? List.of() : contents,
+                0,
+                novelId,
+                isDraft,
+                isPublic,
+                false,
+                false,
+                true,
+                false
+        );
+
+        return chapterRepository.save(chapter);
     }
 
-    public Chapter getChapter(String novelId, String chapterId) {
-        return null;
+    public Chapter getChapter(String accountId, String novelId, String chapterId) {
+        Novel novel = novelRepository.findById(novelId).orElse(null);
+        ManageStatusUtils.checkReadStatus(novel, accountId);
+
+        Chapter chapter = chapterRepository.findById(chapterId).orElse(null);
+        ManageStatusUtils.checkReadStatus(chapter, accountId);
+
+        if (!novel.novelId().equals(chapter.novelId())) {
+            throw new NotFoundDataException("chapter not found", null, null, accountId);
+        }
+
+        return chapter;
     }
 
-    public Chapter updateChapter(String novelId, String chapterId) {
-        return null;
+    public Chapter updateChapter(String accountId, String novelId, String chapterId, String name, List<String> contents, boolean isPublic, boolean isDraft) {
+        Novel novel = novelRepository.findById(novelId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(novel, accountId);
+
+        Chapter chapter = chapterRepository.findById(chapterId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(chapter, accountId);
+
+        if (!novel.novelId().equals(chapter.novelId())) {
+            throw new NotFoundDataException("chapter not found", null, null, accountId);
+        }
+
+        Chapter updated = new Chapter(
+                chapter.chapterId(),
+                chapter.created(),
+                chapter.createdBy(),
+                name == null ? chapter.name() : name,
+                contents == null ? chapter.contents() : contents,
+                chapter.price(),
+                chapter.novelId(),
+                isDraft,
+                isPublic,
+                chapter.isLocked(),
+                chapter.isArchived(),
+                chapter.isReviewing(),
+                false
+        );
+
+        return chapterRepository.save(updated);
     }
 
-    public Chapter deleteChapter(String novelId, String chapterId) {
-        return null;
+    public Chapter deleteChapter(String accountId, String novelId, String chapterId) {
+        Novel novel = novelRepository.findById(novelId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(novel, accountId);
+
+        Chapter chapter = chapterRepository.findById(chapterId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(chapter, accountId);
+
+        if (!novel.novelId().equals(chapter.novelId())) {
+            throw new NotFoundDataException("chapter not found", null, null, accountId);
+        }
+
+        Chapter deleted = new Chapter(
+                chapter.chapterId(),
+                chapter.created(),
+                chapter.createdBy(),
+                chapter.name(),
+                chapter.contents(),
+                chapter.price(),
+                chapter.novelId(),
+                chapter.isDraft(),
+                chapter.isPublic(),
+                chapter.isLocked(),
+                chapter.isArchived(),
+                chapter.isReviewing(),
+                true
+        );
+
+        return chapterRepository.save(deleted);
     }
 }
