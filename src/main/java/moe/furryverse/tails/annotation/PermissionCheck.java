@@ -54,7 +54,19 @@ public @interface PermissionCheck {
             PermissionCheck annotation = method.getAnnotation(PermissionCheck.class);
 
             // 如果没有要求登录的话
-            if (!annotation.requiredLogin()) return (Message<?>) point.proceed();
+            if (!annotation.requiredLogin()) {
+                // 仍然需要检查是否存在 Token 并提取
+                HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+                String authorization = request.getHeader(Resource.CustomHeader.AUTHORIZE_HEADER);
+                if (authorization != null && authorization.startsWith(Resource.CustomHeader.AUTHORIZE_HEADER_PREFIX)) {
+                    String token = authorization.substring(Resource.CustomHeader.AUTHORIZE_HEADER_PREFIX.length());
+
+                    // 设置 Account ID 到请求中
+                    request.setAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER, accessService.getAccountId(token));
+                }
+
+                return (Message<?>) point.proceed();
+            }
 
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
