@@ -56,4 +56,11 @@ public class Permission {
     public static final String ITEM_WRITE = "shop.item:write";
     public static final String ITEM_UPDATE = "shop.item:update";
     public static final String ITEM_DELETE = "shop.item:delete";
+
+    // Tag
+    public static final String TAG_LIST = "tag:list";
+    public static final String TAG_READ = "tag:read";
+    public static final String TAG_WRITE = "tag:write";
+    public static final String TAG_UPDATE = "tag:update";
+    public static final String TAG_DELETE = "tag:delete";
 }

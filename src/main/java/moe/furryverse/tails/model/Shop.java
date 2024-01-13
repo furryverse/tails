@@ -16,17 +16,17 @@ import java.util.Set;
 /**
  * 店铺
  *
- * @param shopId        店铺 ID
- * @param created       创建时间
- * @param createdBy     创建的账户
- * @param name          店铺名称
- * @param cover         店铺封面
- * @param tags          标签
- * @param contents      详细介绍内容
- * @param administrator 管理员
- * @param isLocked      是否锁定
- * @param isReviewing   是否审核
- * @param isDeleted     是否删除
+ * @param shopId         店铺 ID
+ * @param created        创建时间
+ * @param createdBy      创建的账户
+ * @param name           店铺名称
+ * @param cover          店铺封面
+ * @param tags           标签
+ * @param contents       详细介绍内容
+ * @param administrators 管理员
+ * @param isLocked       是否锁定
+ * @param isReviewing    是否审核
+ * @param isDeleted      是否删除
  */
 @Document("shops")
 public record Shop(

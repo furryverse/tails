@@ -55,7 +55,7 @@ public class AccessService {
         if (session.token().expire() < System.currentTimeMillis()) return false;
 
         // 检查令牌权限是否足够
-        return session.token().access().containsAll(requires);
+        return session.token().permissions().containsAll(requires);
     }
 
     public boolean check(String token, String require) {

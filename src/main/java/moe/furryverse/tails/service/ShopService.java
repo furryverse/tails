@@ -36,7 +36,7 @@ public class ShopService {
     }
 
     public Shop createShop(String accountId, String name, String cover, List<String> tags, List<String> contents, boolean isPublic) {
-        Shop shop = new Shop(
+        return new Shop(
                 RandomUtils.uuid(),
                 TimeUtils.getMilliUnixTime(),
                 accountId,
@@ -51,8 +51,6 @@ public class ShopService {
                 true,
                 false
         );
-
-        return null;
     }
 
     public Shop getShop(String accountId, String shopId) {
@@ -145,7 +143,7 @@ public class ShopService {
                 ? itemRepository.findAll(false, false, false, false, shopId, pageable)
                 : itemRepository.findAll(accountId, false, pageable);
 
-        return null;
+        return items.getContent();
     }
 
     public Item createItem(String accountId, String shopId, String name, String cover, List<String> tags, List<String> shows, List<String> contents, double price, int stock, boolean isPublic) {

@@ -2,8 +2,10 @@ package moe.furryverse.tails.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import moe.furryverse.tails.annotation.PermissionCheck;
 import moe.furryverse.tails.content.Resource;
 import moe.furryverse.tails.message.Message;
+import moe.furryverse.tails.security.Permission;
 import moe.furryverse.tails.service.TagService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,7 @@ public class TagController {
     final TagService tagService;
 
     @GetMapping()
+    @PermissionCheck(access = {Permission.TAG_LIST})
     public Message<?> listTag(int page, int size) {
         return Message.success(
                 tagService.listTag(
@@ -26,6 +29,7 @@ public class TagController {
     }
 
     @PostMapping()
+    @PermissionCheck(access = {Permission.TAG_WRITE})
     public Message<?> createTag(
             @RequestParam String name,
             @RequestParam String color
@@ -40,12 +44,24 @@ public class TagController {
     }
 
     @GetMapping("/{tagId}")
+    @PermissionCheck(access = {Permission.TAG_READ})
     public Message<?> getTag(@PathVariable String tagId) {
-        return Message.success(tagService.getTag(tagId));
+        return Message.success(
+                tagService.getTag(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        tagId
+                )
+        );
     }
 
     @DeleteMapping("/{tagId}")
+    @PermissionCheck(access = {Permission.TAG_DELETE})
     public Message<?> deleteTag(@PathVariable String tagId) {
-        return Message.success(tagService.deleteTag(tagId));
+        return Message.success(
+                tagService.deleteTag(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        tagId
+                )
+        );
     }
 }
