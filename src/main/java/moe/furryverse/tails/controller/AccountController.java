@@ -2,13 +2,12 @@ package moe.furryverse.tails.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import moe.furryverse.tails.dto.LoginDto;
+import moe.furryverse.tails.dto.RegisterDto;
 import moe.furryverse.tails.message.Message;
 import moe.furryverse.tails.service.AccountService;
 import moe.furryverse.tails.utils.IpUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,27 +17,26 @@ public class AccountController {
     final AccountService accountService;
 
     @PostMapping("/login")
-    public Message<?> login(
-            @RequestParam(name = "device") String device,
-            @RequestParam(name = "identify") String identify,
-            @RequestParam(name = "password") String password
-    ) {
+    public Message<?> login(@RequestBody LoginDto login) {
         return Message.success(
                 accountService.login(
-                        device,
+                        login.device(),
                         IpUtils.getIp(request),
                         request.getHeader("User-Agent"),
-                        identify, password
+                        login.identify(),
+                        login.password()
                 )
         );
     }
 
     @PostMapping("/register")
-    public Message<?> register(
-            @RequestParam(name = "email") String email,
-            @RequestParam(name = "username") String username,
-            @RequestParam(name = "password") String password
-    ) {
-        return Message.success(accountService.register(email, username, password));
+    public Message<?> register(@RequestBody RegisterDto register) {
+        return Message.success(
+                accountService.register(
+                        register.email(),
+                        register.username(),
+                        register.password()
+                )
+        );
     }
 }
