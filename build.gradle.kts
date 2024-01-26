@@ -36,12 +36,15 @@ dependencies {
 	// mail
 	implementation("org.springframework.boot:spring-boot-starter-mail")
 
-	// minio
-	implementation("io.minio:minio:8.5.7")
-	implementation("com.squareup.okhttp3:okhttp:4.11.0")
+	// http client
+	implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 	// text diff
 	implementation("io.github.java-diff-utils:java-diff-utils:4.12")
+
+	// search index
+	implementation("com.meilisearch.sdk:meilisearch-java:0.11.5")
+
 
 	// config
 	implementation("org.springframework.boot:spring-boot-starter-aop")
