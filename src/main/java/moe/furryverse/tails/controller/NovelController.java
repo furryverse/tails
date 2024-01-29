@@ -108,7 +108,7 @@ public class NovelController {
     //////////////////////////////////////////////////////////////// Chapter
 
     @GetMapping("/{novelId}/chapter")
-    @PermissionCheck(access = {Permission.CHAPTER_LIST}, requiredLogin = false)
+    @PermissionCheck(access = {Permission.NOVEL_CHAPTER_LIST}, requiredLogin = false)
     public Message<?> listChapter(@PathVariable String novelId) {
         return Message.success(
                 novelService.listChapter(
@@ -119,7 +119,7 @@ public class NovelController {
     }
 
     @PostMapping("/{novelId}/chapter")
-    @PermissionCheck(access = {Permission.CHAPTER_WRITE})
+    @PermissionCheck(access = {Permission.NOVEL_CHAPTER_WRITE})
     public Message<?> createChapter(
             @PathVariable String novelId,
             @RequestParam(name = "name") String name,
@@ -140,7 +140,7 @@ public class NovelController {
     }
 
     @GetMapping("/{novelId}/chapter/{chapterId}")
-    @PermissionCheck(access = {Permission.CHAPTER_READ})
+    @PermissionCheck(access = {Permission.NOVEL_CHAPTER_READ})
     public Message<?> getChapter(@PathVariable String novelId, @PathVariable String chapterId) {
         return Message.success(
                 novelService.getChapter(
@@ -152,7 +152,7 @@ public class NovelController {
     }
 
     @PostMapping("/{novelId}/chapter/{chapterId}")
-    @PermissionCheck(access = {Permission.CHAPTER_UPDATE})
+    @PermissionCheck(access = {Permission.NOVEL_CHAPTER_UPDATE})
     public Message<?> updateChapter(
             @PathVariable String novelId,
             @PathVariable String chapterId,
@@ -175,7 +175,7 @@ public class NovelController {
     }
 
     @DeleteMapping("/{novelId}/chapter/{chapterId}")
-    @PermissionCheck(access = {Permission.CHAPTER_DELETE})
+    @PermissionCheck(access = {Permission.NOVEL_CHAPTER_DELETE})
     public Message<?> deleteChapter(@PathVariable String novelId, @PathVariable String chapterId) {
         return Message.success(
                 novelService.deleteChapter(

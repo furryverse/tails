@@ -16,18 +16,18 @@ public class Permission {
     public static final String ACTIVITY_DELETE = "activity:delete";
 
     // Activity - Ticket
-    public static final String TICKET_LIST = "activity.ticket:list";
-    public static final String TICKET_READ = "activity.ticket:read";
-    public static final String TICKET_WRITE = "activity.ticket:write";
-    public static final String TICKET_UPDATE = "activity.ticket:update";
-    public static final String TICKET_DELETE = "activity.ticket:delete";
+    public static final String ACTIVITY_TICKET_LIST = "activity.ticket:list";
+    public static final String ACTIVITY_TICKET_READ = "activity.ticket:read";
+    public static final String ACTIVITY_TICKET_WRITE = "activity.ticket:write";
+    public static final String ACTIVITY_TICKET_UPDATE = "activity.ticket:update";
+    public static final String ACTIVITY_TICKET_DELETE = "activity.ticket:delete";
 
     // Activity - Stub
-    public static final String STUB_LIST = "activity.stub:list";
-    public static final String STUB_READ = "activity.stub:read";
-    public static final String STUB_WRITE = "activity.stub:write";
-    public static final String STUB_UPDATE = "activity.stub:update";
-    public static final String STUB_DELETE = "activity.stub:delete";
+    public static final String ACTIVITY_STUB_LIST = "activity.stub:list";
+    public static final String ACTIVITY_STUB_READ = "activity.stub:read";
+    public static final String ACTIVITY_STUB_WRITE = "activity.stub:write";
+    public static final String ACTIVITY_STUB_UPDATE = "activity.stub:update";
+    public static final String ACTIVITY_STUB_DELETE = "activity.stub:delete";
 
     // Novel
     public static final String NOVEL_LIST = "novel:list";
@@ -37,11 +37,11 @@ public class Permission {
     public static final String NOVEL_DELETE = "novel:delete";
 
     // Novel - Chapter
-    public static final String CHAPTER_LIST = "novel.chapter:list";
-    public static final String CHAPTER_READ = "novel.chapter:read";
-    public static final String CHAPTER_WRITE = "novel.chapter:write";
-    public static final String CHAPTER_UPDATE = "novel.chapter:update";
-    public static final String CHAPTER_DELETE = "novel.chapter:delete";
+    public static final String NOVEL_CHAPTER_LIST = "novel.chapter:list";
+    public static final String NOVEL_CHAPTER_READ = "novel.chapter:read";
+    public static final String NOVEL_CHAPTER_WRITE = "novel.chapter:write";
+    public static final String NOVEL_CHAPTER_UPDATE = "novel.chapter:update";
+    public static final String NOVEL_CHAPTER_DELETE = "novel.chapter:delete";
 
     // Shop
     public static final String SHOP_LIST = "shop:list";
@@ -51,11 +51,11 @@ public class Permission {
     public static final String SHOP_DELETE = "shop:delete";
 
     // Shop - Item
-    public static final String ITEM_LIST = "shop.item:list";
-    public static final String ITEM_READ = "shop.item:read";
-    public static final String ITEM_WRITE = "shop.item:write";
-    public static final String ITEM_UPDATE = "shop.item:update";
-    public static final String ITEM_DELETE = "shop.item:delete";
+    public static final String SHOP_ITEM_LIST = "shop.item:list";
+    public static final String SHOP_ITEM_READ = "shop.item:read";
+    public static final String SHOP_ITEM_WRITE = "shop.item:write";
+    public static final String SHOP_ITEM_UPDATE = "shop.item:update";
+    public static final String SHOP_ITEM_DELETE = "shop.item:delete";
 
     // Tag
     public static final String TAG_LIST = "tag:list";

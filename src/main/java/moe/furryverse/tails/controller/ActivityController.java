@@ -137,7 +137,7 @@ public class ActivityController {
     }
 
     @GetMapping("/{activityId}/ticket")
-    @PermissionCheck(access = {Permission.TICKET_LIST}, requiredLogin = false)
+    @PermissionCheck(access = {Permission.ACTIVITY_TICKET_LIST}, requiredLogin = false)
     public Message<?> listTicket(
             @PathVariable String activityId,
             @RequestParam(defaultValue = "0") int page,
@@ -154,7 +154,7 @@ public class ActivityController {
     }
 
     @PostMapping("/{activityId}/ticket")
-    @PermissionCheck(access = {Permission.TICKET_WRITE})
+    @PermissionCheck(access = {Permission.ACTIVITY_TICKET_WRITE})
     public Message<?> createTicket(
             @PathVariable String activityId,
             @RequestParam(name = "name") String name,
@@ -182,7 +182,7 @@ public class ActivityController {
 
 
     @PostMapping("/{activityId}/ticket/{ticketId}")
-    @PermissionCheck(access = {Permission.TICKET_UPDATE})
+    @PermissionCheck(access = {Permission.ACTIVITY_TICKET_UPDATE})
     public Message<?> updateTicket(
             @PathVariable String activityId,
             @PathVariable String ticketId,
@@ -211,7 +211,7 @@ public class ActivityController {
     }
 
     @GetMapping("/{activityId}/ticket/{ticketId}")
-    @PermissionCheck(access = {Permission.TICKET_READ})
+    @PermissionCheck(access = {Permission.ACTIVITY_TICKET_READ})
     public Message<?> readTicket(
             @PathVariable String activityId,
             @PathVariable String ticketId
@@ -224,7 +224,7 @@ public class ActivityController {
     }
 
     @DeleteMapping("/{activityId}/ticket/{ticketId}")
-    @PermissionCheck(access = {Permission.TICKET_DELETE})
+    @PermissionCheck(access = {Permission.ACTIVITY_TICKET_DELETE})
     public Message<?> deleteTicket(
             @PathVariable String activityId,
             @PathVariable String ticketId
@@ -237,7 +237,7 @@ public class ActivityController {
     }
 
     @GetMapping("/{activityId}/stub")
-    @PermissionCheck(access = {Permission.STUB_LIST})
+    @PermissionCheck(access = {Permission.ACTIVITY_STUB_LIST})
     public Message<?> listStub(
             @PathVariable String activityId,
             @RequestParam(defaultValue = "0") int page,
@@ -252,7 +252,7 @@ public class ActivityController {
     }
 
     @GetMapping("/{activityId}/stub/{stubId}")
-    @PermissionCheck(access = {Permission.STUB_READ})
+    @PermissionCheck(access = {Permission.ACTIVITY_STUB_READ})
     public Message<?> getStub(
             @PathVariable String activityId,
             @PathVariable String stubId

@@ -104,7 +104,7 @@ public class ShopController {
     //////////////////////////////////////////////////////////////// Item
 
     @GetMapping("/{shopId}/item")
-    @PermissionCheck(access = {Permission.ITEM_LIST}, requiredLogin = false)
+    @PermissionCheck(access = {Permission.SHOP_ITEM_LIST}, requiredLogin = false)
     public Message<?> listShopItem(
             @PathVariable String shopId,
             @RequestParam(value = "page", defaultValue = "0") int page,
@@ -121,7 +121,7 @@ public class ShopController {
     }
 
     @PostMapping("/{shopId}/item")
-    @PermissionCheck(access = {Permission.ITEM_WRITE})
+    @PermissionCheck(access = {Permission.SHOP_ITEM_WRITE})
     public Message<?> createShopItem(
             @PathVariable String shopId,
             @RequestParam(name = "name") String name,
@@ -150,7 +150,7 @@ public class ShopController {
     }
 
     @PostMapping("/{shopId}/item/{itemId}")
-    @PermissionCheck(access = {Permission.ITEM_UPDATE})
+    @PermissionCheck(access = {Permission.SHOP_ITEM_UPDATE})
     public Message<?> updateShopItem(
             @PathVariable String shopId,
             @PathVariable String itemId,
@@ -181,7 +181,7 @@ public class ShopController {
     }
 
     @GetMapping("/{shopId}/item/{itemId}")
-    @PermissionCheck(access = {Permission.ITEM_READ})
+    @PermissionCheck(access = {Permission.SHOP_ITEM_READ})
     public Message<?> getShopItem(@PathVariable String shopId, @PathVariable String itemId) {
         return Message.success(
                 shopService.getItem(
@@ -193,7 +193,7 @@ public class ShopController {
     }
 
     @DeleteMapping("/{shopId}/item/{itemId}")
-    @PermissionCheck(access = {Permission.ITEM_DELETE})
+    @PermissionCheck(access = {Permission.SHOP_ITEM_DELETE})
     public Message<?> deleteShopItem(@PathVariable String shopId, @PathVariable String itemId) {
         return Message.success(
                 shopService.deleteItem(
