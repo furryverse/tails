@@ -7,7 +7,10 @@ import moe.furryverse.tails.dto.RegisterDto;
 import moe.furryverse.tails.message.Message;
 import moe.furryverse.tails.service.AccountService;
 import moe.furryverse.tails.utils.IpUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor

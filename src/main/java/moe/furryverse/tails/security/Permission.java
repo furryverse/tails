@@ -63,4 +63,32 @@ public class Permission {
     public static final String TAG_WRITE = "tag:write";
     public static final String TAG_UPDATE = "tag:update";
     public static final String TAG_DELETE = "tag:delete";
+
+    // POST
+    public static final String POST_LIST = "post:list";
+    public static final String POST_READ = "post:read";
+    public static final String POST_WRITE = "post:write";
+    public static final String POST_UPDATE = "post:update";
+    public static final String POST_DELETE = "post:delete";
+
+    // POST - COMMENT
+    public static final String POST_COMMENT_LIST = "post.comment:list";
+    public static final String POST_COMMENT_READ = "post.comment:read";
+    public static final String POST_COMMENT_WRITE = "post.comment:write";
+    public static final String POST_COMMENT_UPDATE = "post.comment:update";
+    public static final String POST_COMMENT_DELETE = "post.comment:delete";
+
+    // POST - THOUGHT
+    public static final String POST_THOUGHT_LIST = "post.thought:list";
+    public static final String POST_THOUGHT_READ = "post.thought:read";
+    public static final String POST_THOUGHT_WRITE = "post.thought:write";
+    public static final String POST_THOUGHT_UPDATE = "post.thought:update";
+    public static final String POST_THOUGHT_DELETE = "post.thought:delete";
+
+    // POST - REACTION
+    public static final String POST_REACTION_LIST = "post.reaction:list";
+    public static final String POST_REACTION_READ = "post.reaction:read";
+    public static final String POST_REACTION_WRITE = "post.reaction:write";
+    public static final String POST_REACTION_UPDATE = "post.reaction:update";
+    public static final String POST_REACTION_DELETE = "post.reaction:delete";
 }

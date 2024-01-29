@@ -27,28 +27,36 @@ public class PostService {
 
     public List<Post> listPost(String accountId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE));
-        Page<Post> posts = postRepository.findAllByCreatedBy(accountId, pageable);
+        Page<Post> posts = accountId == null
+                ? postRepository.findAll(false, false, false, pageable)
+                : postRepository.findAllByCreatedBy(accountId, false, pageable);
 
         return posts.getContent();
     }
 
-    public List<Thought> listThought(String accountId, int page, int size) {
+    public List<Thought> listThought(String accountId, String postId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE));
-        Page<Thought> thoughts = thoughtRepository.findAllByCreatedBy(accountId, pageable);
+        Page<Thought> thoughts = accountId == null
+                ? thoughtRepository.findAll(false, false, false, postId, pageable)
+                : thoughtRepository.findAllByCreatedBy(accountId, false, postId, pageable);
 
         return thoughts.getContent();
     }
 
-    public List<Reaction> listReaction(String accountId, int page, int size) {
+    public List<Reaction> listReaction(String accountId, String postId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE));
-        Page<Reaction> reactions = reactionRepository.findAllByCreatedBy(accountId, pageable);
+        Page<Reaction> reactions = accountId == null
+                ? reactionRepository.findAll(false, false, false, postId, pageable)
+                : reactionRepository.findAllByCreatedBy(accountId, false, postId, pageable);
 
         return reactions.getContent();
     }
 
-    public List<Comment> listComment(String accountId, int page, int size) {
+    public List<Comment> listComment(String accountId, String postId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE));
-        Page<Comment> comments = commentRepository.findAllByCreatedBy(accountId, pageable);
+        Page<Comment> comments = accountId == null
+                ? commentRepository.findAll(false, false, false, postId, pageable)
+                : commentRepository.findAllByCreatedBy(accountId, false, postId, pageable);
 
         return comments.getContent();
     }

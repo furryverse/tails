@@ -11,9 +11,9 @@ public interface PostRepository extends MongoRepository<Post, String> {
 
     @NotNull <S extends Post> S save(@NotNull S entity);
 
-    @Query("{'is_deleted': ?0}")
-    @NotNull Page<Post> findAll(boolean isDeleted, @NotNull Pageable pageable);
+    @Query("{'is_locked': ?0,'is_reviewing': ?1, 'is_deleted': ?2}")
+    @NotNull Page<Post> findAll(boolean isLocked, boolean isReviewing, boolean isDeleted, @NotNull Pageable pageable);
 
-    @Query("{'created_by': ?0}")
-    @NotNull Page<Post> findAllByCreatedBy(@NotNull String createdBy, @NotNull Pageable pageable);
+    @Query("{'created_by': ?0, 'is_deleted': ?1}")
+    @NotNull Page<Post> findAllByCreatedBy(@NotNull String createdBy, boolean isDeleted, @NotNull Pageable pageable);
 }

@@ -1,7 +1,8 @@
 package moe.furryverse.tails.dto;
 
 public record RegisterDto(
-    String email,
-    String username,
-    String password
-) { }
+        String email,
+        String username,
+        String password
+) {
+}
