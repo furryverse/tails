@@ -131,31 +131,6 @@ public class ActivityService {
                 activity.secret()
         );
 
-        // 删除活动下面的票
-        List<Ticket> tickets = ticketRepository.findAllByActivityId(activityId);
-        for (Ticket ticket : tickets) {
-            Ticket deletedTicket = new Ticket(
-                    ticket.ticketId(),
-                    ticket.created(),
-                    ticket.createdBy(),
-                    ticket.name(),
-                    ticket.cover(),
-                    ticket.stubCover(),
-                    ticket.description(),
-                    ticket.price(),
-                    ticket.stock(),
-                    ticket.contents(),
-                    ticket.activityId(),
-                    ticket.isPublic(),
-                    ticket.isLocked(),
-                    ticket.isArchived(),
-                    ticket.isReviewing(),
-                    true
-            );
-
-            ticketRepository.save(deletedTicket);
-        }
-
         return activityRepository.save(deleted);
     }
 

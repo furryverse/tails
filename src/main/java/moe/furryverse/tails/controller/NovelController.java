@@ -10,6 +10,7 @@ import moe.furryverse.tails.service.NovelService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,7 +42,7 @@ public class NovelController {
             @RequestParam(name = "name") String name,
             @RequestParam(name = "description") String description,
             @RequestParam(name = "cover") String cover,
-            @RequestParam(name = "tags") List<String> tags,
+            @RequestParam(name = "tags") Set<String> tags,
             @RequestParam(name = "contents") List<String> contents,
             @RequestParam(name = "is_public") boolean isPublic
     ) {
@@ -76,7 +77,7 @@ public class NovelController {
             @RequestParam(name = "name") String name,
             @RequestParam(name = "description") String description,
             @RequestParam(name = "cover") String cover,
-            @RequestParam(name = "tags") List<String> tags,
+            @RequestParam(name = "tags") Set<String> tags,
             @RequestParam(name = "contents") List<String> contents,
             @RequestParam(name = "is_public") boolean isPublic
     ) {

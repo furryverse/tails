@@ -35,14 +35,14 @@ public class ShopService {
         return shops.getContent();
     }
 
-    public Shop createShop(String accountId, String name, String cover, List<String> tags, List<String> contents, boolean isPublic) {
+    public Shop createShop(String accountId, String name, String cover, Set<String> tags, List<String> contents, boolean isPublic) {
         return new Shop(
                 RandomUtils.uuid(),
                 TimeUtils.getMilliUnixTime(),
                 accountId,
                 name,
                 cover,
-                tags == null ? List.of() : tags,
+                tags == null ? Set.of() : tags,
                 contents == null ? List.of() : contents,
                 Set.of(),
                 isPublic,
@@ -60,7 +60,7 @@ public class ShopService {
         return shop;
     }
 
-    public Shop updateShop(String accountId, String shopId, String name, String cover, List<String> tags, List<String> contents, boolean isPublic) {
+    public Shop updateShop(String accountId, String shopId, String name, String cover, Set<String> tags, List<String> contents, boolean isPublic) {
         Shop shop = shopRepository.findById(shopId).orElse(null);
         ManageStatusUtils.checkUpdateStatus(shop, accountId);
 
@@ -70,7 +70,7 @@ public class ShopService {
                 shop.createdBy(),
                 name,
                 cover,
-                tags == null ? List.of() : tags,
+                tags == null ? Set.of() : tags,
                 contents == null ? List.of() : contents,
                 shop.administrators(),
                 isPublic,
@@ -146,14 +146,14 @@ public class ShopService {
         return items.getContent();
     }
 
-    public Item createItem(String accountId, String shopId, String name, String cover, List<String> tags, List<String> shows, List<String> contents, double price, int stock, boolean isPublic) {
+    public Item createItem(String accountId, String shopId, String name, String cover, Set<String> tags, List<String> shows, List<String> contents, double price, int stock, boolean isPublic) {
         Item item = new Item(
                 RandomUtils.uuid(),
                 TimeUtils.getMilliUnixTime(),
                 accountId,
                 name,
                 cover,
-                tags == null ? List.of() : tags,
+                tags == null ? Set.of() : tags,
                 shows == null ? List.of() : shows,
                 contents == null ? List.of() : contents,
                 price,
@@ -179,7 +179,7 @@ public class ShopService {
         return item;
     }
 
-    public Item updateItem(String accountId, String shopId, String itemId, String name, String cover, List<String> tags, List<String> shows, List<String> contents, double price, int stock, boolean isPublic) {
+    public Item updateItem(String accountId, String shopId, String itemId, String name, String cover, Set<String> tags, List<String> shows, List<String> contents, double price, int stock, boolean isPublic) {
         Shop shop = shopRepository.findById(shopId).orElse(null);
         ManageStatusUtils.checkUpdateStatus(shop, accountId);
 
@@ -192,7 +192,7 @@ public class ShopService {
                 item.createdBy(),
                 name,
                 cover,
-                tags == null ? List.of() : tags,
+                tags == null ? Set.of() : tags,
                 shows == null ? List.of() : shows,
                 contents == null ? List.of() : contents,
                 price,

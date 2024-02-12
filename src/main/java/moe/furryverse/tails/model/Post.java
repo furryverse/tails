@@ -10,7 +10,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -42,7 +41,7 @@ public record Post(
 
         // 关联键
         @Field("category_id") @JsonProperty("category_id") @NotNull String categoryId,
-        @Field("tags") @JsonProperty("tags") @NotNull List<String> tags,
+        @Field("tags") @JsonProperty("tags") @NotNull Set<String> tags,
 
         // 管理功能
         @Field("viewers") @JsonProperty("viewers") @NotNull Set<String> viewers,

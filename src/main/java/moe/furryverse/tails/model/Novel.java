@@ -44,7 +44,7 @@ public record Novel(
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
 
         // 关联键
-        @Field("tags") @JsonProperty("tags") @NotNull List<String> tags,
+        @Field("tags") @JsonProperty("tags") @NotNull Set<String> tags,
 
         // 管理功能
         @Field("viewers") @JsonProperty("viewers") @NotNull Set<String> viewers,

@@ -39,7 +39,7 @@ public class NovelService {
 
     public Novel createNovel(
             String accountId, String name, String description, String cover,
-            List<String> tags, List<String> contents, boolean isPublic
+            Set<String> tags, List<String> contents, boolean isPublic
     ) {
         Novel novel = new Novel(
                 RandomUtils.uuid(),
@@ -50,7 +50,7 @@ public class NovelService {
                 cover,
                 0,
                 contents == null ? List.of() : contents,
-                tags == null ? List.of() : tags,
+                tags == null ? Set.of() : tags,
                 Set.of(),
                 Set.of(),
                 isPublic,
@@ -72,7 +72,7 @@ public class NovelService {
 
     public Novel updateNovel(
             String accountId, String novelId, String name, String description,
-            String cover, List<String> tags, List<String> contents, boolean isPublic
+            String cover, Set<String> tags, List<String> contents, boolean isPublic
     ) {
         Novel record = novelRepository.findById(novelId).orElse(null);
         ManageStatusUtils.checkUpdateStatus(record, accountId);
@@ -122,31 +122,7 @@ public class NovelService {
                 true
         );
 
-        Novel deleted = novelRepository.save(novel);
-
-        // 遍历本小说的全部章节 并且一一删除
-        List<Chapter> chapters = chapterRepository.findAllByNovelId(novelId);
-        for (Chapter chapter : chapters) {
-            Chapter deleting = new Chapter(
-                    chapter.chapterId(),
-                    chapter.created(),
-                    chapter.createdBy(),
-                    chapter.name(),
-                    chapter.contents(),
-                    chapter.price(),
-                    chapter.novelId(),
-                    chapter.isDraft(),
-                    record.isPublic(),
-                    chapter.isLocked(),
-                    record.isArchived(),
-                    chapter.isReviewing(),
-                    true
-            );
-
-            chapterRepository.save(deleting);
-        }
-
-        return deleted;
+        return novelRepository.save(novel);
     }
 
     public List<Chapter> listChapter(String accountId, String novelId) {

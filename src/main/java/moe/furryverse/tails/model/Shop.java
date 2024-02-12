@@ -35,7 +35,7 @@ public record Shop(
         @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("cover") @JsonProperty("cover") @Nullable String cover,
-        @Field("tags") @JsonProperty("tags") @NotNull List<String> tags,
+        @Field("tags") @JsonProperty("tags") @NotNull Set<String> tags,
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
 
         // 管理功能

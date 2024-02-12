@@ -93,11 +93,11 @@ public class ActivityController {
         );
     }
 
-    @PostMapping("/{activityId}/administrator")
+    @PostMapping("/{activityId}/administrator/{administrator}")
     @PermissionCheck(access = {Permission.ACTIVITY_UPDATE})
     public Message<?> addAdministrator(
             @PathVariable String activityId,
-            @RequestParam(name = "administrator") String administrator
+            @PathVariable String administrator
     ) {
         return Message.success
                 (activityService.addAdministrator(
@@ -108,11 +108,11 @@ public class ActivityController {
                 );
     }
 
-    @DeleteMapping("/{activityId}/administrator")
+    @DeleteMapping("/{activityId}/administrator/{administrator}")
     @PermissionCheck(access = {Permission.ACTIVITY_UPDATE})
     public Message<?> deleteAdministrator(
             @PathVariable String activityId,
-            @RequestParam(name = "administrator") String administrator
+            @PathVariable String administrator
     ) {
         return Message.success(
                 activityService.removeAdministrator(

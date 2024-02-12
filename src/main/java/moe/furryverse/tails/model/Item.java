@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 商城物品
@@ -38,7 +39,7 @@ public record Item(
         @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("cover") @JsonProperty("cover") @Nullable String cover,
-        @Field("tags") @JsonProperty("tags") @NotNull List<String> tags,
+        @Field("tags") @JsonProperty("tags") @NotNull Set<String> tags,
         @Field("shows") @JsonProperty("shows") @NotNull List<String> shows,
         @Field("contents") @JsonProperty("contents") @NotNull List<String> contents,
         @Field("price") @JsonProperty("price") double price,

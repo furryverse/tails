@@ -52,6 +52,6 @@ public class TagService {
         if (tag == null) return null;
         if (Objects.equals(accountId, tag.createdBy())) tagRepository.delete(tag);
 
-        return null;
+        return tag;
     }
 }

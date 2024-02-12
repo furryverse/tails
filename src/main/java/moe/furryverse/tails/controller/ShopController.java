@@ -10,6 +10,7 @@ import moe.furryverse.tails.service.ShopService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,7 +41,7 @@ public class ShopController {
     public Message<?> createShop(
             @RequestParam(name = "name") String name,
             @RequestParam(name = "cover") String cover,
-            @RequestParam(name = "tags") List<String> tags,
+            @RequestParam(name = "tags") Set<String> tags,
             @RequestParam(name = "contents") List<String> contents,
             @RequestParam(name = "is_public") boolean isPublic
     ) {
@@ -62,7 +63,7 @@ public class ShopController {
             @PathVariable String shopId,
             @RequestParam(name = "name") String name,
             @RequestParam(name = "cover") String cover,
-            @RequestParam(name = "tags") List<String> tags,
+            @RequestParam(name = "tags") Set<String> tags,
             @RequestParam(name = "contents") List<String> contents,
             @RequestParam(name = "is_public") boolean isPublic
     ) {
@@ -126,7 +127,7 @@ public class ShopController {
             @PathVariable String shopId,
             @RequestParam(name = "name") String name,
             @RequestParam(name = "cover") String cover,
-            @RequestParam(name = "tags") List<String> tags,
+            @RequestParam(name = "tags") Set<String> tags,
             @RequestParam(name = "shows") List<String> shows,
             @RequestParam(name = "contents") List<String> contents,
             @RequestParam(name = "price") int price,
@@ -156,7 +157,7 @@ public class ShopController {
             @PathVariable String itemId,
             @RequestParam(name = "name") String name,
             @RequestParam(name = "cover") String cover,
-            @RequestParam(name = "tags") List<String> tags,
+            @RequestParam(name = "tags") Set<String> tags,
             @RequestParam(name = "shows") List<String> shows,
             @RequestParam(name = "contents") List<String> contents,
             @RequestParam(name = "price") int price,
