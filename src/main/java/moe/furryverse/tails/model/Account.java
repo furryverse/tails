@@ -22,6 +22,7 @@ import java.util.Set;
  * @param color       主题颜色
  * @param email       邮箱
  * @param description 个人简介
+ * @param permission  权限
  * @param isPublic    是否公开
  * @param isBan       是否禁用账户
  * @param isVerified  账户是否已经通过邮件验证

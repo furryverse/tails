@@ -28,8 +28,10 @@ import java.util.Set;
  * @param price       价格
  * @param stock       库存
  * @param shopId      店铺 ID - 与 Shop 的 shop_id 相关联
+ * @param isPublic    是否公开
  * @param isLocked    是否锁定
- * @param isReviewing 是否审核
+ * @param isArchived  是否归档
+ * @param isReviewing 是否在审核中
  * @param isDeleted   是否删除
  */
 @Document("items")

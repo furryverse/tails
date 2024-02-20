@@ -17,7 +17,9 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param emoji       表情
  * @param content     短评
  * @param postId      帖子 ID - 与 Post 的 post_id 相关联
+ * @param isPublic    是否公开
  * @param isLocked    是否锁定
+ * @param isArchived  是否归档
  * @param isReviewing 是否在审核中
  * @param isDeleted   是否删除
  */

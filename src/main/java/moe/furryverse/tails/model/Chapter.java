@@ -22,7 +22,9 @@ import java.util.List;
  * @param price       单篇收费价格
  * @param novelId     小说 ID - 与 Novel 的 novel_id 相关联
  * @param isDraft     是否为草稿（不公开 编辑不保存历史记录）
+ * @param isPublic    是否公开
  * @param isLocked    是否锁定（不允许查看不允许修改）
+ * @param isArchived  是否归档
  * @param isReviewing 是否正在审核
  * @param isDeleted   是否删除
  */

@@ -16,7 +16,9 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param createdBy   所属的账户 ID
  * @param name        标签名称
  * @param color       标签颜色
+ * @param isPublic    是否公开
  * @param isLocked    是否锁定
+ * @param isArchived  是否归档
  * @param isReviewing 是否在审核中
  * @param isDeleted   是否删除
  */

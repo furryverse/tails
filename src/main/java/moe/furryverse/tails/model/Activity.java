@@ -27,6 +27,7 @@ import java.util.Set;
  * @param cover          封面
  * @param contents       活动内容
  * @param administrators 管理员
+ * @param isPublic       是否公开
  * @param isLocked       是否锁定
  * @param isReviewing    是否在审核中
  * @param isDeleted      是否删除

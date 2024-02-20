@@ -24,7 +24,9 @@ import java.util.List;
  *                    - 绑定活动的 activity_id
  *                    - 绑定商城的 shop_id
  *                    - 绑定商品的 item_id
+ * @param isPublic    是否公开
  * @param isLocked    是否锁定
+ * @param isArchived  是否归档
  * @param isReviewing 是否在审核中
  * @param isDeleted   是否删除
  */

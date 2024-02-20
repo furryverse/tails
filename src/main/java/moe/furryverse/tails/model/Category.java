@@ -15,8 +15,8 @@ import java.util.Set;
 /**
  * 板块 / 分区
  *
- * @param created          创建时间
  * @param categoryId       分类 ID
+ * @param created          创建时间
  * @param createdBy        所属账号
  * @param name             分类名称
  * @param icon             分类图标
@@ -31,6 +31,11 @@ import java.util.Set;
  * @param viewers          查看员 （在不公开状态下可以查看帖子）
  * @param isPublic         是否公开 （公开的板块可以被所有人查看）
  * @param isLocked         是否锁定 （锁定的板块不允许发帖）
+ *                           (锁定的板块可以被所有人查看，但不能在该板块发帖)
+ * @param isArchived       是否归档
+ * @param isReviewing      是否在审核中
+ * @param isDeleted        是否删除
+ *                           (删除的板块不允许发帖，但可以在该板块发帖)
  */
 @Document("categories")
 public record Category(

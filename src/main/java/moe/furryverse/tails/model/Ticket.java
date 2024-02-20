@@ -26,8 +26,10 @@ import java.util.List;
  * @param stock       数量
  * @param contents    详细介绍内容
  * @param activityId  活动 ID - 与 Activity 的 activity_id 相关联
+ * @param isPublic    是否公开
  * @param isLocked    是否锁定
- * @param isReviewing 是否正在审核
+ * @param isArchived  是否归档
+ * @param isReviewing 是否在审核中
  * @param isDeleted   是否删除
  */
 @Document("tickets")

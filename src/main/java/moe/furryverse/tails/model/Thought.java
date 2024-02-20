@@ -18,9 +18,11 @@ import java.util.List;
  * @param createdBy   账户 ID
  * @param contents    内容
  * @param postId      帖子 ID - 与 Post 的 post_id 相关联
+ * @param isPublic    是否公开
  * @param isLocked    是否锁定
+ * @param isArchived  是否归档
  * @param isReviewing 是否在审核中
- * @param isDeleted   是否删除
+ * @param isDeleted   是否删除否删除
  */
 @Document("thoughts")
 public record Thought(
