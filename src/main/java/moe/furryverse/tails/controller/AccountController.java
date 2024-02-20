@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.dto.LoginDto;
 import moe.furryverse.tails.dto.RegisterDto;
-import moe.furryverse.tails.message.Message;
 import moe.furryverse.tails.service.AccountService;
 import moe.furryverse.tails.utils.IpUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,26 +19,22 @@ public class AccountController {
     final AccountService accountService;
 
     @PostMapping("/login")
-    public Message<?> login(@RequestBody LoginDto login) {
-        return Message.success(
-                accountService.login(
-                        login.device(),
-                        IpUtils.getIp(request),
-                        request.getHeader("User-Agent"),
-                        login.identify(),
-                        login.password()
-                )
+    public Object login(@RequestBody LoginDto login) {
+        return accountService.login(
+                login.device(),
+                IpUtils.getIp(request),
+                request.getHeader("User-Agent"),
+                login.identify(),
+                login.password()
         );
     }
 
     @PostMapping("/register")
-    public Message<?> register(@RequestBody RegisterDto register) {
-        return Message.success(
-                accountService.register(
-                        register.email(),
-                        register.username(),
-                        register.password()
-                )
+    public Object register(@RequestBody RegisterDto register) {
+        return accountService.register(
+                register.email(),
+                register.username(),
+                register.password()
         );
     }
 }

@@ -11,14 +11,18 @@ public class Message<T> {
     String message;
     T data;
 
+
+    @Deprecated
     public static <T> Message<T> success(T data) {
         return new Message<>(ReturnCode.SUCCESS, System.currentTimeMillis(), ReturnMessage.SUCCESS, data);
     }
 
+    @Deprecated
     public static <T> Message<T> success() {
         return new Message<>(ReturnCode.SUCCESS, System.currentTimeMillis(), ReturnMessage.SUCCESS, null);
     }
 
+    @Deprecated
     public static class ReturnCode {
         // 标准状态的
         public static final int SUCCESS = 200;
@@ -32,6 +36,7 @@ public class Message<T> {
         public static final int SERVICE_UNAVAILABLE = 503;
     }
 
+    @Deprecated
     public static class ReturnMessage {
         // 标准状态的
         public static final String SUCCESS = "Success ฅ ฅ";

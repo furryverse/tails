@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.annotation.PermissionCheck;
 import moe.furryverse.tails.content.Resource;
-import moe.furryverse.tails.message.Message;
 import moe.furryverse.tails.security.Permission;
 import moe.furryverse.tails.service.ShopService;
 import org.springframework.web.bind.annotation.*;
@@ -23,43 +22,39 @@ public class ShopController {
 
     @GetMapping()
     @PermissionCheck(access = {Permission.SHOP_LIST}, requiredLogin = false)
-    public Message<?> listShop(
+    public Object listShop(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "20") int size
     ) {
-        return Message.success(
-                shopService.listShop(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        page,
-                        size
-                )
+        return shopService.listShop(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                page,
+                size
         );
     }
 
     @PostMapping()
     @PermissionCheck(access = {Permission.SHOP_WRITE})
-    public Message<?> createShop(
+    public Object createShop(
             @RequestParam(name = "name") String name,
             @RequestParam(name = "cover") String cover,
             @RequestParam(name = "tags") Set<String> tags,
             @RequestParam(name = "contents") List<String> contents,
             @RequestParam(name = "is_public") boolean isPublic
     ) {
-        return Message.success(
-                shopService.createShop(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        name,
-                        cover,
-                        tags,
-                        contents,
-                        isPublic
-                )
+        return shopService.createShop(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                name,
+                cover,
+                tags,
+                contents,
+                isPublic
         );
     }
 
     @PostMapping("/{shopId}")
     @PermissionCheck(access = {Permission.SHOP_UPDATE})
-    public Message<?> updateShop(
+    public Object updateShop(
             @PathVariable String shopId,
             @RequestParam(name = "name") String name,
             @RequestParam(name = "cover") String cover,
@@ -67,38 +62,32 @@ public class ShopController {
             @RequestParam(name = "contents") List<String> contents,
             @RequestParam(name = "is_public") boolean isPublic
     ) {
-        return Message.success(
-                shopService.updateShop(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        shopId,
-                        name,
-                        cover,
-                        tags,
-                        contents,
-                        isPublic
-                )
+        return shopService.updateShop(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                shopId,
+                name,
+                cover,
+                tags,
+                contents,
+                isPublic
         );
     }
 
     @GetMapping("/{shopId}")
     @PermissionCheck(access = {Permission.SHOP_READ})
-    public Message<?> getShop(@PathVariable String shopId) {
-        return Message.success(
-                shopService.getShop(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        shopId
-                )
+    public Object getShop(@PathVariable String shopId) {
+        return shopService.getShop(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                shopId
         );
     }
 
     @DeleteMapping("/{shopId}")
     @PermissionCheck(access = {Permission.SHOP_DELETE})
-    public Message<?> deleteShop(@PathVariable String shopId) {
-        return Message.success(
-                shopService.deleteShop(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        shopId
-                )
+    public Object deleteShop(@PathVariable String shopId) {
+        return shopService.deleteShop(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                shopId
         );
     }
 
@@ -106,24 +95,22 @@ public class ShopController {
 
     @GetMapping("/{shopId}/item")
     @PermissionCheck(access = {Permission.SHOP_ITEM_LIST}, requiredLogin = false)
-    public Message<?> listShopItem(
+    public Object listShopItem(
             @PathVariable String shopId,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "20") int size
     ) {
-        return Message.success(
-                shopService.listItem(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        shopId,
-                        page,
-                        size
-                )
+        return shopService.listItem(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                shopId,
+                page,
+                size
         );
     }
 
     @PostMapping("/{shopId}/item")
     @PermissionCheck(access = {Permission.SHOP_ITEM_WRITE})
-    public Message<?> createShopItem(
+    public Object createShopItem(
             @PathVariable String shopId,
             @RequestParam(name = "name") String name,
             @RequestParam(name = "cover") String cover,
@@ -134,25 +121,23 @@ public class ShopController {
             @RequestParam(name = "stock") int stock,
             @RequestParam(name = "is_public") boolean isPublic
     ) {
-        return Message.success(
-                shopService.createItem(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        shopId,
-                        name,
-                        cover,
-                        tags,
-                        shows,
-                        contents,
-                        price,
-                        stock,
-                        isPublic
-                )
+        return shopService.createItem(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                shopId,
+                name,
+                cover,
+                tags,
+                shows,
+                contents,
+                price,
+                stock,
+                isPublic
         );
     }
 
     @PostMapping("/{shopId}/item/{itemId}")
     @PermissionCheck(access = {Permission.SHOP_ITEM_UPDATE})
-    public Message<?> updateShopItem(
+    public Object updateShopItem(
             @PathVariable String shopId,
             @PathVariable String itemId,
             @RequestParam(name = "name") String name,
@@ -164,44 +149,38 @@ public class ShopController {
             @RequestParam(name = "stock") int stock,
             @RequestParam(name = "is_public") boolean isPublic
     ) {
-        return Message.success(
-                shopService.updateItem(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        shopId,
-                        itemId,
-                        name,
-                        cover,
-                        tags,
-                        shows,
-                        contents,
-                        price,
-                        stock,
-                        isPublic
-                )
+        return shopService.updateItem(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                shopId,
+                itemId,
+                name,
+                cover,
+                tags,
+                shows,
+                contents,
+                price,
+                stock,
+                isPublic
         );
     }
 
     @GetMapping("/{shopId}/item/{itemId}")
     @PermissionCheck(access = {Permission.SHOP_ITEM_READ})
-    public Message<?> getShopItem(@PathVariable String shopId, @PathVariable String itemId) {
-        return Message.success(
-                shopService.getItem(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        shopId,
-                        itemId
-                )
+    public Object getShopItem(@PathVariable String shopId, @PathVariable String itemId) {
+        return shopService.getItem(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                shopId,
+                itemId
         );
     }
 
     @DeleteMapping("/{shopId}/item/{itemId}")
     @PermissionCheck(access = {Permission.SHOP_ITEM_DELETE})
-    public Message<?> deleteShopItem(@PathVariable String shopId, @PathVariable String itemId) {
-        return Message.success(
-                shopService.deleteItem(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        shopId,
-                        itemId
-                )
+    public Object deleteShopItem(@PathVariable String shopId, @PathVariable String itemId) {
+        return shopService.deleteItem(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                shopId,
+                itemId
         );
     }
 }

@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v0/file")
 public class FileController {
     @GetMapping("/{fileId}")
-    public Message<?> getFile(@PathVariable String fileId) {
-        return Message.success();
+    public Object getFile(@PathVariable String fileId) {
+        return null;
     }
 
     @PostMapping("/upload")
     public Message<?> uploadFile() {
-        return Message.success();
+        return null;
     }
 }

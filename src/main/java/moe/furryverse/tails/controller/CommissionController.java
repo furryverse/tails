@@ -2,7 +2,6 @@ package moe.furryverse.tails.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import moe.furryverse.tails.message.Message;
 import moe.furryverse.tails.service.CommissionService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,49 +15,49 @@ public class CommissionController {
     //////////////////////////////////////////////////////////////// Commission
 
     @GetMapping()
-    public Message<?> listCommissions() {
-        return Message.success();
+    public Object listCommissions() {
+        return null;
     }
 
     @PostMapping()
-    public Message<?> createCommission() {
-        return Message.success();
+    public Object createCommission() {
+        return null;
     }
 
     @GetMapping("/{commissionId}")
-    public Message<?> getCommission(@PathVariable String commissionId) {
-        return Message.success();
+    public Object getCommission(@PathVariable String commissionId) {
+        return null;
     }
 
     @PostMapping("/{commissionId}")
-    public Message<?> updateCommission(@PathVariable String commissionId) {
-        return Message.success();
+    public Object updateCommission(@PathVariable String commissionId) {
+        return null;
     }
 
     @DeleteMapping("/{commissionId}")
-    public Message<?> deleteCommission(@PathVariable String commissionId) {
-        return Message.success();
+    public Object deleteCommission(@PathVariable String commissionId) {
+        return null;
     }
 
     //////////////////////////////////////////////////////////////// Workflow
 
     @GetMapping("/{commissionId}/workflow")
-    public Message<?> listCommissionWorkflows(@PathVariable String commissionId) {
-        return Message.success();
+    public Object listCommissionWorkflows(@PathVariable String commissionId) {
+        return null;
     }
 
     @PostMapping("/{commissionId}/workflow")
-    public Message<?> createCommissionWorkflow(@PathVariable String commissionId) {
-        return Message.success();
+    public Object createCommissionWorkflow(@PathVariable String commissionId) {
+        return null;
     }
 
     @GetMapping("/{commissionId}/workflow/{workflowId}")
-    public Message<?> getCommissionWorkflow(@PathVariable String commissionId, @PathVariable String workflowId) {
-        return Message.success();
+    public Object getCommissionWorkflow(@PathVariable String commissionId, @PathVariable String workflowId) {
+        return null;
     }
 
     @PostMapping("/{commissionId}/workflow/{workflowId}")
-    public Message<?> updateCommissionWorkflow(@PathVariable String commissionId, @PathVariable String workflowId) {
-        return Message.success();
+    public Object updateCommissionWorkflow(@PathVariable String commissionId, @PathVariable String workflowId) {
+        return null;
     }
 }

@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.annotation.PermissionCheck;
 import moe.furryverse.tails.content.Resource;
-import moe.furryverse.tails.message.Message;
 import moe.furryverse.tails.security.Permission;
 import moe.furryverse.tails.service.ActivityService;
 import moe.furryverse.tails.utils.RandomUtils;
@@ -22,21 +21,20 @@ public class ActivityController {
 
     @GetMapping
     @PermissionCheck(access = {Permission.ACTIVITY_LIST}, requiredLogin = false)
-    public Message<?> listAllActivity(
+    public Object listAllActivity(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return Message.success(activityService.listActivity(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        page,
-                        size
-                )
+        return activityService.listActivity(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                page,
+                size
         );
     }
 
     @PostMapping
     @PermissionCheck(access = {Permission.ACTIVITY_WRITE})
-    public Message<?> createActivity(
+    public Object createActivity(
             @RequestParam(name = "name") String name,
             @RequestParam(name = "description") String description,
             @RequestParam(name = "startTime") Long startTime,
@@ -45,32 +43,30 @@ public class ActivityController {
             @RequestParam(name = "contents", required = false) List<String> contents,
             @RequestParam(name = "secret", required = false) String secret
     ) {
-        return Message.success(
-                activityService.createActivity(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        name,
-                        description,
-                        startTime == null ? TimeUtils.getMilliUnixTime() : startTime,
-                        endTime == null ? TimeUtils.getMilliUnixTime() : endTime,
-                        cover,
-                        contents == null ? List.of() : contents,
-                        secret == null ? RandomUtils.string(128) : secret
-                )
+        return activityService.createActivity(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                name,
+                description,
+                startTime == null ? TimeUtils.getMilliUnixTime() : startTime,
+                endTime == null ? TimeUtils.getMilliUnixTime() : endTime,
+                cover,
+                contents == null ? List.of() : contents,
+                secret == null ? RandomUtils.string(128) : secret
         );
     }
 
     @GetMapping("/{activityId}")
     @PermissionCheck(access = {Permission.ACTIVITY_READ})
-    public Message<?> readActivity(
+    public Object readActivity(
             String accountId,
             @PathVariable String activityId
     ) {
-        return Message.success(activityService.getActivity(accountId, activityId));
+        return activityService.getActivity(accountId, activityId);
     }
 
     @PostMapping("/{activityId}")
     @PermissionCheck(access = {Permission.ACTIVITY_UPDATE})
-    public Message<?> updateActivity(
+    public Object updateActivity(
             @PathVariable String activityId,
             @RequestParam(name = "name", required = false) String name,
             @RequestParam(name = "description", required = false) String description,
@@ -79,83 +75,73 @@ public class ActivityController {
             @RequestParam(name = "cover", required = false) String cover,
             @RequestParam(name = "contents", required = false) List<String> contents
     ) {
-        return Message.success(
-                activityService.updateActivity(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        activityId,
-                        name,
-                        description,
-                        startTime == null ? -1 : startTime,
-                        endTime == null ? -1 : endTime,
-                        cover,
-                        contents == null ? List.of() : contents
-                )
+        return activityService.updateActivity(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                activityId,
+                name,
+                description,
+                startTime == null ? -1 : startTime,
+                endTime == null ? -1 : endTime,
+                cover,
+                contents == null ? List.of() : contents
         );
     }
 
     @PostMapping("/{activityId}/administrator/{administrator}")
     @PermissionCheck(access = {Permission.ACTIVITY_UPDATE})
-    public Message<?> addAdministrator(
+    public Object addAdministrator(
             @PathVariable String activityId,
             @PathVariable String administrator
     ) {
-        return Message.success
-                (activityService.addAdministrator(
-                                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                                administrator,
-                                activityId
-                        )
-                );
+        return activityService.addAdministrator(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                administrator,
+                activityId
+        );
     }
 
     @DeleteMapping("/{activityId}/administrator/{administrator}")
     @PermissionCheck(access = {Permission.ACTIVITY_UPDATE})
-    public Message<?> deleteAdministrator(
+    public Object deleteAdministrator(
             @PathVariable String activityId,
             @PathVariable String administrator
     ) {
-        return Message.success(
-                activityService.removeAdministrator(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        administrator,
-                        activityId
-                )
+        return activityService.removeAdministrator(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                administrator,
+                activityId
         );
     }
 
     @DeleteMapping("/{activityId}")
     @PermissionCheck(access = {Permission.ACTIVITY_DELETE})
-    public Message<?> deleteActivity(
+    public Object deleteActivity(
             @PathVariable String activityId
     ) {
-        return Message.success(
-                activityService.deleteActivity(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        activityId
-                )
+        return activityService.deleteActivity(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                activityId
         );
     }
 
     @GetMapping("/{activityId}/ticket")
     @PermissionCheck(access = {Permission.ACTIVITY_TICKET_LIST}, requiredLogin = false)
-    public Message<?> listTicket(
+    public Object listTicket(
             @PathVariable String activityId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return Message.success(
-                activityService.listTicket(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        activityId,
-                        page,
-                        size
-                )
+        return activityService.listTicket(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                activityId,
+                page,
+                size
         );
     }
 
     @PostMapping("/{activityId}/ticket")
     @PermissionCheck(access = {Permission.ACTIVITY_TICKET_WRITE})
-    public Message<?> createTicket(
+    public Object createTicket(
             @PathVariable String activityId,
             @RequestParam(name = "name") String name,
             @RequestParam(name = "description") String cover,
@@ -165,25 +151,23 @@ public class ActivityController {
             @RequestParam(name = "stock") Integer stock,
             @RequestParam(name = "contents") List<String> contents
     ) {
-        return Message.success(
-                activityService.createTicket(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        activityId,
-                        name == null ? RandomUtils.string(6) : name,
-                        cover == null ? "" : cover,
-                        stubCover == null ? "" : stubCover,
-                        description == null ? "" : description,
-                        price == null ? 0 : price,
-                        stock == null ? 0 : stock,
-                        contents == null ? List.of() : contents
-                )
+        return activityService.createTicket(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                activityId,
+                name == null ? RandomUtils.string(6) : name,
+                cover == null ? "" : cover,
+                stubCover == null ? "" : stubCover,
+                description == null ? "" : description,
+                price == null ? 0 : price,
+                stock == null ? 0 : stock,
+                contents == null ? List.of() : contents
         );
     }
 
 
     @PostMapping("/{activityId}/ticket/{ticketId}")
     @PermissionCheck(access = {Permission.ACTIVITY_TICKET_UPDATE})
-    public Message<?> updateTicket(
+    public Object updateTicket(
             @PathVariable String activityId,
             @PathVariable String ticketId,
             @RequestParam(name = "name", required = false) String name,
@@ -194,73 +178,71 @@ public class ActivityController {
             @RequestParam(name = "stock", required = false) Integer stock,
             @RequestParam(name = "contents", required = false) List<String> contents
     ) {
-        return Message.success(
-                activityService.updateTicket(
-                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                        activityId,
-                        ticketId,
-                        name,
-                        cover,
-                        stubCover,
-                        description,
-                        price == null ? -1 : price,
-                        stock == null ? -1 : stock,
-                        contents == null ? List.of() : contents
-                )
+        return activityService.updateTicket(
+                (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                activityId,
+                ticketId,
+                name,
+                cover,
+                stubCover,
+                description,
+                price == null ? -1 : price,
+                stock == null ? -1 : stock,
+                contents == null ? List.of() : contents
         );
     }
 
     @GetMapping("/{activityId}/ticket/{ticketId}")
     @PermissionCheck(access = {Permission.ACTIVITY_TICKET_READ})
-    public Message<?> readTicket(
+    public Object readTicket(
             @PathVariable String activityId,
             @PathVariable String ticketId
     ) {
-        return Message.success(activityService.readTicket(
+        return activityService.readTicket(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 activityId,
-                ticketId)
+                ticketId
         );
     }
 
     @DeleteMapping("/{activityId}/ticket/{ticketId}")
     @PermissionCheck(access = {Permission.ACTIVITY_TICKET_DELETE})
-    public Message<?> deleteTicket(
+    public Object deleteTicket(
             @PathVariable String activityId,
             @PathVariable String ticketId
     ) {
-        return Message.success(activityService.deleteTicket(
+        return activityService.deleteTicket(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 activityId,
-                ticketId)
+                ticketId
         );
     }
 
     @GetMapping("/{activityId}/stub")
     @PermissionCheck(access = {Permission.ACTIVITY_STUB_LIST})
-    public Message<?> listStub(
+    public Object listStub(
             @PathVariable String activityId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return Message.success(activityService.listStub(
+        return activityService.listStub(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 activityId,
                 page,
-                size)
+                size
         );
     }
 
     @GetMapping("/{activityId}/stub/{stubId}")
     @PermissionCheck(access = {Permission.ACTIVITY_STUB_READ})
-    public Message<?> getStub(
+    public Object getStub(
             @PathVariable String activityId,
             @PathVariable String stubId
     ) {
-        return Message.success(activityService.readStub(
+        return activityService.readStub(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 activityId,
-                stubId)
+                stubId
         );
     }
 }

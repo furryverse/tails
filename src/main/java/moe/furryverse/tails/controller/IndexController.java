@@ -2,7 +2,6 @@ package moe.furryverse.tails.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import moe.furryverse.tails.message.Message;
 import moe.furryverse.tails.service.IndexService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,37 +15,37 @@ public class IndexController {
     final IndexService indexService;
 
     @GetMapping
-    public Message<?> search() {
-        return Message.success();
+    public Object search() {
+        return null;
     }
 
     @GetMapping("/recommendation/shop")
-    public Message<?> recommendingShop() {
-        return Message.success();
+    public Object recommendingShop() {
+        return null;
     }
 
     @GetMapping("/recommendation/item")
-    public Message<?> recommendingItem() {
-        return Message.success();
+    public Object recommendingItem() {
+        return null;
     }
 
     @GetMapping("/recommendation/novel")
-    public Message<?> recommendingNovel() {
-        return Message.success();
+    public Object recommendingNovel() {
+        return null;
     }
 
     @GetMapping("/recommendation/commission")
-    public Message<?> recommendingCommission() {
-        return Message.success();
+    public Object recommendingCommission() {
+        return null;
     }
 
     @GetMapping("/recommendation/user")
-    public Message<?> recommendingUser() {
-        return Message.success();
+    public Object recommendingUser() {
+        return null;
     }
 
     @GetMapping("/recommendation/keyword")
-    public Message<?> recommendingKeyword() {
-        return Message.success();
+    public Object recommendingKeyword() {
+        return null;
     }
 }
