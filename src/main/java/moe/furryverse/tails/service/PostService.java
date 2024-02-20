@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -120,6 +121,188 @@ public class PostService {
         return postRepository.save(deleted);
     }
 
+    public Post addTag(String accountId, String postId, String tag) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(post, accountId);
+
+        Set<String> currentTags = new HashSet<>() {{
+            addAll(post.tags());
+            add(tag);
+        }};
+
+        Post updated = new Post(
+                post.postId(),
+                post.created(),
+                post.createdBy(),
+                post.title(),
+                post.background(),
+                post.categoryId(),
+                currentTags,
+                post.viewers(),
+                post.collaborators(),
+                post.isPublic(),
+                post.isLocked(),
+                post.isArchived(),
+                post.isReviewing(),
+                post.isDeleted()
+        );
+
+        return postRepository.save(updated);
+    }
+
+    public Post removeTag(String accountId, String postId, String tag) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(post, accountId);
+
+        if (tag == null || post.tags().isEmpty()) {
+            return post;
+        }
+
+        Set<String> tags = new HashSet<>(post.tags());
+        tags.remove(tag);
+
+        Post updated = new Post(
+                post.postId(),
+                post.created(),
+                post.createdBy(),
+                post.title(),
+                post.background(),
+                post.categoryId(),
+                tags,
+                post.viewers(),
+                post.collaborators(),
+                post.isPublic(),
+                post.isLocked(),
+                post.isArchived(),
+                post.isReviewing(),
+                post.isDeleted()
+        );
+
+        return postRepository.save(updated);
+    }
+
+    public Post addViewer(String accountId, String postId, String viewerId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(post, accountId);
+
+        Set<String> currentViewers = new HashSet<>() {{
+            addAll(post.viewers());
+            add(viewerId);
+        }};
+
+        Post updated = new Post(
+                post.postId(),
+                post.created(),
+                post.createdBy(),
+                post.title(),
+                post.background(),
+                post.categoryId(),
+                post.tags(),
+                currentViewers,
+                post.collaborators(),
+                post.isPublic(),
+                post.isLocked(),
+                post.isArchived(),
+                post.isReviewing(),
+                post.isDeleted()
+        );
+
+        return postRepository.save(updated);
+    }
+
+    public Post removeViewer(String accountId, String postId, String viewerId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(post, accountId);
+
+        if (viewerId == null || post.viewers().isEmpty()) {
+            return post;
+        }
+
+        Set<String> viewers = new HashSet<>(post.viewers());
+        viewers.remove(viewerId);
+
+        Post updated = new Post(
+                post.postId(),
+                post.created(),
+                post.createdBy(),
+                post.title(),
+                post.background(),
+                post.categoryId(),
+                post.tags(),
+                viewers,
+                post.collaborators(),
+                post.isPublic(),
+                post.isLocked(),
+                post.isArchived(),
+                post.isReviewing(),
+                post.isDeleted()
+        );
+
+        return postRepository.save(updated);
+    }
+
+    public Post addCollaborator(String accountId, String postId, String collaboratorId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(post, accountId);
+
+        Set<String> currentCollaborators = new HashSet<>() {{
+            addAll(post.collaborators());
+            add(collaboratorId);
+        }};
+
+        Post updated = new Post(
+                post.postId(),
+                post.created(),
+                post.createdBy(),
+                post.title(),
+                post.background(),
+                post.categoryId(),
+                post.tags(),
+                post.viewers(),
+                currentCollaborators,
+                post.isPublic(),
+
+                post.isLocked(),
+                post.isArchived(),
+                post.isReviewing(),
+                post.isDeleted()
+        );
+
+        return postRepository.save(updated);
+
+    }
+
+    public Post removeCollaborator(String accountId, String postId, String collaboratorId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(post, accountId);
+
+        if (collaboratorId == null || post.collaborators().isEmpty()) {
+            return post;
+        }
+
+        Set<String> collaborators = new HashSet<>(post.collaborators());
+        collaborators.remove(collaboratorId);
+
+        Post updated = new Post(
+                post.postId(),
+                post.created(),
+                post.createdBy(),
+                post.title(),
+                post.background(),
+                post.categoryId(),
+                post.tags(),
+                post.viewers(),
+                collaborators,
+                post.isPublic(),
+                post.isLocked(),
+                post.isArchived(),
+                post.isReviewing(),
+                post.isDeleted()
+        );
+
+        return postRepository.save(updated);
+    }
+
     public List<Thought> listThought(String accountId, String postId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE));
         Page<Thought> thoughts = accountId == null
@@ -151,6 +334,49 @@ public class PostService {
         );
 
         return thoughtRepository.save(thought);
+    }
+
+    public Thought readThought(String accountId, String postId, String thoughtId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkReadStatus(post, accountId);
+
+        Thought thought = thoughtRepository.findById(thoughtId).orElse(null);
+        ManageStatusUtils.checkReadStatus(thought, accountId);
+
+        return thought;
+    }
+
+    public Thought updateThought(String accountId, String postId, String thoughtId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(post, accountId);
+
+        Thought thought = thoughtRepository.findById(thoughtId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(thought, accountId);
+
+        return thought;
+    }
+
+    public Thought deleteThought(String accountId, String postId, String thoughtId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(post, accountId);
+
+        Thought thought = thoughtRepository.findById(thoughtId).orElse(null);
+        ManageStatusUtils.checkDeleteStatus(thought, accountId);
+
+        Thought deleted = new Thought(
+                thought.thoughtId(),
+                thought.created(),
+                thought.createdBy(),
+                thought.contents(),
+                thought.postId(),
+                thought.isPublic(),
+                thought.isLocked(),
+                thought.isArchived(),
+                thought.isReviewing(),
+                true
+        );
+
+        return thoughtRepository.save(deleted);
     }
 
     public List<Reaction> listReaction(String accountId, String postId, int page, int size) {
@@ -188,6 +414,40 @@ public class PostService {
         return reactionRepository.save(reaction);
     }
 
+    public Reaction readReaction(String accountId, String postId, String reactionId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkReadStatus(post, accountId);
+
+        Reaction reaction = reactionRepository.findById(reactionId).orElse(null);
+        ManageStatusUtils.checkReadStatus(reaction, accountId);
+
+        return reaction;
+    }
+
+    public Reaction deleteReaction(String accountId, String postId, String reactionId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(post, accountId);
+
+        Reaction reaction = reactionRepository.findById(reactionId).orElse(null);
+        ManageStatusUtils.checkDeleteStatus(reaction, accountId);
+
+        Reaction updated = new Reaction(
+                reaction.reactionId(),
+                reaction.created(),
+                reaction.createdBy(),
+                reaction.emoji(),
+                reaction.content(),
+                reaction.postId(),
+                reaction.isPublic(),
+                reaction.isLocked(),
+                reaction.isArchived(),
+                reaction.isReviewing(),
+                true
+        );
+
+        return reactionRepository.save(updated);
+    }
+
     public List<Comment> listComment(String accountId, String postId, int page, int size) {
         Pageable pageable = PageRequest.of(page, Math.min(size, PageConfiguration.DEFAULT_PAGE_SIZE));
         Page<Comment> comments = accountId == null
@@ -219,5 +479,48 @@ public class PostService {
         );
 
         return commentRepository.save(comment);
+    }
+
+    public Comment readComment(String accountId, String postId, String commentId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkReadStatus(post, accountId);
+
+        Comment comment = commentRepository.findById(commentId).orElse(null);
+        ManageStatusUtils.checkReadStatus(comment, accountId);
+
+        return comment;
+    }
+
+    public Comment updateComment(String accountId, String postId, String commentId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(post, accountId);
+
+        Comment comment = commentRepository.findById(commentId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(comment, accountId);
+
+        return comment;
+    }
+
+    public Comment deleteComment(String accountId, String postId, String commentId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        ManageStatusUtils.checkUpdateStatus(post, accountId);
+
+        Comment comment = commentRepository.findById(commentId).orElse(null);
+        ManageStatusUtils.checkDeleteStatus(comment, accountId);
+
+        Comment updated = new Comment(
+                comment.commentId(),
+                comment.created(),
+                comment.createdBy(),
+                comment.contents(),
+                comment.bindId(),
+                comment.isPublic(),
+                comment.isLocked(),
+                comment.isArchived(),
+                comment.isReviewing(),
+                true
+        );
+
+        return commentRepository.save(updated);
     }
 }

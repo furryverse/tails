@@ -88,13 +88,25 @@ public class PostController {
     @PostMapping("/{postId}/tag/{tagId}")
     @PermissionCheck(access = {Permission.POST_UPDATE})
     public Message<?> addTag(@PathVariable String postId, @PathVariable String tagId) {
-        return Message.success();
+        return Message.success(
+                postService.addTag(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        tagId
+                )
+        );
     }
 
     @DeleteMapping("/{postId}/tag/{tagId}")
     @PermissionCheck(access = {Permission.POST_UPDATE})
     public Message<?> deleteTag(@PathVariable String postId, @PathVariable String tagId) {
-        return Message.success();
+        return Message.success(
+                postService.removeTag(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        tagId
+                )
+        );
     }
 
     //////////////////////////////////////////////////////////////// Viewer
@@ -102,13 +114,25 @@ public class PostController {
     @PostMapping("/{postId}/viewer/{viewerId}")
     @PermissionCheck(access = {Permission.POST_UPDATE})
     public Message<?> addViewer(@PathVariable String postId, @PathVariable String viewerId) {
-        return Message.success();
+        return Message.success(
+                postService.addViewer(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        viewerId
+                )
+        );
     }
 
     @DeleteMapping("/{postId}/viewer/{viewerId}")
     @PermissionCheck(access = {Permission.POST_UPDATE})
     public Message<?> deleteViewer(@PathVariable String postId, @PathVariable String viewerId) {
-        return Message.success();
+        return Message.success(
+                postService.removeViewer(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        viewerId
+                )
+        );
     }
 
     //////////////////////////////////////////////////////////////// Collaborator
@@ -116,13 +140,25 @@ public class PostController {
     @PermissionCheck(access = {Permission.POST_UPDATE})
     @PostMapping("/{postId}/collaborator/{collaboratorId}")
     public Message<?> addCollaborator(@PathVariable String postId, @PathVariable String collaboratorId) {
-        return Message.success();
+        return Message.success(
+                postService.addCollaborator(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        collaboratorId
+                )
+        );
     }
 
     @PermissionCheck(access = {Permission.POST_UPDATE})
     @DeleteMapping("/{postId}/collaborator/{collaboratorId}")
     public Message<?> deleteCollaborator(@PathVariable String postId, @PathVariable String collaboratorId) {
-        return Message.success();
+        return Message.success(
+                postService.removeCollaborator(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        collaboratorId
+                )
+        );
     }
 
     //////////////////////////////////////////////////////////////// Comment
@@ -159,19 +195,37 @@ public class PostController {
     @GetMapping("/{postId}/comment/{commentId}")
     @PermissionCheck(access = {Permission.POST_COMMENT_READ}, requiredLogin = false)
     public Message<?> readComment(@PathVariable String postId, @PathVariable String commentId) {
-        return Message.success();
+        return Message.success(
+                postService.readComment(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        commentId
+                )
+        );
     }
 
     @PostMapping("/{postId}/comment/{commentId}")
     @PermissionCheck(access = {Permission.POST_COMMENT_UPDATE})
     public Message<?> updateComment(@PathVariable String postId, @PathVariable String commentId) {
-        return Message.success();
+        return Message.success(
+                postService.updateComment(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        commentId
+                )
+        );
     }
 
     @DeleteMapping("/{postId}/comment/{commentId}")
     @PermissionCheck(access = {Permission.POST_COMMENT_DELETE})
     public Message<?> deleteComment(@PathVariable String postId, @PathVariable String commentId) {
-        return Message.success();
+        return Message.success(
+                postService.deleteComment(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        commentId
+                )
+        );
     }
 
     //////////////////////////////////////////////////////////////// Thought
@@ -208,19 +262,37 @@ public class PostController {
     @GetMapping("/{postId}/thought/{thoughtId}")
     @PermissionCheck(access = {Permission.POST_THOUGHT_READ}, requiredLogin = false)
     public Message<?> readThought(@PathVariable String postId, @PathVariable String thoughtId) {
-        return Message.success();
+        return Message.success(
+                postService.readThought(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        thoughtId
+                )
+        );
     }
 
     @PostMapping("/{postId}/thought/{thoughtId}")
     @PermissionCheck(access = {Permission.POST_THOUGHT_UPDATE})
     public Message<?> updateThought(@PathVariable String postId, @PathVariable String thoughtId) {
-        return Message.success();
+        return Message.success(
+                postService.updateThought(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        thoughtId
+                )
+        );
     }
 
     @DeleteMapping("/{postId}/thought/{thoughtId}")
     @PermissionCheck(access = {Permission.POST_THOUGHT_DELETE})
     public Message<?> deleteThought(@PathVariable String postId, @PathVariable String thoughtId) {
-        return Message.success();
+        return Message.success(
+                postService.deleteThought(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        thoughtId
+                )
+        );
     }
 
     //////////////////////////////////////////////////////////////// Reaction
@@ -258,18 +330,24 @@ public class PostController {
     @GetMapping("/{postId}/reaction/{reactionId}")
     @PermissionCheck(access = {Permission.POST_REACTION_READ}, requiredLogin = false)
     public Message<?> readReaction(@PathVariable String postId, @PathVariable String reactionId) {
-        return Message.success();
-    }
-
-    @PostMapping("/{postId}/reaction/{reactionId}")
-    @PermissionCheck(access = {Permission.POST_REACTION_UPDATE})
-    public Message<?> updateReaction(@PathVariable String postId, @PathVariable String reactionId) {
-        return Message.success();
+        return Message.success(
+                postService.readReaction(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        reactionId
+                )
+        );
     }
 
     @DeleteMapping("/{postId}/reaction/{reactionId}")
     @PermissionCheck(access = {Permission.POST_REACTION_DELETE})
     public Message<?> deleteReaction(@PathVariable String postId, @PathVariable String reactionId) {
-        return Message.success();
+        return Message.success(
+                postService.deleteReaction(
+                        (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
+                        postId,
+                        reactionId
+                )
+        );
     }
 }
