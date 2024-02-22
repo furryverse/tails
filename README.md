@@ -76,3 +76,7 @@ $ gradle build
 这是数据结构间的关系图表（非关系型数据库结构图）：
 
 ![Model](https://i.miji.bid/2023/12/23/f851ac75c900b91e9433bf31ddde929f.png)
+
+## ⚖ 开源许可
+
+本项目使用 [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) 许可协议进行开源。
