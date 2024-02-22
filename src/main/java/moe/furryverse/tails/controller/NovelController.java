@@ -4,12 +4,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.annotation.PermissionCheck;
 import moe.furryverse.tails.content.Resource;
+import moe.furryverse.tails.dto.ChapterDto;
+import moe.furryverse.tails.dto.NovelDto;
 import moe.furryverse.tails.security.Permission;
 import moe.furryverse.tails.service.NovelService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,22 +34,15 @@ public class NovelController {
 
     @PostMapping()
     @PermissionCheck(access = {Permission.NOVEL_WRITE})
-    public Object createNovel(
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "description") String description,
-            @RequestParam(name = "cover") String cover,
-            @RequestParam(name = "tags") Set<String> tags,
-            @RequestParam(name = "contents") List<String> contents,
-            @RequestParam(name = "is_public") boolean isPublic
-    ) {
+    public Object createNovel(@RequestBody NovelDto novel) {
         return novelService.createNovel(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                name,
-                description,
-                cover,
-                tags,
-                contents,
-                isPublic
+                novel.name(),
+                novel.description(),
+                novel.cover(),
+                novel.tags(),
+                novel.contents(),
+                novel.isPublic()
         );
     }
 
@@ -67,22 +59,17 @@ public class NovelController {
     @PermissionCheck(access = {Permission.NOVEL_UPDATE})
     public Object updateNovel(
             @PathVariable String novelId,
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "description") String description,
-            @RequestParam(name = "cover") String cover,
-            @RequestParam(name = "tags") Set<String> tags,
-            @RequestParam(name = "contents") List<String> contents,
-            @RequestParam(name = "is_public") boolean isPublic
+            @RequestBody NovelDto novel
     ) {
         return novelService.updateNovel(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 novelId,
-                name,
-                description,
-                cover,
-                tags,
-                contents,
-                isPublic
+                novel.name(),
+                novel.description(),
+                novel.cover(),
+                novel.tags(),
+                novel.contents(),
+                novel.isPublic()
         );
     }
 
@@ -110,18 +97,15 @@ public class NovelController {
     @PermissionCheck(access = {Permission.NOVEL_CHAPTER_WRITE})
     public Object createChapter(
             @PathVariable String novelId,
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "contents") List<String> contents,
-            @RequestParam(name = "is_public") boolean isPublic,
-            @RequestParam(name = "is_draft") boolean isDraft
+            @RequestBody ChapterDto chapter
     ) {
         return novelService.createChapter(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 novelId,
-                name,
-                contents,
-                isPublic,
-                isDraft
+                chapter.name(),
+                chapter.contents(),
+                chapter.isPublic(),
+                chapter.isDraft()
         );
     }
 
@@ -140,19 +124,16 @@ public class NovelController {
     public Object updateChapter(
             @PathVariable String novelId,
             @PathVariable String chapterId,
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "contents") List<String> contents,
-            @RequestParam(name = "is_public") boolean isPublic,
-            @RequestParam(name = "is_draft") boolean isDraft
+            @RequestBody ChapterDto chapter
     ) {
         return novelService.updateChapter(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 novelId,
                 chapterId,
-                name,
-                contents,
-                isPublic,
-                isDraft
+                chapter.name(),
+                chapter.contents(),
+                chapter.isPublic(),
+                chapter.isDraft()
         );
     }
 

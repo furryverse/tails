@@ -4,11 +4,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.annotation.PermissionCheck;
 import moe.furryverse.tails.content.Resource;
+import moe.furryverse.tails.dto.CommentDto;
+import moe.furryverse.tails.dto.PostDto;
+import moe.furryverse.tails.dto.ReactionDto;
+import moe.furryverse.tails.dto.ThoughtDto;
 import moe.furryverse.tails.security.Permission;
 import moe.furryverse.tails.service.PostService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,12 +36,12 @@ public class PostController {
 
     @PostMapping()
     @PermissionCheck(access = {Permission.POST_WRITE})
-    public Object createPost(String title, String background, String categoryId) {
+    public Object createPost(@RequestBody PostDto post) {
         return postService.createPost(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                title,
-                background,
-                categoryId
+                post.title(),
+                post.background(),
+                post.categoryId()
         );
     }
 
@@ -54,13 +56,13 @@ public class PostController {
 
     @PostMapping("/{postId}")
     @PermissionCheck(access = {Permission.POST_UPDATE})
-    public Object updatePost(@PathVariable String postId, String title, String background, String categoryId) {
+    public Object updatePost(@PathVariable String postId, @RequestBody PostDto post) {
         return postService.updatePost(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 postId,
-                title,
-                background,
-                categoryId
+                post.title(),
+                post.background(),
+                post.categoryId()
         );
     }
 
@@ -157,11 +159,11 @@ public class PostController {
 
     @PostMapping("/{postId}/comment")
     @PermissionCheck(access = {Permission.POST_COMMENT_WRITE})
-    public Object createComment(@PathVariable String postId, List<String> contents) {
+    public Object createComment(@PathVariable String postId, @RequestBody CommentDto comment) {
         return postService.createComment(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 postId,
-                contents
+                comment.contents()
         );
     }
 
@@ -177,11 +179,16 @@ public class PostController {
 
     @PostMapping("/{postId}/comment/{commentId}")
     @PermissionCheck(access = {Permission.POST_COMMENT_UPDATE})
-    public Object updateComment(@PathVariable String postId, @PathVariable String commentId) {
+    public Object updateComment(
+            @PathVariable String postId,
+            @PathVariable String commentId,
+            @RequestBody CommentDto comment
+    ) {
         return postService.updateComment(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 postId,
-                commentId
+                commentId,
+                comment.contents()
         );
     }
 
@@ -214,11 +221,11 @@ public class PostController {
 
     @PostMapping("/{postId}/thought")
     @PermissionCheck(access = {Permission.POST_THOUGHT_WRITE})
-    public Object createThought(@PathVariable String postId, List<String> contents) {
+    public Object createThought(@PathVariable String postId, @RequestBody ThoughtDto thought) {
         return postService.createThought(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 postId,
-                contents
+                thought.contents()
         );
     }
 
@@ -234,11 +241,16 @@ public class PostController {
 
     @PostMapping("/{postId}/thought/{thoughtId}")
     @PermissionCheck(access = {Permission.POST_THOUGHT_UPDATE})
-    public Object updateThought(@PathVariable String postId, @PathVariable String thoughtId) {
+    public Object updateThought(
+            @PathVariable String postId,
+            @PathVariable String thoughtId,
+            @RequestBody ThoughtDto thought
+    ) {
         return postService.updateThought(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 postId,
-                thoughtId
+                thoughtId,
+                thought.contents()
         );
     }
 
@@ -271,12 +283,12 @@ public class PostController {
 
     @PostMapping("/{postId}/reaction")
     @PermissionCheck(access = {Permission.POST_REACTION_WRITE})
-    public Object createReaction(@PathVariable String postId, String emoji, String content) {
+    public Object createReaction(@PathVariable String postId, @RequestBody ReactionDto reaction) {
         return postService.createReaction(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 postId,
-                emoji,
-                content
+                reaction.emoji(),
+                reaction.content()
         );
     }
 

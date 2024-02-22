@@ -4,12 +4,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.annotation.PermissionCheck;
 import moe.furryverse.tails.content.Resource;
+import moe.furryverse.tails.dto.ItemDto;
+import moe.furryverse.tails.dto.ShopDto;
 import moe.furryverse.tails.security.Permission;
 import moe.furryverse.tails.service.ShopService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,20 +34,14 @@ public class ShopController {
 
     @PostMapping()
     @PermissionCheck(access = {Permission.SHOP_WRITE})
-    public Object createShop(
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "cover") String cover,
-            @RequestParam(name = "tags") Set<String> tags,
-            @RequestParam(name = "contents") List<String> contents,
-            @RequestParam(name = "is_public") boolean isPublic
-    ) {
+    public Object createShop(@RequestBody ShopDto shop) {
         return shopService.createShop(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                name,
-                cover,
-                tags,
-                contents,
-                isPublic
+                shop.name(),
+                shop.cover(),
+                shop.tags(),
+                shop.contents(),
+                shop.isPublic()
         );
     }
 
@@ -56,20 +49,16 @@ public class ShopController {
     @PermissionCheck(access = {Permission.SHOP_UPDATE})
     public Object updateShop(
             @PathVariable String shopId,
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "cover") String cover,
-            @RequestParam(name = "tags") Set<String> tags,
-            @RequestParam(name = "contents") List<String> contents,
-            @RequestParam(name = "is_public") boolean isPublic
+            @RequestBody ShopDto shop
     ) {
         return shopService.updateShop(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 shopId,
-                name,
-                cover,
-                tags,
-                contents,
-                isPublic
+                shop.name(),
+                shop.cover(),
+                shop.tags(),
+                shop.contents(),
+                shop.isPublic()
         );
     }
 
@@ -112,26 +101,19 @@ public class ShopController {
     @PermissionCheck(access = {Permission.SHOP_ITEM_WRITE})
     public Object createShopItem(
             @PathVariable String shopId,
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "cover") String cover,
-            @RequestParam(name = "tags") Set<String> tags,
-            @RequestParam(name = "shows") List<String> shows,
-            @RequestParam(name = "contents") List<String> contents,
-            @RequestParam(name = "price") int price,
-            @RequestParam(name = "stock") int stock,
-            @RequestParam(name = "is_public") boolean isPublic
+            @RequestBody ItemDto item
     ) {
         return shopService.createItem(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 shopId,
-                name,
-                cover,
-                tags,
-                shows,
-                contents,
-                price,
-                stock,
-                isPublic
+                item.name(),
+                item.cover(),
+                item.tags(),
+                item.shows(),
+                item.contents(),
+                item.price(),
+                item.stock(),
+                item.isPublic()
         );
     }
 
@@ -140,27 +122,20 @@ public class ShopController {
     public Object updateShopItem(
             @PathVariable String shopId,
             @PathVariable String itemId,
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "cover") String cover,
-            @RequestParam(name = "tags") Set<String> tags,
-            @RequestParam(name = "shows") List<String> shows,
-            @RequestParam(name = "contents") List<String> contents,
-            @RequestParam(name = "price") int price,
-            @RequestParam(name = "stock") int stock,
-            @RequestParam(name = "is_public") boolean isPublic
+            @RequestBody ItemDto item
     ) {
         return shopService.updateItem(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 shopId,
                 itemId,
-                name,
-                cover,
-                tags,
-                shows,
-                contents,
-                price,
-                stock,
-                isPublic
+                item.name(),
+                item.cover(),
+                item.tags(),
+                item.shows(),
+                item.contents(),
+                item.price(),
+                item.stock(),
+                item.isPublic()
         );
     }
 

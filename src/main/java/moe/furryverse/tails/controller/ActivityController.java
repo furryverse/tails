@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.annotation.PermissionCheck;
 import moe.furryverse.tails.content.Resource;
+import moe.furryverse.tails.dto.ActivityDto;
+import moe.furryverse.tails.dto.TicketDto;
 import moe.furryverse.tails.security.Permission;
 import moe.furryverse.tails.service.ActivityService;
 import moe.furryverse.tails.utils.RandomUtils;
@@ -34,24 +36,16 @@ public class ActivityController {
 
     @PostMapping
     @PermissionCheck(access = {Permission.ACTIVITY_WRITE})
-    public Object createActivity(
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "description") String description,
-            @RequestParam(name = "startTime") Long startTime,
-            @RequestParam(name = "endTime") Long endTime,
-            @RequestParam(name = "cover", required = false) String cover,
-            @RequestParam(name = "contents", required = false) List<String> contents,
-            @RequestParam(name = "secret", required = false) String secret
-    ) {
+    public Object createActivity(@RequestBody ActivityDto activity) {
         return activityService.createActivity(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                name,
-                description,
-                startTime == null ? TimeUtils.getMilliUnixTime() : startTime,
-                endTime == null ? TimeUtils.getMilliUnixTime() : endTime,
-                cover,
-                contents == null ? List.of() : contents,
-                secret == null ? RandomUtils.string(128) : secret
+                activity.name(),
+                activity.description(),
+                activity.startTime() == null ? TimeUtils.getMilliUnixTime() : activity.startTime(),
+                activity.endTime() == null ? TimeUtils.getMilliUnixTime() : activity.endTime(),
+                activity.cover(),
+                activity.contents() == null ? List.of() : activity.contents(),
+                activity.secret() == null ? RandomUtils.string(128) : activity.secret()
         );
     }
 
@@ -68,22 +62,17 @@ public class ActivityController {
     @PermissionCheck(access = {Permission.ACTIVITY_UPDATE})
     public Object updateActivity(
             @PathVariable String activityId,
-            @RequestParam(name = "name", required = false) String name,
-            @RequestParam(name = "description", required = false) String description,
-            @RequestParam(name = "startTime", required = false) Long startTime,
-            @RequestParam(name = "endTime", required = false) Long endTime,
-            @RequestParam(name = "cover", required = false) String cover,
-            @RequestParam(name = "contents", required = false) List<String> contents
+            @RequestBody ActivityDto activity
     ) {
         return activityService.updateActivity(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 activityId,
-                name,
-                description,
-                startTime == null ? -1 : startTime,
-                endTime == null ? -1 : endTime,
-                cover,
-                contents == null ? List.of() : contents
+                activity.name(),
+                activity.description(),
+                activity.startTime() == null ? -1 : activity.startTime(),
+                activity.endTime() == null ? -1 : activity.endTime(),
+                activity.cover(),
+                activity.contents() == null ? List.of() : activity.contents()
         );
     }
 
@@ -143,24 +132,18 @@ public class ActivityController {
     @PermissionCheck(access = {Permission.ACTIVITY_TICKET_WRITE})
     public Object createTicket(
             @PathVariable String activityId,
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "description") String cover,
-            @RequestParam(name = "stubCover") String stubCover,
-            @RequestParam(name = "description") String description,
-            @RequestParam(name = "price") Double price,
-            @RequestParam(name = "stock") Integer stock,
-            @RequestParam(name = "contents") List<String> contents
+            @RequestBody TicketDto ticket
     ) {
         return activityService.createTicket(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 activityId,
-                name == null ? RandomUtils.string(6) : name,
-                cover == null ? "" : cover,
-                stubCover == null ? "" : stubCover,
-                description == null ? "" : description,
-                price == null ? 0 : price,
-                stock == null ? 0 : stock,
-                contents == null ? List.of() : contents
+                ticket.name() == null ? RandomUtils.string(6) : ticket.name(),
+                ticket.cover() == null ? "" : ticket.cover(),
+                ticket.stubCover() == null ? "" : ticket.stubCover(),
+                ticket.description() == null ? "" : ticket.description(),
+                ticket.price() == null ? 0 : ticket.price(),
+                ticket.stock() == null ? 0 : ticket.stock(),
+                ticket.contents() == null ? List.of() : ticket.contents()
         );
     }
 
@@ -170,25 +153,19 @@ public class ActivityController {
     public Object updateTicket(
             @PathVariable String activityId,
             @PathVariable String ticketId,
-            @RequestParam(name = "name", required = false) String name,
-            @RequestParam(name = "description", required = false) String cover,
-            @RequestParam(name = "stubCover", required = false) String stubCover,
-            @RequestParam(name = "description", required = false) String description,
-            @RequestParam(name = "price", required = false) Double price,
-            @RequestParam(name = "stock", required = false) Integer stock,
-            @RequestParam(name = "contents", required = false) List<String> contents
+            @RequestBody TicketDto ticket
     ) {
         return activityService.updateTicket(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
                 activityId,
                 ticketId,
-                name,
-                cover,
-                stubCover,
-                description,
-                price == null ? -1 : price,
-                stock == null ? -1 : stock,
-                contents == null ? List.of() : contents
+                ticket.name(),
+                ticket.cover(),
+                ticket.stubCover(),
+                ticket.description(),
+                ticket.price() == null ? -1 : ticket.price(),
+                ticket.stock() == null ? -1 : ticket.stock(),
+                ticket.contents() == null ? List.of() : ticket.contents()
         );
     }
 

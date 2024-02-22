@@ -346,14 +346,27 @@ public class PostService {
         return thought;
     }
 
-    public Thought updateThought(String accountId, String postId, String thoughtId) {
+    public Thought updateThought(String accountId, String postId, String thoughtId, List<String> contents) {
         Post post = postRepository.findById(postId).orElse(null);
         ManageStatusUtils.checkUpdateStatus(post, accountId);
 
         Thought thought = thoughtRepository.findById(thoughtId).orElse(null);
         ManageStatusUtils.checkUpdateStatus(thought, accountId);
 
-        return thought;
+        Thought updated = new Thought(
+                thought.thoughtId(),
+                thought.created(),
+                thought.createdBy(),
+                contents,
+                thought.postId(),
+                thought.isPublic(),
+                thought.isLocked(),
+                thought.isArchived(),
+                thought.isReviewing(),
+                thought.isDeleted()
+        );
+
+        return thoughtRepository.save(updated);
     }
 
     public Thought deleteThought(String accountId, String postId, String thoughtId) {
@@ -491,14 +504,27 @@ public class PostService {
         return comment;
     }
 
-    public Comment updateComment(String accountId, String postId, String commentId) {
+    public Comment updateComment(String accountId, String postId, String commentId, List<String> contents) {
         Post post = postRepository.findById(postId).orElse(null);
         ManageStatusUtils.checkUpdateStatus(post, accountId);
 
         Comment comment = commentRepository.findById(commentId).orElse(null);
         ManageStatusUtils.checkUpdateStatus(comment, accountId);
 
-        return comment;
+        Comment updated = new Comment(
+                comment.commentId(),
+                comment.created(),
+                comment.createdBy(),
+                contents,
+                comment.bindId(),
+                comment.isPublic(),
+                comment.isLocked(),
+                comment.isArchived(),
+                comment.isReviewing(),
+                true
+        );
+
+        return commentRepository.save(updated);
     }
 
     public Comment deleteComment(String accountId, String postId, String commentId) {

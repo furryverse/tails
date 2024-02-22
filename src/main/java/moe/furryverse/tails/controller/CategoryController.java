@@ -3,6 +3,7 @@ package moe.furryverse.tails.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import moe.furryverse.tails.content.Resource;
+import moe.furryverse.tails.dto.CategoryDto;
 import moe.furryverse.tails.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,26 +24,17 @@ public class CategoryController {
     }
 
     @PostMapping()
-    public Object createCategory(
-            @RequestParam("category_name") String categoryName,
-            @RequestParam("icon") String icon,
-            @RequestParam("color") String color,
-            @RequestParam("banner") String banner,
-            @RequestParam("banner_background") String bannerBackground,
-            @RequestParam("background") String background,
-            @RequestParam("description") String description,
-            @RequestParam("is_public") boolean isPublic
-    ) {
+    public Object createCategory(@RequestBody CategoryDto category) {
         return categoryService.createCategory(
                 (String) request.getAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER),
-                categoryName,
-                icon,
-                color,
-                banner,
-                bannerBackground,
-                background,
-                description,
-                isPublic
+                category.categoryName(),
+                category.icon(),
+                category.color(),
+                category.banner(),
+                category.bannerBackground(),
+                category.background(),
+                category.description(),
+                category.isPublic()
         );
     }
 
