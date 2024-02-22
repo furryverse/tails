@@ -46,7 +46,7 @@ public @interface PermissionCheck {
 
         @SneakyThrows
         @Around(value = "@annotation(moe.furryverse.tails.annotation.PermissionCheck)")
-        public Message<?> check(ProceedingJoinPoint point) {
+        public Object check(ProceedingJoinPoint point) {
             // 获取注解所规定的权限
             MethodSignature signature = (MethodSignature) point.getSignature();
             Object target = point.getTarget();
@@ -65,7 +65,7 @@ public @interface PermissionCheck {
                     request.setAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER, accessService.getAccountId(token));
                 }
 
-                return (Message<?>) point.proceed();
+                return point.proceed();
             }
 
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
@@ -110,7 +110,7 @@ public @interface PermissionCheck {
             request.setAttribute(Resource.CustomHeader.ACCOUNT_ID_HEADER, accessService.getAccountId(token));
 
             // 校验完成 继续执行业务代码
-            return (Message<?>) point.proceed();
+            return point.proceed();
         }
 
         private Class<?>[] getParameterTypes(ProceedingJoinPoint point) {
