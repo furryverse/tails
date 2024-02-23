@@ -29,9 +29,11 @@ $ cd tails
 $ gradle build
 ```
 
-## 🐱 喵喵 w
+## ⚖ 开源许可
 
-**很感谢你能阅读这一部分！这也许代表你要给我们贡献代码或是在我们的软件中有值得学习之处，无论如何，谢谢！**
+本项目使用 [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) 许可协议进行开源。
+
+## 🐱 喵喵 
 
 ### 项目包结构
 
@@ -76,7 +78,3 @@ $ gradle build
 这是数据结构间的关系图表（非关系型数据库结构图）：
 
 ![Model](https://i.miji.bid/2023/12/23/f851ac75c900b91e9433bf31ddde929f.png)
-
-## ⚖ 开源许可
-
-本项目使用 [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) 许可协议进行开源。
