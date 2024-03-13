@@ -16,6 +16,8 @@
 
 package moe.furryverse.tails.service;
 
+import com.qiniu.util.Auth;
+import moe.furryverse.tails.config.ServerConfiguration;
 import moe.furryverse.tails.model.FileRecord;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,21 @@ import java.io.InputStream;
 
 @Service
 public class FileService {
+    final Auth auth;
+    final ServerConfiguration serverConfiguration;
+
+    public FileService(ServerConfiguration serverConfiguration) {
+        this.serverConfiguration = serverConfiguration;
+
+        this.auth = Auth.create(
+                serverConfiguration.getQiniuAccessKey(),
+                serverConfiguration.getQiniuAccessKey()
+        );
+    }
+
     public FileRecord upload(InputStream stream) {
+
+
         return null;
     }
 

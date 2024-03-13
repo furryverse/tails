@@ -31,4 +31,10 @@ public class ServerConfiguration {
     String nestsOAuthClientSecret;
     @Value("${tails.server.nests.oauth.redirect-uri}")
     String nestsOAuthRedirectUri;
+    @Value("${tails.server.storage.qiniu.access.key}")
+    String qiniuAccessKey;
+    @Value("${tails.server.storage.qiniu.secret.key}")
+    String qiniuSecretKey;
+    @Value("${tails.server.storage.qiniu.bucket}")
+    String bucket;
 }

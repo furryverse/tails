@@ -32,6 +32,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @param createdBy   用户账户 ID
  * @param name        文件名
  * @param url         文件 URL
+ * @param storage     存储类型
  * @param type        文件类型
  * @param size        文件大小
  * @param isPublic    是否公开
@@ -47,6 +48,7 @@ public record FileRecord(
         @Field("created_by") @JsonProperty("created_by") @NotNull String createdBy,
         @Field("name") @JsonProperty("name") @NotNull String name,
         @Field("url") @JsonProperty("url") @NotNull String url,
+        @Field("storage") @JsonProperty("storage") @NotNull StorageType storage,
         @Field("type") @JsonProperty("type") @NotNull String type,
         @Field("size") @JsonProperty("size") long size,
 
@@ -57,4 +59,8 @@ public record FileRecord(
         @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
 ) implements Attributable, Traceable {
+    @SuppressWarnings("SpellCheckingInspection")
+    enum StorageType {
+        @JsonProperty("qiniu") QINIU
+    }
 }

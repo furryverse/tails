@@ -45,6 +45,9 @@ dependencies {
 	// search index
 	implementation("com.meilisearch.sdk:meilisearch-java:0.11.5")
 
+	// storage
+	// https://mvnrepository.com/artifact/com.qiniu/qiniu-java-sdk
+	implementation ("com.qiniu:qiniu-java-sdk:7.15.0")
 
 	// config
 	implementation("org.springframework.boot:spring-boot-starter-aop")

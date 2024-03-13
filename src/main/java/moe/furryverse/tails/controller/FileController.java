@@ -16,21 +16,29 @@
 
 package moe.furryverse.tails.controller;
 
+import com.qiniu.util.Auth;
 import lombok.RequiredArgsConstructor;
+import moe.furryverse.tails.config.ServerConfiguration;
 import moe.furryverse.tails.message.Message;
+import moe.furryverse.tails.service.FileService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v0/file")
 public class FileController {
+    final FileService fileService;
+
     @GetMapping("/{fileId}")
     public Object getFile(@PathVariable String fileId) {
         return null;
     }
 
     @PostMapping("/upload")
-    public Message<?> uploadFile() {
+    public Message<?> uploadFile(MultipartFile file, List<MultipartFile> files) {
         return null;
     }
 }
