@@ -22,13 +22,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-public class ServerConfiguration {
-    @Value("${tails.server.nests.oauth.endpoint}")
-    String nestsOAuthEndpoint;
-    @Value("${tails.server.nests.oauth.client-id}")
-    String nestsOAuthClientId;
-    @Value("${tails.server.nests.oauth.client-secret}")
-    String nestsOAuthClientSecret;
-    @Value("${tails.server.nests.oauth.redirect-uri}")
-    String nestsOAuthRedirectUri;
+public class StorageConfiguration {
+    @Value("${tails.server.storage.qiniu.temp.path}")
+    String qiniuTempPath;
+    @Value("${tails.server.storage.qiniu.access.key}")
+    String qiniuAccessKey;
+    @Value("${tails.server.storage.qiniu.secret.key}")
+    String qiniuSecretKey;
+    @Value("${tails.server.storage.qiniu.bucket}")
+    String qiniuBucket;
 }

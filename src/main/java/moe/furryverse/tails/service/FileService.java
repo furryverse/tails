@@ -16,8 +16,11 @@
 
 package moe.furryverse.tails.service;
 
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.Region;
+import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
-import moe.furryverse.tails.config.ServerConfiguration;
+import moe.furryverse.tails.config.StorageConfiguration;
 import moe.furryverse.tails.model.FileRecord;
 import org.springframework.stereotype.Service;
 
@@ -26,19 +29,24 @@ import java.io.InputStream;
 @Service
 public class FileService {
     final Auth auth;
-    final ServerConfiguration serverConfiguration;
+    final StorageConfiguration storageConfiguration;
 
-    public FileService(ServerConfiguration serverConfiguration) {
-        this.serverConfiguration = serverConfiguration;
+    public FileService(StorageConfiguration storageConfiguration) {
+        this.storageConfiguration = storageConfiguration;
 
         this.auth = Auth.create(
-                serverConfiguration.getQiniuAccessKey(),
-                serverConfiguration.getQiniuAccessKey()
+                storageConfiguration.getQiniuAccessKey(),
+                storageConfiguration.getQiniuAccessKey()
         );
     }
 
     public FileRecord upload(InputStream stream) {
-
+        //构造一个带指定 Region 对象的配置类
+        Configuration cfg = new Configuration(Region.autoRegion());
+        // 指定分片上传版本
+        cfg.resumableUploadAPIVersion = Configuration.ResumableUploadAPIVersion.V2;
+        //...其他参数参考类注释
+        UploadManager uploadManager = new UploadManager(cfg);
 
         return null;
     }

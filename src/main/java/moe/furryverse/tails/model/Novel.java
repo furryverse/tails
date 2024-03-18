@@ -43,11 +43,11 @@ import java.util.Set;
  * @param tags          标签
  * @param viewers       未公开状态下可以查看帖子的用户
  * @param collaborators 可以编辑帖子的用户
- * @param isPublic    是否公开
- * @param isLocked    是否锁定
- * @param isArchived  是否归档
- * @param isReviewing 是否在审核中
- * @param isDeleted   是否删除
+ * @param isPublic      是否公开
+ * @param isLocked      是否锁定
+ * @param isArchived    是否归档
+ * @param isReviewing   是否在审核中
+ * @param isDeleted     是否删除
  */
 @Document("novels")
 public record Novel(

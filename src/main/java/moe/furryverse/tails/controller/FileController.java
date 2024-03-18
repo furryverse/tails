@@ -16,9 +16,7 @@
 
 package moe.furryverse.tails.controller;
 
-import com.qiniu.util.Auth;
 import lombok.RequiredArgsConstructor;
-import moe.furryverse.tails.config.ServerConfiguration;
 import moe.furryverse.tails.message.Message;
 import moe.furryverse.tails.service.FileService;
 import org.springframework.web.bind.annotation.*;

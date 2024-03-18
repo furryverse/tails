@@ -36,11 +36,11 @@ import java.util.List;
  * @param contents     详细内容
  * @param price        价格
  * @param processing   需要进行的交付次数
- * @param isPublic    是否公开
- * @param isLocked    是否锁定
- * @param isArchived  是否归档
- * @param isReviewing 是否在审核中
- * @param isDeleted   是否删除
+ * @param isPublic     是否公开
+ * @param isLocked     是否锁定
+ * @param isArchived   是否归档
+ * @param isReviewing  是否在审核中
+ * @param isDeleted    是否删除
  */
 public record Commission(
         @Id @JsonProperty("commission_id") @NotNull String commissionId,
