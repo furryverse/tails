@@ -17,9 +17,7 @@
 package moe.furryverse.tails.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import moe.furryverse.tails.interfaces.Attributable;
-import moe.furryverse.tails.interfaces.Manageable;
-import moe.furryverse.tails.interfaces.Traceable;
+import moe.furryverse.tails.interfaces.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.annotation.Id;
@@ -43,7 +41,7 @@ import java.util.Set;
  * @param description      描述
  * @param reviewers        审核员（可以对帖子进行审核 并决定是否通过）
  * @param administrators   管理员 （可以对帖子进行删除、锁定、置顶、编辑等操作）
- * @param editors          编辑员 （可以对帖子进行编辑）
+ * @param collaborators    编辑员 （可以对帖子进行编辑）
  * @param viewers          查看员 （在不公开状态下可以查看帖子）
  * @param isPublic         是否公开 （公开的板块可以被所有人查看）
  * @param isLocked         是否锁定 （锁定的板块不允许发帖）
@@ -70,12 +68,12 @@ public record Category(
         // 管理功能
         @Field("reviewers") @JsonProperty("reviewers") @NotNull Set<String> reviewers,
         @Field("administrators") @JsonProperty("administrators") @NotNull Set<String> administrators,
-        @Field("editors") @JsonProperty("editors") @NotNull Set<String> editors,
         @Field("viewers") @JsonProperty("viewers") @NotNull Set<String> viewers,
+        @Field("collaborators") @JsonProperty("collaborators") @NotNull Set<String> collaborators,
         @Field("is_public") @JsonProperty("is_public") boolean isPublic,
         @Field("is_locked") @JsonProperty("is_locked") boolean isLocked,
         @Field("is_archived") @JsonProperty("is_archived") boolean isArchived,
         @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
-) implements Attributable, Manageable, Traceable {
+) implements Attributable, Contributable, Manageable, Reviewact, Traceable, Viewable {
 }

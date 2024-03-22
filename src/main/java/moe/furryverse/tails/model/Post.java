@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import moe.furryverse.tails.interfaces.Attributable;
 import moe.furryverse.tails.interfaces.Contributable;
 import moe.furryverse.tails.interfaces.Traceable;
+import moe.furryverse.tails.interfaces.Viewable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.annotation.Id;
@@ -67,5 +68,5 @@ public record Post(
         @Field("is_archived") @JsonProperty("is_archived") boolean isArchived,
         @Field("is_reviewing") @JsonProperty("is_reviewing") boolean isReviewing,
         @Field("is_deleted") @JsonProperty("is_deleted") boolean isDeleted
-) implements Attributable, Contributable, Traceable {
+) implements Attributable, Contributable, Traceable, Viewable {
 }
