@@ -13,7 +13,6 @@
 | Meilisearch | [meilisearch](https://github.com/meilisearch/meilisearch) | [MIT License](https://github.com/meilisearch/meilisearch/blob/main/LICENSE) | 否           | 单机                      | 文本搜索引擎                 |
 | Drone CI    | [drone](https://github.com/harness/drone)                 | [Drone Non-Commercial License](https://github.com/harness/drone/blob/master/LICENSE) | 否           | 单机                      | 构建与 Docker 镜像提交       |
 | Harbor      | [harbor](https://github.com/goharbor/harbor)              | [Apache License 2.0](https://github.com/goharbor/harbor/blob/main/LICENSE) | 否           | 单机                      | 存储容器文件与维护容器注册表 |
-| Reposilite  | [reposilite](https://github.com/dzikoysk/reposilite)      | [Apache License 2.0](https://github.com/dzikoysk/reposilite/blob/main/LICENSE) | 否           | 单机                      | 存储 Maven 包                |
 
 ## 🚀 构建
 
