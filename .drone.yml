@@ -2,7 +2,16 @@ kind: pipeline
 type: docker
 name: tails
 
+clone:
+  disable: true
+
 steps:
+  - name: clone
+    image: alpine/git
+    commands:
+      - git config --global http.sslVerify $GIT_SSL_VERIFY
+      - git clone $GIT_REPO .
+
   - name: build
     image: gradle:jdk17
     commands:
