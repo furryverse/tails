@@ -8,6 +8,11 @@ clone:
 steps:
   - name: clone
     image: alpine/git
+    environment:
+      GIT_SSL_VERIFY:
+        from_secret: git_ssl_verify
+      GIT_REPO:
+        from_secret: git_repo
     commands:
       - git config --global http.sslVerify $GIT_SSL_VERIFY
       - git clone $GIT_REPO .
